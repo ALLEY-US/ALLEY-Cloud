@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071326">
+<meta name="description" content="ALLEY Cloud — Gemini-powered AI concept, Raspberry Pi access, and personal website hosting in one workspace.">
+<title>ALLEY Cloud — Your AI. Your Pi. Your corner of the web.</title>
+<style>
+:root{
+ --ink:#0b1730;--ink-2:#152746;--muted:#66748d;--muted-light:#aab7cc;--blue:#3499dc;--blue-2:#63c3f6;--cyan:#80d7ef;--pink:#f3a1dc;--violet:#b9a0f5;--gold:#ffd5a2;--paper:#f5f8fd;--white:#fff;--line:#e4eaf3;--green:#44c6a1;--shadow:0 24px 70px rgba(8,25,55,.12);--radius:24px;
+}
+#view-home,
+#view-home *{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+#view-home{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+#view-home a{color:inherit;text-decoration:none}
+#view-home button,
+#view-home input,
+#view-home textarea{font:inherit}
+#view-home button,
+#view-home a{tap-highlight-color:transparent}
+#view-home button{cursor:pointer}
+#view-home button:focus-visible,
+#view-home a:focus-visible,
+#view-home input:focus-visible,
+#view-home textarea:focus-visible{outline:3px solid #83cdf7;outline-offset:3px}
+#view-home .container{width:min(1160px,calc(100% - 44px));margin-inline:auto}
+#view-home .gradient-text{background:linear-gradient(105deg,var(--pink) 0%,var(--violet) 35%,var(--gold) 53%,var(--cyan) 76%,#68bdf1 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#view-home .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#6baee3}
+#view-home .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(68,198,161,.12)}
+#view-home .btn{border:0;border-radius:13px;padding:13px 19px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:750;font-size:.92rem;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;white-space:nowrap}
+#view-home .btn:hover{transform:translateY(-2px)}
+#view-home .btn-primary{color:#07172d;background:linear-gradient(105deg,#f5a5df,#c5a9ff 35%,#8bdaf5 100%);box-shadow:0 8px 26px rgba(123,193,239,.22)}
+#view-home .btn-primary:hover{box-shadow:0 12px 32px rgba(123,193,239,.34)}
+#view-home .btn-light{color:var(--ink);background:#fff;box-shadow:0 9px 28px rgba(0,0,0,.12)}
+#view-home .btn-outline{border:1px solid rgba(170,190,221,.32);background:rgba(255,255,255,.04);color:#f5f8ff}
+#view-home .btn-outline:hover{background:rgba(255,255,255,.1)}
+#view-home .btn-dark{background:var(--ink);color:white}
+#view-home .btn-small{padding:10px 14px;font-size:.86rem}
+#view-home .icon{width:20px;height:20px;display:inline-block;flex:none}
+#view-home .topbar{position:sticky;top:0;z-index:50;background:rgba(8,19,38,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
+#view-home .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#fff}
+#view-home .brand{display:flex;align-items:center;gap:10px;min-width:max-content}
+#view-home .brand-mark{width:48px;height:42px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(45,150,220,.18))}
+#view-home .brand-name{font-size:1.32rem;letter-spacing:-.055em;font-weight:900}
+#view-home .nav-links{display:flex;align-items:center;gap:29px;color:#c2cde0;font-size:.9rem;font-weight:600}
+#view-home .nav-links a:hover{color:#fff}
+#view-home .nav-actions{display:flex;align-items:center;gap:11px}
+#view-home .login-link{color:#dbe5f3;font-weight:650;font-size:.88rem;padding:9px}
+#view-home .menu-toggle{display:none;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:transparent;color:white;width:42px;height:42px}
+#view-home .hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 35%,rgba(39,118,191,.22),transparent 34%),radial-gradient(ellipse at 12% 80%,rgba(179,118,208,.1),transparent 28%),#081326;color:white;padding:90px 0 86px}
+#view-home .hero:before{content:"";position:absolute;inset:0;opacity:.18;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+#view-home .hero-glow{position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none;border:1px solid rgba(109,190,237,.11)}
+#view-home .glow-one{width:500px;height:500px;right:-115px;top:-190px;box-shadow:0 0 90px rgba(67,151,224,.08) inset}
+#view-home .glow-two{width:280px;height:280px;left:44%;bottom:-195px;box-shadow:0 0 75px rgba(205,151,239,.05) inset}
+#view-home .hero-grid{position:relative;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:64px}
+#view-home .hero-copy{max-width:640px}
+#view-home .hero .eyebrow{color:#91c9f2}
+#view-home .hero h1{font-size:clamp(2.85rem,5.1vw,4.8rem);line-height:1.03;letter-spacing:-.068em;margin:22px 0 24px;font-weight:850}
+#view-home .hero p.lede{font-size:1.13rem;color:#b7c4d8;max-width:580px;line-height:1.8;margin:0 0 30px}
+#view-home .hero-buttons{display:flex;gap:13px;flex-wrap:wrap}
+#view-home .tiny-note{font-size:.78rem;color:#91a2bc;margin-top:18px}
+#view-home .tiny-note strong{color:#ced8e8}
+#view-home .hero-proof{display:flex;gap:18px;align-items:center;margin-top:38px;color:#a9bad1;font-size:.82rem;flex-wrap:wrap}
+#view-home .proof-item{display:flex;gap:8px;align-items:center}
+#view-home .check-bullet{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(69,198,160,.14);color:#72d7b6;font-size:.73rem;font-weight:900}
+#view-home .hero-visual{position:relative;min-width:0}
+#view-home .visual-halo{position:absolute;inset:5% -6% 0 0;background:radial-gradient(ellipse,rgba(65,156,223,.24),transparent 65%);filter:blur(28px);pointer-events:none}
+#view-home .workspace{position:relative;border:1px solid rgba(179,204,238,.22);background:linear-gradient(145deg,rgba(24,44,76,.96),rgba(11,26,49,.97));border-radius:25px;padding:19px;box-shadow:0 35px 90px rgba(0,0,0,.32);transform:perspective(1200px) rotateY(-4deg) rotateX(2deg)}
+#view-home .workspace-top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.09);padding:0 0 15px;margin-bottom:15px;gap:10px}
+#view-home .workspace-brand{display:flex;align-items:center;gap:10px;color:#f3f7fe;font-size:.9rem;font-weight:750}
+#view-home .mini-mark{width:28px;height:25px;object-fit:contain}
+#view-home .status{display:inline-flex;align-items:center;gap:7px;color:#91d9bf;font-size:.72rem;background:rgba(68,198,161,.1);border:1px solid rgba(68,198,161,.2);padding:6px 9px;border-radius:999px;white-space:nowrap}
+#view-home .status i{width:6px;height:6px;border-radius:100%;background:#54d6a8}
+#view-home .workspace-layout{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#view-home .dash-card{min-width:0;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);border-radius:15px;padding:14px}
+#view-home .dash-card.full{grid-column:1/-1}
+#view-home .dash-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#90a5c4;font-weight:800;display:flex;align-items:center;gap:7px}
+#view-home .dash-label svg{width:15px;height:15px;color:#8acbf5}
+#view-home .dash-title{font-size:.96rem;font-weight:750;color:#f2f6ff;margin:9px 0 6px}
+#view-home .dash-sub{font-size:.75rem;color:#9eafc7;line-height:1.5}
+#view-home .chat-line{display:flex;gap:9px;align-items:flex-start;margin-top:13px}
+#view-home .chat-avatar{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(130deg,#f1a3db,#80c9f7);font-size:.63rem;color:#081326;font-weight:900;flex:none}
+#view-home .chat-bubble{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.07);padding:9px 10px;border-radius:10px;color:#ced9eb;font-size:.73rem;line-height:1.55}
+#view-home .dash-stat{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin:11px 0 6px;color:#dbe5f4;font-size:.76rem}
+#view-home .dash-stat strong{font-size:.81rem;color:white}
+#view-home .meter{height:5px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+#view-home .meter span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#b5a5f5,#76d0ec)}
+#view-home .domain-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+#view-home .domain-name{font-size:.82rem;color:#e3ebf7;font-weight:700;overflow-wrap:anywhere}
+#view-home .domain-pill{font-size:.67rem;color:#92d7c0;border:1px solid rgba(68,198,161,.25);border-radius:7px;padding:4px 7px;white-space:nowrap}
+#view-home .terminal-mini{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#a4e5cb;font-size:.76rem;margin-top:12px;white-space:nowrap}
+#view-home .terminal-mini b{color:#8dcdf7;font-weight:600}
+#view-home .floating-tag{position:absolute;background:#fff;color:var(--ink);padding:11px 14px;border-radius:14px;box-shadow:0 15px 42px rgba(0,0,0,.22);display:flex;gap:10px;align-items:center;font-size:.78rem;font-weight:800}
+#view-home .floating-tag .tag-icon{height:34px;width:34px;border-radius:11px;display:grid;place-items:center;background:#eaf6ff;color:#2087c8}
+#view-home .floating-tag small{display:block;color:#74839a;font-size:.67rem;font-weight:600;margin-top:1px}
+#view-home .tag-ai{right:-21px;top:-27px}
+#view-home .tag-pi{left:-30px;bottom:37px}
+#view-home .section{padding:92px 0}
+#view-home .section-soft{background:var(--paper)}
+#view-home .section-dark{background:#0c1930;color:white}
+#view-home .section-head{max-width:710px;margin:0 auto 47px;text-align:center}
+#view-home .section-head h2{font-size:clamp(2.1rem,4vw,3.2rem);line-height:1.1;letter-spacing:-.055em;margin:15px 0 17px;font-weight:850}
+#view-home .section-head p{color:var(--muted);font-size:1.02rem;margin:0;line-height:1.8}
+#view-home .section-dark .section-head p{color:#a9b8cd}
+#view-home .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+#view-home .feature-card{padding:27px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 8px 28px rgba(12,34,70,.035);transition:transform .2s ease,box-shadow .2s ease}
+#view-home .feature-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(12,34,70,.08)}
+#view-home .feature-icon{width:51px;height:51px;display:grid;place-items:center;border-radius:16px;margin-bottom:22px;background:linear-gradient(135deg,#f6d8ef,#e9e0ff 52%,#d6f4ff);color:#1e5f91}
+#view-home .feature-icon svg{width:24px;height:24px}
+#view-home .feature-card h3{font-size:1.18rem;letter-spacing:-.025em;margin:0 0 10px}
+#view-home .feature-card p{font-size:.9rem;color:var(--muted);line-height:1.75;margin:0 0 17px}
+#view-home .text-link{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.85rem;color:#287eb8}
+#view-home .text-link:hover{gap:12px}
+#view-home .demo-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:42px;align-items:center}
+#view-home .demo-copy h2{font-size:clamp(2.05rem,4vw,3.1rem);line-height:1.1;letter-spacing:-.055em;margin:16px 0}
+#view-home .demo-copy p{color:#a8b9d0;line-height:1.8}
+#view-home .benefit-list{display:grid;gap:14px;padding:0;margin:24px 0 0;list-style:none}
+#view-home .benefit-list li{display:flex;align-items:flex-start;gap:11px;color:#d4deed;font-size:.91rem}
+#view-home .benefit-list .check-bullet{margin-top:2px;flex:none}
+#view-home .demo-panel{background:#0a1427;border:1px solid rgba(165,195,231,.2);border-radius:22px;overflow:hidden;box-shadow:0 25px 70px rgba(0,0,0,.25)}
+#view-home .panel-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+#view-home .window-dots{display:flex;gap:6px}
+#view-home .window-dots span{width:8px;height:8px;border-radius:100%;background:#43546c}
+#view-home .window-dots span:first-child{background:#f59f9b}
+#view-home .window-dots span:nth-child(2){background:#f5d58b}
+#view-home .window-dots span:nth-child(3){background:#6fd7ae}
+#view-home .panel-title{color:#93a5bf;font-size:.75rem;font-family:ui-monospace,monospace}
+#view-home .demo-chat{height:270px;overflow:auto;padding:19px;display:flex;flex-direction:column;gap:14px}
+#view-home .message{display:flex;gap:10px;align-items:flex-start;max-width:95%}
+#view-home .message.user{margin-left:auto;flex-direction:row-reverse}
+#view-home .message .message-icon{width:28px;height:28px;display:grid;place-items:center;border-radius:9px;flex:none;background:rgba(124,198,243,.13);color:#8ccff8;font-weight:900;font-size:.68rem}
+#view-home .message.user .message-icon{background:rgba(229,167,219,.15);color:#f0b2df}
+#view-home .message-text{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.07);border-radius:3px 12px 12px 12px;padding:10px 12px;color:#ccd7e8;font-size:.82rem;line-height:1.65}
+#view-home .message.user .message-text{background:rgba(126,187,239,.12);border-color:rgba(126,187,239,.15);border-radius:12px 3px 12px 12px;color:#e3efff}
+#view-home .chat-form{padding:13px 14px;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:10px;align-items:flex-end}
+#view-home .chat-form textarea{resize:vertical;min-height:43px;max-height:100px;flex:1;min-width:0;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.05);color:white;padding:11px 12px;font-size:.84rem}
+#view-home .chat-form textarea::placeholder{color:#7588a5}
+#view-home .send-btn{width:44px;height:43px;display:grid;place-items:center;border:0;border-radius:12px;background:linear-gradient(130deg,#eaa6e1,#9baff7 48%,#8cdaee);color:#07172d}
+#view-home .demo-disclaimer{color:#8294ae;font-size:.72rem;padding:0 17px 15px}
+#view-home .pi-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+#view-home .pi-info,
+#view-home .pi-terminal{border-radius:22px;overflow:hidden}
+#view-home .pi-info{padding:30px;background:#fff;border:1px solid var(--line)}
+#view-home .pi-info h3{font-size:1.35rem;letter-spacing:-.03em;margin:12px 0}
+#view-home .pi-info p{color:var(--muted);line-height:1.75;font-size:.91rem}
+#view-home .pi-perks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+#view-home .pi-perk{padding:14px;border-radius:14px;background:#f5f8fd}
+#view-home .pi-perk strong{display:block;font-size:.83rem}
+#view-home .pi-perk span{display:block;color:var(--muted);font-size:.75rem;margin-top:3px}
+#view-home .pi-terminal{background:#081326;color:#d5e3f4;box-shadow:var(--shadow);border:1px solid #142642;display:flex;flex-direction:column}
+#view-home .term-top{padding:17px 19px;border-bottom:1px solid #1d2d49;display:flex;align-items:center;justify-content:space-between;gap:12px}
+#view-home .term-title{font-weight:750;font-size:.88rem}
+#view-home .term-chip{font-size:.69rem;border-radius:999px;padding:5px 8px;color:#91d8c0;background:rgba(68,198,161,.1)}
+#view-home .term-body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;line-height:2;min-height:235px;padding:19px;flex:1}
+#view-home .term-line{display:block;overflow-wrap:anywhere}
+#view-home .term-prompt{color:#91d9ba}
+#view-home .term-command{color:#9ecff8}
+#view-home .term-output{color:#9baec9}
+#view-home .term-input-row{display:flex;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid #1d2d49}
+#view-home .term-input-row input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid #253754;border-radius:10px;padding:10px;color:white;font-family:ui-monospace,monospace;font-size:.78rem}
+#view-home .term-input-row button{border:0;border-radius:10px;padding:10px 13px;background:#192e4e;color:#d9eaff;font-weight:750;font-size:.76rem}
+#view-home .term-footnote{font-size:.71rem;color:#7f91ad;padding:0 17px 14px}
+#view-home .webhost-layout{display:grid;grid-template-columns:.93fr 1.07fr;gap:40px;align-items:center}
+#view-home .webhost-layout .section-copy h2{font-size:clamp(2.2rem,4vw,3.2rem);line-height:1.08;letter-spacing:-.06em;margin:16px 0}
+#view-home .section-copy p{color:var(--muted);line-height:1.8}
+#view-home .site-preview{border-radius:24px;background:white;border:1px solid #e1e8f2;overflow:hidden;box-shadow:0 25px 65px rgba(27,55,95,.12);transform:rotate(1deg)}
+#view-home .preview-bar{height:43px;display:flex;align-items:center;gap:6px;padding:0 15px;background:#f7f9fc;border-bottom:1px solid #e8edf5}
+#view-home .preview-bar span{height:7px;width:7px;background:#d7dfeb;border-radius:50%}
+#view-home .preview-url{font-size:.68rem;color:#91a0b4;background:#fff;border:1px solid #e8edf4;border-radius:6px;margin-left:8px;padding:3px 12px;flex:1;text-align:center}
+#view-home .preview-page{padding:25px 27px 28px;background:linear-gradient(140deg,#fff,#f7fbff)}
+#view-home .preview-nav{display:flex;align-items:center;justify-content:space-between;font-size:.7rem;color:#62708a;font-weight:800}
+#view-home .preview-logo{font-size:.87rem;color:#142543;letter-spacing:-.04em}
+#view-home .preview-hero{padding:37px 0 28px;max-width:390px}
+#view-home .preview-kicker{color:#258cc8;text-transform:uppercase;letter-spacing:.14em;font-size:.58rem;font-weight:900}
+#view-home .preview-hero h3{font-size:2.15rem;line-height:1.02;letter-spacing:-.065em;margin:10px 0;color:#10213c}
+#view-home .preview-hero p{color:#7b8aa3;font-size:.76rem;line-height:1.7;margin:0 0 16px;max-width:280px}
+#view-home .preview-action{display:inline-block;background:#152847;color:white;padding:8px 11px;border-radius:7px;font-size:.66rem;font-weight:800}
+#view-home .preview-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+#view-home .preview-card{background:#fff;border:1px solid #eaf0f7;border-radius:10px;padding:11px}
+#view-home .preview-card .preview-icon{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#f4b4df,#a5dff8);margin-bottom:10px}
+#view-home .preview-card strong{display:block;font-size:.65rem}
+#view-home .preview-card small{display:block;color:#91a0b3;font-size:.58rem;margin-top:4px}
+#view-home .hosting-note{margin-top:17px;display:flex;align-items:center;gap:8px;font-size:.77rem;color:#6d7c92}
+#view-home .hosting-note svg{color:#2f98d4;flex:none}
+#view-home .pricing-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:29px}
+#view-home .pricing-top .section-head{margin:0;text-align:left}
+#view-home .pricing-top .section-head h2{font-size:clamp(2.15rem,4vw,3.15rem)}
+#view-home .billing-toggle{flex:none;border-radius:13px;background:#edf2f9;padding:5px;display:flex;gap:3px;align-items:center}
+#view-home .billing-toggle button{border:0;background:transparent;border-radius:9px;padding:9px 12px;font-weight:750;color:#78869c;font-size:.8rem}
+#view-home .billing-toggle button.active{background:white;color:#142340;box-shadow:0 2px 9px rgba(21,42,78,.08)}
+#view-home .save-tag{font-size:.65rem;color:#188e71;font-weight:800;margin-left:4px}
+#view-home .pricing-note{font-size:.76rem;color:#8794a7;margin:-12px 0 24px}
+#view-home .pricing-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:stretch}
+#view-home .plan{border:1px solid #dfe6f0;border-radius:20px;background:#fff;padding:22px 17px 18px;display:flex;flex-direction:column;min-width:0;position:relative;transition:transform .2s ease,box-shadow .2s ease}
+#view-home .plan:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(17,40,77,.09)}
+#view-home .plan.featured{border:2px solid #65bdea;box-shadow:0 13px 40px rgba(77,165,220,.15);padding:21px 16px 17px}
+#view-home .popular{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:.61rem;white-space:nowrap;background:linear-gradient(100deg,#efb2e2,#a7dafa);color:#10213d;border-radius:99px;padding:5px 10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+#view-home .plan-name{font-size:1.05rem;font-weight:850;letter-spacing:-.03em}
+#view-home .plan-desc{color:#8390a4;font-size:.73rem;line-height:1.55;min-height:42px;margin:5px 0 15px}
+#view-home .price-line{display:flex;align-items:baseline;gap:3px;white-space:nowrap}
+#view-home .currency{font-size:.94rem;font-weight:800;align-self:flex-start;margin-top:7px}
+#view-home .price{font-size:2.3rem;line-height:1;letter-spacing:-.07em;font-weight:900}
+#view-home .price.custom-price{font-size:1.75rem;letter-spacing:-.045em}
+#view-home .period{color:#8a98ad;font-size:.7rem}
+#view-home .annual-note{height:19px;margin-top:7px;font-size:.66rem;color:#188c70}
+#view-home .plan-cta{width:100%;margin:12px 0 17px;padding:10px 7px;font-size:.79rem;white-space:normal}
+#view-home .plan:not(.featured) .plan-cta{border:1px solid #dfe7f1;background:#f8fafd;color:#162645}
+#view-home .plan.featured .plan-cta{background:#10233f;color:white}
+#view-home .plan hr{border:0;border-top:1px solid #edf0f5;width:100%;margin:0 0 15px}
+#view-home .includes{font-size:.69rem;text-transform:uppercase;letter-spacing:.08em;color:#7c8aa0;font-weight:850;margin-bottom:10px}
+#view-home .plan ul{padding:0;margin:0;list-style:none;display:grid;gap:10px}
+#view-home .plan li{display:flex;align-items:flex-start;gap:7px;color:#5d6b82;font-size:.72rem;line-height:1.45}
+#view-home .plan li svg{width:14px;height:14px;flex:none;color:#3aa889;margin-top:1px}
+#view-home .pricing-footnote{font-size:.74rem;line-height:1.7;color:#8491a4;margin-top:23px}
+#view-home .faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:65px;align-items:start}
+#view-home .faq-intro h2{font-size:clamp(2rem,3.4vw,2.7rem);letter-spacing:-.05em;line-height:1.12;margin:15px 0}
+#view-home .faq-intro p{color:var(--muted);line-height:1.8}
+#view-home .faq-list{display:grid;gap:11px}
+#view-home .faq-item{border:1px solid #e0e7f1;border-radius:15px;padding:0 18px;background:white}
+#view-home .faq-item summary{cursor:pointer;list-style:none;padding:18px 25px 18px 0;font-size:.94rem;font-weight:800;position:relative}
+#view-home .faq-item summary::-webkit-details-marker{display:none}
+#view-home .faq-item summary:after{content:"+";position:absolute;right:0;top:15px;font-size:1.3rem;color:#3b95d1;font-weight:500}
+#view-home .faq-item[open] summary:after{content:"−"}
+#view-home .faq-item p{color:#728098;font-size:.86rem;line-height:1.8;margin:0;padding:0 0 18px}
+#view-home .cta-band{position:relative;overflow:hidden;padding:55px 45px;border-radius:28px;background:radial-gradient(ellipse at 90% 0%,rgba(121,199,245,.22),transparent 42%),linear-gradient(115deg,#0c1930,#122b4d);color:white;display:flex;align-items:center;justify-content:space-between;gap:30px}
+#view-home .cta-band:after{content:"";position:absolute;width:300px;height:300px;border:1px solid rgba(255,255,255,.08);border-radius:50%;right:7%;top:-180px;box-shadow:0 0 0 30px rgba(255,255,255,.02),0 0 0 60px rgba(255,255,255,.015);pointer-events:none}
+#view-home .cta-band h2{font-size:clamp(1.7rem,3.5vw,2.65rem);line-height:1.1;letter-spacing:-.055em;margin:0 0 12px;max-width:600px}
+#view-home .cta-band p{color:#adbed4;margin:0;line-height:1.75}
+#view-home .cta-actions{position:relative;z-index:1;display:flex;gap:10px;flex-wrap:wrap;flex:none}
+#view-home .footer{background:#081326;color:#d8e3f1;padding:55px 0 25px}
+#view-home .footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;padding-bottom:39px}
+#view-home .footer-brand p{max-width:270px;color:#899cb8;font-size:.82rem;line-height:1.8;margin:16px 0}
+#view-home .footer-col h4{font-size:.8rem;color:#fff;margin:4px 0 15px}
+#view-home .footer-col a{display:block;color:#93a5bf;font-size:.81rem;margin:10px 0}
+#view-home .footer-col a:hover{color:white}
+#view-home .footer-bottom{border-top:1px solid rgba(255,255,255,.09);padding-top:20px;display:flex;justify-content:space-between;gap:20px;color:#7185a2;font-size:.74rem}
+#view-home .footer-legal{max-width:600px;text-align:right}
+#view-home .toast{position:fixed;z-index:100;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;max-width:min(560px,calc(100% - 32px));background:#102441;color:white;border:1px solid rgba(159,200,239,.23);border-radius:14px;padding:13px 17px;box-shadow:0 14px 48px rgba(0,0,0,.3);font-size:.86rem;transition:opacity .25s ease,transform .25s ease}
+#view-home .toast.show{opacity:1;transform:translate(-50%,0)}
+#view-home .toast strong{color:#a9e0f8}
+@media (max-width:1100px){#view-home .hero-grid{gap:35px}
+#view-home .pricing-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+#view-home .plan{padding:22px}
+#view-home .plan.featured{padding:21px}
+#view-home .plan-desc{min-height:auto}
+#view-home .pricing-top{align-items:flex-start;flex-direction:column;gap:20px}
+#view-home .pricing-top .section-head{text-align:left;max-width:690px}
+#view-home .pricing-top .section-head p{max-width:650px}
+#view-home .tag-ai{right:-8px}
+#view-home .tag-pi{left:-12px}}
+@media (max-width:800px){#view-home .container{width:min(100% - 34px,650px)}
+#view-home .nav{height:68px}
+#view-home .menu-toggle{display:grid;place-items:center}
+#view-home .nav-actions .login-link{display:none}
+#view-home .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:#0a1930;padding:20px 24px 24px;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid rgba(255,255,255,.1)}
+#view-home .nav-links.open{display:flex}
+#view-home .nav-links a{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+#view-home .nav-links a:last-child{border:0}
+#view-home .hero{padding:65px 0 68px}
+#view-home .hero-grid{grid-template-columns:1fr;gap:58px}
+#view-home .hero-copy{max-width:650px}
+#view-home .hero h1{max-width:630px}
+#view-home .hero-visual{max-width:600px;width:100%;margin:0 auto}
+#view-home .workspace{transform:none}
+#view-home .tag-ai{right:-5px}
+#view-home .tag-pi{left:-5px}
+#view-home .section{padding:72px 0}
+#view-home .feature-grid{grid-template-columns:1fr 1fr}
+#view-home .feature-card:last-child{grid-column:1/-1}
+#view-home .demo-grid,
+#view-home .webhost-layout{grid-template-columns:1fr;gap:35px}
+#view-home .demo-copy{max-width:600px}
+#view-home .pi-grid{grid-template-columns:1fr}
+#view-home .webhost-layout .section-copy{order:0}
+#view-home .site-preview{order:1;max-width:650px;width:100%;margin:0 auto}
+#view-home .faq-grid{grid-template-columns:1fr;gap:25px}
+#view-home .faq-intro{max-width:600px}
+#view-home .footer-top{grid-template-columns:1fr 1fr;gap:30px}
+#view-home .cta-band{padding:38px 30px;align-items:flex-start;flex-direction:column}
+#view-home .cta-actions{width:100%}}
+@media (max-width:560px){#view-home .container{width:calc(100% - 30px)}
+#view-home .brand-name{font-size:1.18rem}
+#view-home .brand-mark{width:41px;height:36px}
+#view-home .nav-actions .btn{padding:10px 12px;font-size:.8rem}
+#view-home .hero h1{font-size:clamp(2.7rem,13vw,3.8rem)}
+#view-home .hero p.lede{font-size:1rem}
+#view-home .hero-buttons{display:grid;grid-template-columns:1fr}
+#view-home .hero-buttons .btn{width:100%}
+#view-home .hero-proof{gap:12px}
+#view-home .workspace{padding:13px;border-radius:20px}
+#view-home .workspace-layout{gap:8px}
+#view-home .dash-card{padding:11px}
+#view-home .floating-tag{padding:8px 10px;font-size:.7rem}
+#view-home .tag-ai{top:-27px}
+#view-home .tag-pi{bottom:-27px}
+#view-home .section-head{margin-bottom:32px}
+#view-home .section-head h2{font-size:2.2rem}
+#view-home .feature-grid{grid-template-columns:1fr}
+#view-home .feature-card:last-child{grid-column:auto}
+#view-home .feature-card{padding:23px}
+#view-home .pi-perks{grid-template-columns:1fr 1fr}
+#view-home .pricing-grid{grid-template-columns:1fr;gap:14px}
+#view-home .plan,
+#view-home .plan.featured{padding:23px}
+#view-home .plan-desc{min-height:0}
+#view-home .plan ul{grid-template-columns:1fr 1fr;gap:9px}
+#view-home .plan li{font-size:.75rem}
+#view-home .popular{left:auto;right:15px;transform:none}
+#view-home .pricing-top{gap:14px}
+#view-home .billing-toggle{width:100%;justify-content:center}
+#view-home .billing-toggle button{flex:1}
+#view-home .preview-page{padding:18px}
+#view-home .preview-hero{padding:28px 0 22px}
+#view-home .preview-hero h3{font-size:1.8rem}
+#view-home .preview-cards{gap:6px}
+#view-home .preview-card{padding:8px}
+#view-home .preview-card strong{font-size:.58rem}
+#view-home .preview-card small{font-size:.53rem}
+#view-home .cta-band{padding:30px 23px}
+#view-home .cta-actions{display:grid;grid-template-columns:1fr}
+#view-home .footer-top{grid-template-columns:1fr 1fr;gap:27px 22px}
+#view-home .footer-brand{grid-column:1/-1}
+#view-home .footer-bottom{flex-direction:column}
+#view-home .footer-legal{text-align:left}
+#view-home .demo-chat{height:300px}}
+@media (prefers-reduced-motion:reduce){#view-home,
+#view-home *,
+#view-home *:before,
+#view-home *:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+#view-home .plan-learn-link{display:flex;justify-content:center;margin:11px 0 2px;color:#5d9fd4;font-size:.83rem;font-weight:750;text-decoration:none}
+#view-home .plan-learn-link:hover{color:#b28ced;text-decoration:underline}
+#view-home .plan{min-width:0}
+#view-login,
+#view-login *,
+#view-signup,
+#view-signup *,
+#view-account,
+#view-account *,
+#view-gate,
+#view-gate *{box-sizing:border-box}
+#view-login,
+#view-signup,
+#view-account,
+#view-gate{min-height:100%;background:#071326}
+#view-login,
+#view-signup,
+#view-account,
+#view-gate{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#eef5ff;background:radial-gradient(ellipse at 15% 15%,rgba(67,153,220,.18),transparent 37%),radial-gradient(ellipse at 90% 80%,rgba(182,139,242,.12),transparent 32%),#071326;min-height:100vh;line-height:1.55}
+#view-login a,
+#view-signup a,
+#view-account a,
+#view-gate a{color:inherit;text-decoration:none}
+#view-login button,
+#view-signup button,
+#view-account button,
+#view-gate button,
+#view-login input,
+#view-signup input,
+#view-account input,
+#view-gate input{font:inherit}
+#view-login button,
+#view-signup button,
+#view-account button,
+#view-gate button,
+#view-login a,
+#view-signup a,
+#view-account a,
+#view-gate a{tap-highlight-color:transparent}
+#view-login a:focus-visible,
+#view-signup a:focus-visible,
+#view-account a:focus-visible,
+#view-gate a:focus-visible,
+#view-login button:focus-visible,
+#view-signup button:focus-visible,
+#view-account button:focus-visible,
+#view-gate button:focus-visible,
+#view-login input:focus-visible,
+#view-signup input:focus-visible,
+#view-account input:focus-visible,
+#view-gate input:focus-visible{outline:3px solid #8ed8f5;outline-offset:3px}
+#view-login .portal-shell,
+#view-signup .portal-shell,
+#view-account .portal-shell,
+#view-gate .portal-shell{min-height:100vh;display:flex;flex-direction:column}
+#view-login .portal-nav,
+#view-signup .portal-nav,
+#view-account .portal-nav,
+#view-gate .portal-nav{width:min(1120px,calc(100% - 40px));margin:0 auto;height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.09)}
+#view-login .brand,
+#view-signup .brand,
+#view-account .brand,
+#view-gate .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.25rem;letter-spacing:-.055em}
+#view-login .brand img,
+#view-signup .brand img,
+#view-account .brand img,
+#view-gate .brand img{width:46px;height:42px;object-fit:contain}
+#view-login .gradient,
+#view-signup .gradient,
+#view-account .gradient,
+#view-gate .gradient{background:linear-gradient(105deg,#f3a1dc,#b9a0f5 35%,#ffd5a2 54%,#80d7ef 78%,#68bdf1);color:transparent;background-clip:text;-webkit-background-clip:text}
+#view-login .nav-link,
+#view-signup .nav-link,
+#view-account .nav-link,
+#view-gate .nav-link{font-size:.9rem;color:#c6d5ea;font-weight:650}
+#view-login .nav-link:hover,
+#view-signup .nav-link:hover,
+#view-account .nav-link:hover,
+#view-gate .nav-link:hover{color:#fff}
+#view-login .portal-main,
+#view-signup .portal-main,
+#view-account .portal-main,
+#view-gate .portal-main{width:min(1120px,calc(100% - 40px));margin:0 auto;flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,440px);align-items:center;gap:clamp(34px,7vw,100px);padding:52px 0 72px}
+#view-login .portal-main.single,
+#view-signup .portal-main.single,
+#view-account .portal-main.single,
+#view-gate .portal-main.single{display:flex;justify-content:center}
+#view-login .portal-copy,
+#view-signup .portal-copy,
+#view-account .portal-copy,
+#view-gate .portal-copy{max-width:560px}
+#view-login .eyebrow,
+#view-signup .eyebrow,
+#view-account .eyebrow,
+#view-gate .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:#90cafa;font-weight:800}
+#view-login .eyebrow:before,
+#view-signup .eyebrow:before,
+#view-account .eyebrow:before,
+#view-gate .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#57d5ad;box-shadow:0 0 0 5px rgba(87,213,173,.12)}
+#view-login h1,
+#view-signup h1,
+#view-account h1,
+#view-gate h1{font-size:clamp(2.3rem,4.7vw,4.15rem);letter-spacing:-.065em;line-height:1.04;margin:18px 0 20px}
+#view-login .portal-copy p,
+#view-signup .portal-copy p,
+#view-account .portal-copy p,
+#view-gate .portal-copy p{color:#aabbd2;font-size:1.05rem;line-height:1.8;max-width:520px}
+#view-login .benefits,
+#view-signup .benefits,
+#view-account .benefits,
+#view-gate .benefits{display:grid;gap:15px;margin:28px 0 0;padding:0;list-style:none;color:#d3dff0;font-size:.94rem}
+#view-login .benefits li,
+#view-signup .benefits li,
+#view-account .benefits li,
+#view-gate .benefits li{display:flex;gap:12px;align-items:flex-start}
+#view-login .check,
+#view-signup .check,
+#view-account .check,
+#view-gate .check{display:inline-grid;place-items:center;width:23px;height:23px;flex:none;border-radius:50%;background:rgba(87,213,173,.12);color:#77dfbb;font-size:.78rem;font-weight:900}
+#view-login .portal-card,
+#view-signup .portal-card,
+#view-account .portal-card,
+#view-gate .portal-card{padding:clamp(24px,4vw,38px);border-radius:25px;border:1px solid rgba(187,211,244,.16);background:linear-gradient(150deg,rgba(22,42,72,.92),rgba(11,26,49,.96));box-shadow:0 30px 90px rgba(0,0,0,.28);width:100%;max-width:480px}
+#view-login .card-head,
+#view-signup .card-head,
+#view-account .card-head,
+#view-gate .card-head{margin-bottom:24px}
+#view-login .card-head h2,
+#view-signup .card-head h2,
+#view-account .card-head h2,
+#view-gate .card-head h2{font-size:1.65rem;letter-spacing:-.04em;margin:0 0 6px}
+#view-login .card-head p,
+#view-signup .card-head p,
+#view-account .card-head p,
+#view-gate .card-head p{font-size:.91rem;color:#a6b6cd;margin:0}
+#view-login .field,
+#view-signup .field,
+#view-account .field,
+#view-gate .field{display:grid;gap:7px;margin:17px 0}
+#view-login .field label,
+#view-signup .field label,
+#view-account .field label,
+#view-gate .field label{font-weight:700;font-size:.84rem;color:#d8e4f4}
+#view-login .field input,
+#view-signup .field input,
+#view-account .field input,
+#view-gate .field input{width:100%;min-width:0;border:1px solid rgba(183,204,235,.22);background:rgba(255,255,255,.055);border-radius:12px;padding:13px 14px;color:#fff;outline:none}
+#view-login .field input::placeholder,
+#view-signup .field input::placeholder,
+#view-account .field input::placeholder,
+#view-gate .field input::placeholder{color:#8194ae}
+#view-login .field input:focus,
+#view-signup .field input:focus,
+#view-account .field input:focus,
+#view-gate .field input:focus{border-color:#76c5f1;box-shadow:0 0 0 3px rgba(118,197,241,.1)}
+#view-login .btn,
+#view-signup .btn,
+#view-account .btn,
+#view-gate .btn{border:0;border-radius:12px;padding:13px 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.93rem;font-weight:800;cursor:pointer;transition:transform .18s ease,filter .18s ease}
+#view-login .btn:hover,
+#view-signup .btn:hover,
+#view-account .btn:hover,
+#view-gate .btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+#view-login .btn-primary,
+#view-signup .btn-primary,
+#view-account .btn-primary,
+#view-gate .btn-primary{color:#071326;background:linear-gradient(105deg,#f3a1dc,#b9a0f5 35%,#80d7ef)}
+#view-login .btn-outline,
+#view-signup .btn-outline,
+#view-account .btn-outline,
+#view-gate .btn-outline{color:#f4f8ff;border:1px solid rgba(188,210,241,.24);background:rgba(255,255,255,.045)}
+#view-login .btn-full,
+#view-signup .btn-full,
+#view-account .btn-full,
+#view-gate .btn-full{width:100%;margin-top:8px}
+#view-login .auth-switch,
+#view-signup .auth-switch,
+#view-account .auth-switch,
+#view-gate .auth-switch{text-align:center;color:#9dafc7;font-size:.9rem;margin:20px 0 0}
+#view-login .auth-switch a,
+#view-signup .auth-switch a,
+#view-account .auth-switch a,
+#view-gate .auth-switch a{font-weight:800;color:#91d1f5}
+#view-login .small-note,
+#view-signup .small-note,
+#view-account .small-note,
+#view-gate .small-note{font-size:.76rem;line-height:1.65;color:#899bb4;margin:18px 0 0}
+#view-login .plan-chip,
+#view-signup .plan-chip,
+#view-account .plan-chip,
+#view-gate .plan-chip{display:inline-flex;gap:8px;align-items:center;background:rgba(131,198,245,.1);border:1px solid rgba(131,198,245,.2);color:#cceaff;padding:7px 11px;border-radius:999px;font-size:.79rem;font-weight:750;margin:10px 0 2px}
+#view-login .alert,
+#view-signup .alert,
+#view-account .alert,
+#view-gate .alert{display:none;border:1px solid rgba(245,173,147,.35);background:rgba(245,173,147,.08);color:#ffcab6;padding:11px 12px;border-radius:11px;font-size:.85rem;margin:0 0 16px}
+#view-login .alert.show,
+#view-signup .alert.show,
+#view-account .alert.show,
+#view-gate .alert.show{display:block}
+#view-login .portal-footer,
+#view-signup .portal-footer,
+#view-account .portal-footer,
+#view-gate .portal-footer{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:20px 0 26px;border-top:1px solid rgba(255,255,255,.09);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#8294ad;font-size:.75rem}
+#view-login .portal-footer a:hover,
+#view-signup .portal-footer a:hover,
+#view-account .portal-footer a:hover,
+#view-gate .portal-footer a:hover{color:#fff}
+#view-login .gate-actions,
+#view-signup .gate-actions,
+#view-account .gate-actions,
+#view-gate .gate-actions{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:23px}
+#view-login .gate-actions .btn,
+#view-signup .gate-actions .btn,
+#view-account .gate-actions .btn,
+#view-gate .gate-actions .btn{width:100%}
+#view-login .quote-box,
+#view-signup .quote-box,
+#view-account .quote-box,
+#view-gate .quote-box{padding:15px;border:1px solid rgba(157,195,235,.15);background:rgba(255,255,255,.035);border-radius:14px;color:#b8c8dc;font-size:.89rem;margin-top:18px}
+#view-login .dash-main,
+#view-signup .dash-main,
+#view-account .dash-main,
+#view-gate .dash-main{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:48px 0 70px;flex:1}
+#view-login .dash-header,
+#view-signup .dash-header,
+#view-account .dash-header,
+#view-gate .dash-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+#view-login .dash-header h1,
+#view-signup .dash-header h1,
+#view-account .dash-header h1,
+#view-gate .dash-header h1{font-size:clamp(2.2rem,4vw,3.4rem);margin:13px 0}
+#view-login .dash-header p,
+#view-signup .dash-header p,
+#view-account .dash-header p,
+#view-gate .dash-header p{color:#aabbd2;margin:0;max-width:650px}
+#view-login .dash-grid,
+#view-signup .dash-grid,
+#view-account .dash-grid,
+#view-gate .dash-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+#view-login .dash-tile,
+#view-signup .dash-tile,
+#view-account .dash-tile,
+#view-gate .dash-tile{padding:23px;border-radius:19px;border:1px solid rgba(187,211,244,.15);background:rgba(18,39,68,.68)}
+#view-login .tile-icon,
+#view-signup .tile-icon,
+#view-account .tile-icon,
+#view-gate .tile-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(110,186,236,.12);font-size:1.2rem}
+#view-login .dash-tile h2,
+#view-signup .dash-tile h2,
+#view-account .dash-tile h2,
+#view-gate .dash-tile h2{font-size:1.15rem;margin:16px 0 7px}
+#view-login .dash-tile p,
+#view-signup .dash-tile p,
+#view-account .dash-tile p,
+#view-gate .dash-tile p{color:#a7b8cf;font-size:.9rem;min-height:70px}
+#view-login .muted-label,
+#view-signup .muted-label,
+#view-account .muted-label,
+#view-gate .muted-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#91a5c1;font-weight:850}
+#view-login .warning-note,
+#view-signup .warning-note,
+#view-account .warning-note,
+#view-gate .warning-note{border:1px solid rgba(255,212,154,.23);background:rgba(255,212,154,.06);padding:16px 18px;border-radius:14px;color:#e8d6b9;margin:22px 0;font-size:.86rem}
+#view-login .dash-actions,
+#view-signup .dash-actions,
+#view-account .dash-actions,
+#view-gate .dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+@media (max-width:820px){#view-login .portal-main,
+#view-signup .portal-main,
+#view-account .portal-main,
+#view-gate .portal-main{grid-template-columns:1fr;gap:32px;padding:38px 0 50px}
+#view-login .portal-copy,
+#view-signup .portal-copy,
+#view-account .portal-copy,
+#view-gate .portal-copy{max-width:none}
+#view-login .portal-copy h1,
+#view-signup .portal-copy h1,
+#view-account .portal-copy h1,
+#view-gate .portal-copy h1{font-size:clamp(2.45rem,9vw,3.8rem)}
+#view-login .portal-card,
+#view-signup .portal-card,
+#view-account .portal-card,
+#view-gate .portal-card{max-width:none}
+#view-login .dash-grid,
+#view-signup .dash-grid,
+#view-account .dash-grid,
+#view-gate .dash-grid{grid-template-columns:1fr}
+#view-login .dash-tile p,
+#view-signup .dash-tile p,
+#view-account .dash-tile p,
+#view-gate .dash-tile p{min-height:0}
+#view-login .portal-nav,
+#view-signup .portal-nav,
+#view-account .portal-nav,
+#view-gate .portal-nav{height:72px}
+#view-login .portal-footer,
+#view-signup .portal-footer,
+#view-account .portal-footer,
+#view-gate .portal-footer{gap:8px}
+#view-login .gate-actions,
+#view-signup .gate-actions,
+#view-account .gate-actions,
+#view-gate .gate-actions{grid-template-columns:1fr}
+#view-login .portal-main.single,
+#view-signup .portal-main.single,
+#view-account .portal-main.single,
+#view-gate .portal-main.single{display:block}
+#view-login .portal-main.single .portal-card,
+#view-signup .portal-main.single .portal-card,
+#view-account .portal-main.single .portal-card,
+#view-gate .portal-main.single .portal-card{margin:30px auto}
+#view-login .portal-main.single .portal-copy,
+#view-signup .portal-main.single .portal-copy,
+#view-account .portal-main.single .portal-copy,
+#view-gate .portal-main.single .portal-copy{margin-top:20px}}
+@media (prefers-reduced-motion:reduce){#view-login,
+#view-login *,
+#view-signup,
+#view-signup *,
+#view-account,
+#view-account *,
+#view-gate,
+#view-gate *{scroll-behavior:auto!important;transition:none!important}}
+#view-login .portal-shell,
+#view-signup .portal-shell,
+#view-account .portal-shell,
+#view-gate .portal-shell{position:relative;isolation:isolate;overflow:hidden}
+#view-login .portal-shell:before,
+#view-signup .portal-shell:before,
+#view-account .portal-shell:before,
+#view-gate .portal-shell:before,
+#view-login .portal-shell:after,
+#view-signup .portal-shell:after,
+#view-account .portal-shell:after,
+#view-gate .portal-shell:after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(2px)}
+#view-login .portal-shell:before,
+#view-signup .portal-shell:before,
+#view-account .portal-shell:before,
+#view-gate .portal-shell:before{width:440px;height:440px;top:12%;right:-210px;background:radial-gradient(circle,rgba(108,188,244,.12),transparent 70%)}
+#view-login .portal-shell:after,
+#view-signup .portal-shell:after,
+#view-account .portal-shell:after,
+#view-gate .portal-shell:after{width:400px;height:400px;bottom:-210px;left:-170px;background:radial-gradient(circle,rgba(202,142,243,.10),transparent 70%)}
+#view-login .portal-main.auth-main,
+#view-signup .portal-main.auth-main,
+#view-account .portal-main.auth-main,
+#view-gate .portal-main.auth-main{gap:clamp(36px,7vw,104px);padding-top:48px;padding-bottom:56px}
+#view-login .auth-copy .eyebrow,
+#view-signup .auth-copy .eyebrow,
+#view-account .auth-copy .eyebrow,
+#view-gate .auth-copy .eyebrow{padding:8px 12px;border:1px solid rgba(128,207,245,.18);border-radius:999px;background:rgba(107,190,240,.06)}
+#view-login .auth-copy h1,
+#view-signup .auth-copy h1,
+#view-account .auth-copy h1,
+#view-gate .auth-copy h1{max-width:630px;text-wrap:balance}
+#view-login .auth-copy .auth-lead,
+#view-signup .auth-copy .auth-lead,
+#view-account .auth-copy .auth-lead,
+#view-gate .auth-copy .auth-lead{max-width:510px}
+#view-login .auth-feature-list,
+#view-signup .auth-feature-list,
+#view-account .auth-feature-list,
+#view-gate .auth-feature-list{margin-top:30px}
+#view-login .auth-card,
+#view-signup .auth-card,
+#view-account .auth-card,
+#view-gate .auth-card{position:relative;overflow:hidden;backdrop-filter:blur(18px)}
+#view-login .auth-card:before,
+#view-signup .auth-card:before,
+#view-account .auth-card:before,
+#view-gate .auth-card:before{content:"";position:absolute;top:0;left:12%;right:12%;height:2px;background:linear-gradient(90deg,transparent,#f3a1dc,#b9a0f5,#80d7ef,transparent);opacity:.9}
+#view-login .auth-card .card-head,
+#view-signup .auth-card .card-head,
+#view-account .auth-card .card-head,
+#view-gate .auth-card .card-head{margin-bottom:20px}
+#view-login .auth-card .card-head h2,
+#view-signup .auth-card .card-head h2,
+#view-account .auth-card .card-head h2,
+#view-gate .auth-card .card-head h2{font-size:1.8rem;margin-top:6px}
+#view-login .auth-card .field:first-child,
+#view-signup .auth-card .field:first-child,
+#view-account .auth-card .field:first-child,
+#view-gate .auth-card .field:first-child{margin-top:0}
+#view-login .social-stack,
+#view-signup .social-stack,
+#view-account .social-stack,
+#view-gate .social-stack{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 17px}
+#view-login .social-btn,
+#view-signup .social-btn,
+#view-account .social-btn,
+#view-gate .social-btn{width:100%;min-height:49px;display:flex;align-items:center;justify-content:center;gap:12px;border-radius:13px;padding:12px 16px;font-size:.91rem;font-weight:800;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;border:1px solid transparent}
+#view-login .social-btn:hover,
+#view-signup .social-btn:hover,
+#view-account .social-btn:hover,
+#view-gate .social-btn:hover{transform:translateY(-1px);filter:brightness(1.025);box-shadow:0 8px 22px rgba(0,0,0,.18)}
+#view-login .social-btn:active,
+#view-signup .social-btn:active,
+#view-account .social-btn:active,
+#view-gate .social-btn:active{transform:translateY(0)}
+#view-login .social-btn.google,
+#view-signup .social-btn.google,
+#view-account .social-btn.google,
+#view-gate .social-btn.google{color:#202735;background:#fff;border-color:#e6eaf0}
+#view-login .social-btn.apple,
+#view-signup .social-btn.apple,
+#view-account .social-btn.apple,
+#view-gate .social-btn.apple{color:#fff;background:#05070a;border-color:rgba(255,255,255,.16)}
+#view-login .social-btn .social-icon,
+#view-signup .social-btn .social-icon,
+#view-account .social-btn .social-icon,
+#view-gate .social-btn .social-icon{width:20px;height:20px;display:block;flex:none}
+#view-login .social-divider,
+#view-signup .social-divider,
+#view-account .social-divider,
+#view-gate .social-divider{display:flex;align-items:center;gap:12px;color:#8194af;font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;font-weight:800;margin:21px 0 16px}
+#view-login .social-divider:before,
+#view-signup .social-divider:before,
+#view-account .social-divider:before,
+#view-gate .social-divider:before,
+#view-login .social-divider:after,
+#view-signup .social-divider:after,
+#view-account .social-divider:after,
+#view-gate .social-divider:after{content:"";height:1px;flex:1;background:rgba(183,204,235,.15)}
+#view-login .social-notice,
+#view-signup .social-notice,
+#view-account .social-notice,
+#view-gate .social-notice{margin:0 0 16px;padding:12px 13px;border:1px solid rgba(128,207,245,.24);background:rgba(93,177,230,.08);color:#c7eaff;border-radius:12px;line-height:1.55;font-size:.82rem}
+#view-login .social-notice[hidden],
+#view-signup .social-notice[hidden],
+#view-account .social-notice[hidden],
+#view-gate .social-notice[hidden]{display:none}
+#view-login .auth-card .small-note,
+#view-signup .auth-card .small-note,
+#view-account .auth-card .small-note,
+#view-gate .auth-card .small-note{border-top:1px solid rgba(183,204,235,.10);padding-top:15px}
+#view-login .auth-reassurance,
+#view-signup .auth-reassurance,
+#view-account .auth-reassurance,
+#view-gate .auth-reassurance{display:flex;align-items:center;gap:8px;color:#8095b2;font-size:.76rem;margin:15px 0 0}
+#view-login .auth-reassurance svg,
+#view-signup .auth-reassurance svg,
+#view-account .auth-reassurance svg,
+#view-gate .auth-reassurance svg{width:15px;height:15px;color:#7cd8bb;flex:none}
+@media (min-width:821px){#view-login .auth-card,
+#view-signup .auth-card,
+#view-account .auth-card,
+#view-gate .auth-card{margin-left:auto}
+#view-login .auth-copy,
+#view-signup .auth-copy,
+#view-account .auth-copy,
+#view-gate .auth-copy{padding-bottom:12px}}
+@media (max-width:820px){#view-login .portal-main.auth-main,
+#view-signup .portal-main.auth-main,
+#view-account .portal-main.auth-main,
+#view-gate .portal-main.auth-main{padding-top:30px;gap:27px}
+#view-login .auth-copy h1,
+#view-signup .auth-copy h1,
+#view-account .auth-copy h1,
+#view-gate .auth-copy h1{max-width:580px}
+#view-login .auth-feature-list,
+#view-signup .auth-feature-list,
+#view-account .auth-feature-list,
+#view-gate .auth-feature-list{margin-top:22px}
+#view-login .auth-card,
+#view-signup .auth-card,
+#view-account .auth-card,
+#view-gate .auth-card{max-width:none}}
+@media (max-width:420px){#view-login .portal-nav,
+#view-signup .portal-nav,
+#view-account .portal-nav,
+#view-gate .portal-nav,
+#view-login .portal-footer,
+#view-signup .portal-footer,
+#view-account .portal-footer,
+#view-gate .portal-footer,
+#view-login .portal-main,
+#view-signup .portal-main,
+#view-account .portal-main,
+#view-gate .portal-main{width:calc(100% - 28px)}
+#view-login .portal-card.auth-card,
+#view-signup .portal-card.auth-card,
+#view-account .portal-card.auth-card,
+#view-gate .portal-card.auth-card{padding:24px 20px;border-radius:21px}
+#view-login .brand,
+#view-signup .brand,
+#view-account .brand,
+#view-gate .brand{font-size:1.12rem}
+#view-login .brand img,
+#view-signup .brand img,
+#view-account .brand img,
+#view-gate .brand img{width:40px;height:38px}
+#view-login .nav-link,
+#view-signup .nav-link,
+#view-account .nav-link,
+#view-gate .nav-link{font-size:.8rem}}
+
+/* Single-file application shell and route visibility */
+html { scroll-behavior: smooth; }
+body { margin:0; min-height:100vh; background:#fff; }
+.spa-view { display:none !important; min-height:100vh; }
+.spa-view.active { display:block !important; }
+#view-home { background:#fff; color:#0b1730; }
+#view-login,#view-signup,#view-account,#view-gate {
+  min-height:100vh;
+  background:radial-gradient(ellipse at 15% 15%,rgba(67,153,220,.18),transparent 37%),radial-gradient(ellipse at 90% 80%,rgba(182,139,242,.12),transparent 32%),#071326;
+  color:#eef5ff;
+}
+
+</style>
+</head>
+<body>
+<section id="view-home" class="spa-view active" data-view="home">
+<header class="topbar">
+<div class="container nav">
+<a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" class="brand-mark" src="data:image/png;base64,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"/><span class="brand-name"><span class="gradient-text">ALLEY</span> <span>Cloud</span></span></a>
+<nav aria-label="Main navigation" class="nav-links" id="navLinks"><a href="#platform">Platform</a><a href="#ai-demo">AI Studio</a><a href="#raspberry-pi">Pi access</a><a href="#hosting">Website hosting</a><a href="#plans">Plans</a><a href="#faq">FAQ</a></nav>
+<div class="nav-actions"><a class="login-link" href="#/login">Sign in</a><a class="btn btn-primary btn-small" href="#/signup">Get started <span aria-hidden="true">↗</span></a><button aria-expanded="false" aria-label="Open navigation" class="menu-toggle" id="menuToggle"><svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button></div>
+</div>
+</header>
+<main>
+<section class="hero" id="home">
+<div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+<div class="container hero-grid">
+<div class="hero-copy">
+<div class="eyebrow"><span class="dot"></span> Your personal cloud workspace</div>
+<h1>Your AI.<br/>Your server.<br/><span class="gradient-text">Your corner of the cloud.</span></h1>
+<p class="lede">Meet the all-in-one home for a helpful Gemini-powered AI, secure access to your Raspberry Pi, and a website you can make your own.</p>
+<div class="hero-buttons"><a class="btn btn-primary" href="#plans">Explore plans <span aria-hidden="true">→</span></a><a class="btn btn-outline" href="#platform"><svg class="icon" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"></path></svg> See how it works</a></div>
+<div class="tiny-note"><strong>Start free.</strong> Upgrade when your projects grow. No special cloud hardware required to get started.</div>
+<div class="hero-proof"><span class="proof-item"><i class="check-bullet">✓</i> AI in one workspace</span><span class="proof-item"><i class="check-bullet">✓</i> Your Pi, remotely</span><span class="proof-item"><i class="check-bullet">✓</i> Websites on your terms</span></div>
+</div>
+<div aria-label="Preview of the ALLEY Cloud workspace" class="hero-visual">
+<div class="visual-halo"></div>
+<div class="workspace">
+<div class="workspace-top"><div class="workspace-brand"><img alt="" class="mini-mark" src="data:image/png;base64,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"/> ALLEY workspace</div><span class="status"><i></i> Demo workspace</span></div>
+<div class="workspace-layout">
+<div class="dash-card"><div class="dash-label"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3 4 7v6c0 4.7 3.4 7.4 8 9 4.6-1.6 8-4.3 8-9V7l-8-4Z"></path><path d="M8.5 12.2 11 14.5l4.7-5"></path></svg> AI studio</div><div class="dash-title">What are we building?</div><div class="chat-line"><div class="chat-avatar">A</div><div class="chat-bubble">Let’s turn your Raspberry Pi into a home for your next project.</div></div></div>
+<div class="dash-card"><div class="dash-label"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><rect height="6" rx="1.5" width="16" x="4" y="4"></rect><rect height="6" rx="1.5" width="16" x="4" y="14"></rect><path d="M8 7h.01M8 17h.01M12 7h5M12 17h5"></path></svg> Home server</div><div class="dash-title">Raspberry Pi 4</div><div class="dash-sub">Example status · not live telemetry</div><div class="dash-stat"><span>CPU</span><strong>Ready to connect</strong></div><div class="meter"><span style="width:62%"></span></div><div class="dash-stat"><span>Access</span><strong>SSH keys</strong></div><div class="meter"><span style="width:84%"></span></div></div>
+<div class="dash-card full"><div class="dash-label"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg> Your website</div><div class="domain-row"><span class="domain-name">your-project.alleycloud.example</span><span class="domain-pill">Preview</span></div><div class="dash-sub" style="margin-top:7px">Build it, host it, and connect a domain when you’re ready.</div></div>
+</div>
+</div>
+<div class="floating-tag tag-ai"><span class="tag-icon"><svg class="icon" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"></path><circle cx="12" cy="12" r="4"></circle></svg></span><span>AI, on tap<small>Gemini-powered*</small></span></div>
+<div class="floating-tag tag-pi"><span class="tag-icon"><svg class="icon" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><rect height="16" rx="3" width="16" x="4" y="4"></rect><path d="M8 9h2m4 0h2M8 15h8M12 4V2M12 22v-2M4 12H2M22 12h-2"></path></svg></span><span>Your Pi, your rules<small>Secure remote access</small></span></div>
+</div>
+</div>
+</section>
+<section class="section" id="platform">
+<div class="container"><div class="section-head"><div class="eyebrow"><span class="dot"></span> One workspace, more possibilities</div><h2>Everything you need to <span class="gradient-text">make it yours.</span></h2><p>Whether you’re learning, building a home lab, or running a small project, ALLEY Cloud brings your tools together without making everything complicated.</p></div>
+<div class="feature-grid">
+<article class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3a8 8 0 0 0-4.8 14.4c.9.7 1.3 1.4 1.3 2.1h7c0-.7.4-1.4 1.3-2.1A8 8 0 0 0 12 3Z"></path><path d="M9 22h6M9 19h6M10 9l2 2 2-2"></path></svg></div><h3>AI that helps you build</h3><p>Ask questions, brainstorm projects, work through code, or get help understanding what to do next with a Gemini-powered assistant.</p><a class="text-link" data-auth-gate="true" href="#/gate?intent=use&amp;feature=AI%20Studio">Try the chat preview <span>→</span></a></article>
+<article class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><rect height="7" rx="2" width="16" x="4" y="4"></rect><rect height="6" rx="2" width="16" x="4" y="14"></rect><path d="M8 7.5h.01M8 17h.01M12 7.5h5M12 17h5"></path></svg></div><h3>Your home server, from anywhere</h3><p>Plan and manage remote access to your own Raspberry Pi. A real deployment should use an authenticated tunnel, SSH keys, and sensible access controls.</p><a class="text-link" data-auth-gate="true" href="#/gate?intent=learn&amp;feature=Raspberry%20Pi%20access">Explore Pi access <span>→</span></a></article>
+<article class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg></div><h3>A website with your name on it</h3><p>Publish a portfolio, project page, or personal site on your Pi. Start with an ALLEY Cloud subdomain and connect a custom domain on eligible plans.</p><a class="text-link" data-auth-gate="true" href="#/gate?intent=learn&amp;feature=Website%20hosting">See website hosting <span>→</span></a></article>
+</div>
+</div>
+</section>
+<section class="section section-dark" id="ai-demo">
+<div class="container demo-grid">
+<div class="demo-copy"><div class="eyebrow"><span class="dot"></span> AI Studio</div><h2>A little help can take your project <span class="gradient-text">a lot further.</span></h2><p>Use AI to untangle errors, sketch out a website, explain Linux commands, or plan the next step in your build. The real service can connect to Google Gemini through a protected server-side API.</p><ul class="benefit-list"><li><i class="check-bullet">✓</i><span>Get explanations that meet you where you are.</span></li><li><i class="check-bullet">✓</i><span>Brainstorm code, scripts, and project ideas.</span></li><li><i class="check-bullet">✓</i><span>Keep your AI, home-server tools, and projects together.</span></li></ul></div>
+<div class="demo-panel"><div class="panel-bar"><div class="window-dots"><span></span><span></span><span></span></div><div class="panel-title">alley-cloud / ai-studio</div><div class="status"><i></i> Sample</div></div>
+<div aria-live="polite" class="demo-chat" id="demoChat"><div class="message"><div class="message-icon">A</div><div class="message-text">Hey! I’m your ALLEY Cloud AI preview. What are you hoping to build today?</div></div><div class="message user"><div class="message-icon">YOU</div><div class="message-text">Can I host a website from my Raspberry Pi?</div></div><div class="message"><div class="message-icon">A</div><div class="message-text">Absolutely. You can run a web server on your Pi, point a domain to a secure tunnel or properly configured connection, and keep control of your files. Plan for HTTPS, updates, and backups before putting it on the public internet.</div></div></div>
+<form class="chat-form" id="demoChatForm"><textarea aria-label="Message to AI demo" id="chatPrompt" placeholder="Ask something about your project…" rows="1"></textarea><button aria-label="Send message" class="send-btn" type="submit"><svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 14-7-4 14-3-6-7-1Z"></path><path d="m12 13 7-8"></path></svg></button></form><div class="demo-disclaimer">Interactive sample only. Replies are scripted; no Gemini API call is made and no API key is used by this page.</div>
+</div>
+</div>
+</section>
+<section class="section section-soft" id="raspberry-pi">
+<div class="container"><div class="section-head"><div class="eyebrow"><span class="dot"></span> Home lab, meet cloud access</div><h2>Your Raspberry Pi can be <span class="gradient-text">part of your cloud.</span></h2><p>Connect the little computer you already own and use it as a place for projects, tools, and websites. ALLEY Cloud can provide the dashboard experience around it.</p></div>
+<div class="pi-grid"><div class="pi-info"><div class="eyebrow">Designed for your setup</div><h3>Remote access, without guesswork.</h3><p>A production version could help you register a Pi, authorize secure access, open a browser terminal, and connect your hosted projects. It should never expose your SSH password or private key to the website front end.</p><div class="pi-perks"><div class="pi-perk"><strong>SSH key access</strong><span>Prefer keys over passwords</span></div><div class="pi-perk"><strong>Private connection</strong><span>Use a tunnel or VPN</span></div><div class="pi-perk"><strong>Project ready</strong><span>Run your own services</span></div><div class="pi-perk"><strong>Your hardware</strong><span>Keep control at home</span></div></div><div style="margin-top:24px"><a class="btn btn-dark" href="#plans">Compare server limits <span aria-hidden="true">→</span></a></div></div>
+<div class="pi-terminal"><div class="term-top"><div class="term-title">pi-terminal <span style="color:#7186a4;font-weight:500">/ preview</span></div><span class="term-chip">Not connected</span></div><div aria-live="polite" class="term-body" id="termBody"><span class="term-line"><span class="term-prompt">alley@raspberrypi</span>:<span class="term-command">~ $</span> whoami</span><span class="term-line term-output">alley</span><span class="term-line"><span class="term-prompt">alley@raspberrypi</span>:<span class="term-command">~ $</span> hostname</span><span class="term-line term-output">raspberrypi (example output)</span><span class="term-line"><span class="term-prompt">alley@raspberrypi</span>:<span class="term-command">~ $</span> <span style="color:#8295b0"># Try a sample command below</span></span></div><form class="term-input-row" id="termForm"><input aria-label="Sample terminal command" autocomplete="off" id="termCommand" placeholder="Type: ls"/><button type="submit">Run demo</button></form><div class="term-footnote">Simulated terminal output only. This page does not open an SSH connection to your Raspberry Pi.</div></div>
+</div>
+</div>
+</section>
+<section class="section" id="hosting">
+<div class="container webhost-layout"><div class="section-copy"><div class="eyebrow"><span class="dot"></span> Your website, your way</div><h2>From “I have an idea” to <span class="gradient-text">“it’s live.”</span></h2><p>Build a portfolio, project dashboard, or personal homepage. Use your Pi to serve your site and pair it with an ALLEY Cloud subdomain—or connect a custom domain on an eligible plan.</p><p>Before going public, set up HTTPS, keep the Pi updated, back up your files, and make sure your internet connection and hosting setup can handle your traffic.</p><a class="btn btn-dark" href="#plans">Find your plan <span aria-hidden="true">→</span></a><div class="hosting-note"><svg class="icon" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3 4 7v6c0 4.7 3.4 7.4 8 9 4.6-1.6 8-4.3 8-9V7l-8-4Z"></path><path d="m8.5 12.2 2.1 2.1 4.8-5"></path></svg><span>Custom domain, DNS, HTTPS, and tunnel features depend on the service backend and plan.</span></div></div>
+<div aria-label="Example website preview" class="site-preview"><div class="preview-bar"><span></span><span></span><span></span><div class="preview-url">yourproject.alleycloud.example</div></div><div class="preview-page"><div class="preview-nav"><span class="preview-logo">your<span class="gradient-text">project.</span></span><span>About   Projects   Contact</span></div><div class="preview-hero"><div class="preview-kicker">A little corner of the internet</div><h3>Ideas turn into things.</h3><p>A clean, simple place to share what you’re building and what you’re learning along the way.</p><span class="preview-action">Explore my work ↗</span></div><div class="preview-cards"><div class="preview-card"><div class="preview-icon"></div><strong>My projects</strong><small>What I’m making</small></div><div class="preview-card"><div class="preview-icon"></div><strong>Notes &amp; guides</strong><small>What I’m learning</small></div><div class="preview-card"><div class="preview-icon"></div><strong>Get in touch</strong><small>Let’s connect</small></div></div></div></div>
+</div>
+</section>
+<section class="section section-soft" id="plans">
+<div class="container"><div class="pricing-top"><div class="section-head"><div class="eyebrow"><span class="dot"></span> Straightforward plans</div><h2>Start small. <span class="gradient-text">Scale when ready.</span></h2><p>Use the free plan to explore, then choose the tools and headroom your projects need.</p></div></div>
+<div class="pricing-note">Subscription prices are shown monthly. Plan limits, Gemini usage costs, domain availability, and hosting terms should be finalized before launch.</div>
+<div class="pricing-grid">
+<article class="plan" data-plan="free"><div class="plan-name">Free</div><div class="plan-desc">A friendly place to get started.</div><div class="price-line"><span class="currency">$</span><span class="price">0</span><span class="period">/ forever</span></div><div class="annual-note">No payment details needed</div><button class="btn plan-cta" data-plan-cta="Free" type="button">Start for free</button><a class="plan-learn-link" data-auth-gate="true" href="#/gate?intent=learn&amp;plan=Free&amp;feature=Free%20plan">Learn more about Free →</a><hr/><div class="includes">Includes</div><ul><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>25 AI prompts/day*</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>1 Raspberry Pi connection</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>1 website project</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>ALLEY Cloud subdomain</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Community support</li></ul></article>
+<article class="plan" data-plan="plus"><div class="plan-name">Plus</div><div class="plan-desc">For curious makers and personal projects.</div><div class="price-line"><span class="currency">$</span><span class="price">5</span><span class="period">/ month</span></div><button class="btn plan-cta" data-plan-cta="Plus" type="button">Choose Plus</button><a class="plan-learn-link" data-auth-gate="true" href="#/gate?intent=learn&amp;plan=Plus&amp;feature=Plus%20plan">Learn more about Plus →</a><hr/><div class="includes">Everything in Free, plus</div><ul><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>300 AI prompts/month*</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Connect a custom domain</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>3 website projects</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>1 GB project storage</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Email support</li></ul></article>
+<article class="plan featured" data-plan="pro"><div class="popular">Most popular</div><div class="plan-name">Pro</div><div class="plan-desc">More room for serious builds.</div><div class="price-line"><span class="currency">$</span><span class="price">10</span><span class="period">/ month</span></div><button class="btn plan-cta" data-plan-cta="Pro" type="button">Go Pro</button><a class="plan-learn-link" data-auth-gate="true" href="#/gate?intent=learn&amp;plan=Pro&amp;feature=Pro%20plan">Learn more about Pro →</a><hr/><div class="includes">Everything in Plus, plus</div><ul><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>1,500 AI prompts/month*</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>3 Pi connections</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>10 GB project storage</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Advanced project tools</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Priority support</li></ul></article>
+<article class="plan" data-plan="ultra"><div class="plan-name">Ultra</div><div class="plan-desc">For builders with bigger ambitions.</div><div class="price-line"><span class="currency">$</span><span class="price">25</span><span class="period">/ month</span></div><button class="btn plan-cta" data-plan-cta="Ultra" type="button">Go Ultra</button><a class="plan-learn-link" data-auth-gate="true" href="#/gate?intent=learn&amp;plan=Ultra&amp;feature=Ultra%20plan">Learn more about Ultra →</a><hr/><div class="includes">Everything in Pro, plus</div><ul><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>5,000 AI prompts/month*</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>10 Pi connections</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>50 GB project storage</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Usage and activity logs</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Priority project queue</li></ul></article>
+<article class="plan" data-plan="business"><div class="plan-name">Business</div><div class="plan-desc">Shared tools for a team or studio.</div><div class="price-line"><span class="price custom-price">Custom</span><span class="period">/ tailored quote</span></div><button class="btn plan-cta" data-plan-cta="Business" type="button">Choose Business</button><a class="plan-learn-link" data-auth-gate="true" href="#/gate?intent=learn&amp;plan=Business&amp;feature=Business%20plan">Learn more about Business →</a><hr/><div class="includes">Everything in Ultra, plus</div><ul><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>5 team seats</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Team roles and permissions</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Team activity audit trail</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>100 GB project storage</li><li><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>Priority team support</li></ul></article>
+</div>
+<p class="pricing-footnote">*AI quotas are illustrative and should be configured around actual model costs and fair-use policies. A user’s Google Gemini API key, if that model is offered as a bring-your-own-key option, must be handled securely by a backend—not embedded in public HTML. Custom domain registration, transfer, renewal, and DNS details must be confirmed for the real service.</p>
+</div>
+</section>
+<section class="section" id="faq"><div class="container faq-grid"><div class="faq-intro"><div class="eyebrow"><span class="dot"></span> Good questions</div><h2>Clear answers, before you dive in.</h2><p>ALLEY Cloud is designed around tools you control. Here are the key things to know about the concept and what a live service needs behind the scenes.</p><a class="text-link" data-auth-gate="true" href="#/gate?intent=start&amp;feature=ALLEY%20Cloud">Ready to get started? <span>→</span></a></div><div class="faq-list">
+<details class="faq-item"><summary>Is the AI really powered by Google Gemini?</summary><p>The concept is designed for a Gemini-powered assistant. This downloaded website is only a front-end demo; connecting Gemini requires a server-side endpoint, a valid API key, usage limits, and error handling. Never place a production API key in browser JavaScript.</p></details>
+<details class="faq-item"><summary>Can ALLEY Cloud really SSH into my Raspberry Pi?</summary><p>Not from this static page. A real implementation needs an authenticated backend or private tunnel, careful SSH key handling, device authorization, and access controls. The terminal shown here is simulated and never connects to a device.</p></details>
+<details class="faq-item"><summary>Will the website be hosted on my Raspberry Pi?</summary><p>That is the intended use case: your Pi can serve your own site, while the service helps with setup and domain routing. Public hosting from home depends on uptime, bandwidth, router/ISP restrictions, TLS, and a secure networking design.</p></details>
+<details class="faq-item"><summary>Do I get a domain with a paid plan?</summary><p>The current mockup proposes an ALLEY Cloud subdomain on Free and custom-domain connection on paid plans. Whether a paid plan includes domain registration or only domain connection is a business decision to finalize before launch.</p></details>
+<details class="faq-item"><summary>Are these prices and limits final?</summary><p>No. They are sample values to illustrate the plan ladder. Update them after calculating Gemini API costs, domain costs, support needs, storage requirements, and the real limits of the Raspberry Pi connection service.</p></details>
+</div></div></section>
+<section class="section section-soft" id="get-started" style="padding-top:0"><div class="container"><div class="cta-band"><div><h2>Ready to give your projects a home?</h2><p>Start with the basics. Build something useful. Make it yours.</p></div><div class="cta-actions"><a class="btn btn-primary" href="#plans">Compare plans <span aria-hidden="true">→</span></a><a class="btn btn-outline" data-auth-gate="true" href="#/gate?intent=contact&amp;feature=Contact">Talk to ALLEY Cloud</a></div></div></div></section>
+</main>
+<footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a class="brand" href="#/home"><img alt="" class="brand-mark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAEECAMAAAAyDV7GAAABgFBMVEUzl9oAAADR0dDMzMxwqc85oulSothHpuVGndf9/v62w8uRtMwynONVqv+nvMpRquZqt+tuueyKx/B/f/9///+s1/VVq+UAAP8Af/+Qye9ktOoA//+ErcoAqv8/f79VqqpwuupcseoAVapasOrP6PqGxfB7wfB6we/I5foAf38/v78/v/+Z0fSu2PQAAH9WrOWqqv/Y8v0Aqqpdseh7sNKY0fV1uunp6vwAVf8Af79VVap/v7+m1vaq///H3fRcsOlV//97vfe94/m94vharuV/f39gsumhzO4+oeRKo99breR/f79hreB6wvKCvenC2+3Z8///AP8/f/8+nt1Dnt1An+BKpN9mmcxir+Ngr+ZpseF3wO6bvOifyemvz++izvDj1s3u3e7//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADWd3i9AAAAgHRSTlP+AP////7+9P4G/v7+A//Qj29OAgIssAECM6sB/wMEA1C2A8kaZXFUIwIEBDMbApYDFgOR/1A4EwMEAwRNAxl4AwcaK0sCzizQsnIE/4IpJCEBBJ+a/9UFXZH/LRcYEEX/DwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN7gchoAABk4SURBVHja7Z0Fm+O4soatyCRjmJu5p4dpmffsYbjM9P9/xBXYiTGxbMmRs6Nnd6C7M915U/kKVCpp4BALvTq9ZH94Pnk/+Pbl31+F4W8tK/xteDX9h5eDm68miH7af4XAkSyt/W85epxTxpPhYBpapmUYhkeWpmnkN/xXAzP/3WA4IV8299En0HUo+zMC+T1hTAhrJcujtPtDQvnyrBFrhMbj0WhMF1rNfg2gkU9s+X4wtawdjJO0LWt6Ryj7o1qv6ivfp98yufwT/MExOmLQ45OIsmFo1Re27JfErt/woUbj05gwur6fLP7858Vi8cvkGsWEZyenrdJuDfTZA37Kd5iyp/EuwwoH91itq6KejZgZo/vh+WA6DUMLL9OiKwynLwc/DSNn++KxNdgtgR5jaZy8rUM5Zv0Wu8aTKlTGPnO1xAtEjjapRpGztaZv/4XRvqwnS0qCHr8AYIiNWWuwDKuPUe8LQZAfQd7rBai3nX77hFqKbFoAjd5gzBeWpzVcGPU1Rr3rBSXB+dMgrPzOod72/J7Y9XjWddCYzEIAZoZ6gMAD2mHM9xyUt952ek4jG9Rl0KMZQH0xmCmVcFhi1OSDi5peABv2ywWSi1qTbs53zbQ5y8RaXoMXqOD7oLuwwXcyrCsSsPvdBI1OwORCJGaGOmfU4weAzkOj2fvGM0IsTLOzDoLGYdNQnGpsl7VESdIIu8BhU8wR6ruKMaRSoMdEnTUZywsXYI7EO1uM+mohST/kgX4EaGlocpZn3ZIXkrxrXgh1tvhf7iMpRi0N9DMwufI0actg8uETdRL7ctLAZtQZ0J+DhSWRM+ZxdQ++fwEm4t811KhfdQS0jw1Nk7s8C6fkN1JeTeNqAuadAP1MPmdC+qZvyPqnh6JdohTQp21wJpYnT5ysAbj8m+qgz8BTK5zlvoh/Ap+t1AY9As/l+sF2ltUXGuaJB716QOERcMY23QefI4VB+0BantI+aV9d0D4YHAln6hEfVQU9BhNLO5qFo7xTRUHPj0SgY9JPrKSiHOizIxIOVidEL5CCoElkpx3VMpaCHKJY0F+ApacdGemBGNKaWOEYHplBE5meCCmaigQ9ezguTxjJ9BS9QWqB9sGwsSe0lRSPM7VArxobtK2meFzPRiqB9sFdI4O2bUXFA6fiZyqBfkBT7wgxE5NeNE9bxIEeNalCy8NsCviXsT/8Qh3QZ6CvZFJom0JM2lcFNAKorkGbklGbpgCTnqsC2gfnxoEwVDDqpvrRfLNWGOg5qOcK7U7ohzdt2n+gCVOO+zrK0V6s0fCNY903TMS1gypHmyFdM6NuXFsSBXqMpoa65tzc6Xohmh0WNBqNfN//5xf8MYeptb2avLLWpFnSUhc0QmeY78nWQ/y3oTznRlrVVDu0GiZ8dnoy2wK/Xwx/GrycWmpyFqZOTeMOPtDbE9boevHT4NslO/9rGLxdcLZ8zq6uuYFmuqK+k/UaoHZAY7Ggv92f//5thDdz/lehaEN3MGTYczUduoJADxuJdFXQbAIEWuybs6EGZ9PtOYRzD1PGf3wn4ts3FOlKoGd0AgQ674emIaBVVjZn24U9aGpODy+IBaTXc8zmP4DRTKS1KsZMfrlbWoaYfmRbumrEfPHvPccmxGFzqcaRNFhJBD06IYrR55tmckDOekAAE23uscU0pNdcqptth2v7Mb8eXAk8+GRLFmcizL2AwWWLQsd/dfSGO1rnTUR6J2hyJnXSt0SeYLBlizOTC9vZcI5khHwmaFbu+D14JgU00WaCWcn8oUycKVlTC3owRTqgL0AzqW7mDbUd9ThwLRiz1HTQDBhVwnXdS4JmDpF9IKEfvC868Yb/Jxw0egPQQDBmmfbMVIPyTTjCeCU0G9aX6kbeUCs152Eoeq9VYlk0Ug2YdYQR+xT82vrRyBsWgl6dgOul8EN88uobNHLeyAR1hBmbjuPqGHW9lOVbwaDH4k+yyxRoM0g6vsgRZo2afjyh2nX0A3vDlUjQvpw5G5I4my5MW+46K9ApS9/Kdg3UFvryy7obLVoB5+sLozOc9RS93jrvCHvpDLHXQKqtHwmgE7/OkKsc6D+AiYxzr5IcoY1FASajCxv2ykjHGeLGRa65yx3L28V/UMizE//nZqCfyRmDJE2gbZqKwF5BRpiNPHoph0hUhr+wZBhWOL0dPqewT89WtUE/SjocIUs4XC2GB/MZYY42/Xz0BY5JH10PNplsTceIn/qrWqCfgZsucdZ0Ur6IVZllhLtWbPGQ1vLI5kDtmul2jLg/5gftS+IsDzRG9k4znV6iNAp32DRLZtiDgl4D0BHsmDXiAy1tPo+0jFBnWZ9GQjwKEe42acheDBxF00c6TX88yvqJSMiIA7S0Y9wSM28KlspHUOoIUws7RBi9MhvQjXpNMevpLdo/HF9LtCl+lHR4TTZoos44fNShs3fBAD+IhSpb0E2VzTPC/j22alQJ9MxHF0anBHoDGnLuU23CaUfYj2hY/b/uHgGpbQVa1skIWy5o6vwg+Samvn+Rr3O3yaI4W8CoX4PZeC/oUScHTsXSgR2iq2sBZKsHi1aP/mdqrmnmLFrIu84Ib0D5eI8INOrmnI1NCG3aEAfJcK8vxC/I/+ibtCYBWsjbzrqYgLKzn5raR6r2JixxfKxTq+7tTAyjwlKw0Q5HtCPxrFtUotQM9GjWzQE9+sZQg96mOamcM9ulJeafAy2q6EWG0/7dDtDSJnvZbYCGtsk2sXS406bdOMMJcqCFxUZG+AQuy0CPwaKbczb0jfIm2gp2FZVYqSPWdkdGHdezbsBnqBh0s1PchwetR5qRre3nDJrtvsDt10t571mD7bz2FGi/qwYdWaZDgMOEaZd4wk1YEkRlPkfSj2X086Q1ptBel0FvNBeLdXnBIyEsVNNzoG2hpC9XOdCjzho0k44YW+Tuir1h7CpTou5I+8Ew6ZMc6I7G0BvQsSuEO/0h9YTbVt5kmVQK6ez5AK3JWAIlpGPj2mho55Rtg6dtnT1GImgNxx6PadC1xxIoYtEwtbndWxf7Q5hO0Fl2KBN0diCCBuYdHgqo002TYAfRRME/LSQ2lAw60xOpdVk5KOgsWJfZeWk7aVzuC2SD9kKUGKmudVk5WClpXZz/pbjmfKRj61Ay6PSgb+2yuzEHseiNK0xar57dpXU3Kc1mvcOPkww6JdM46ujwmEudZYW79TjKY2A2rF7j/zXZ4jFfbUAvOjy3VcdBRlAQYSQEGRZm5qSP14SyLTopHlqXJRprRGGM4WqpXl5HK/6iQDroxAFyDbztMuigsAss7Q9LskUsOvJBE/FAUXinhkRX2cHO1+Z1vXhTJVnXIH8pLjLZrvznhVPxLyLQlhoaUKHLKM/FLH4gTBpx6Q4XfgFaeGbW9YyatNZXwaDdKpxJ1pHrHXf3tve7ZT2msJUhOHEdT7M6w5k6tUxEZpe397s7U3KWHbaxLEQn1xxmhlT6/e/0qi1IDsAGqfr8OpIKWFpEIkE1LOr/pwdqtVZU2lcC9P5m2wRorLwp0qYblPRDB3HJuXhnHELH1Vt5ftHEvIOD1itS3oDOGaKtu4HjwHSOEvdw5EI7bP1O4Opme8MN2ZjvQ4N2q3Mm3svNveVN1riIf8e44TbxY/4wnRMmEMcPa8cd+ocGbbs9nsWKGDBNWnewCkT8bIZ7o86xUmMzxogZWvwGcPGXuC2aNHGHBwVd2Q1mq0XpyIw17xLRNWPchLZj24Q1/QRDvH0ZgjafNj2sf0jQvJx7+kbR02O/7K0AUculn7Rp75GZtPSNo2z3SRtLcHlI0BxuMN07lyedPnjfY1qycZVu6pONZyvV047DgXa5OWPQ2/pnNq/DUp2K4khwgZ2nk43+2hTnpHYcKjPkdIOJo96bDi9z7ztE12AyQekJmX9XMw3XwsNwdnoZBBVBJx6Xq1XY2TdJDHrziEA/yLP1sHZoB7lRk9sNbvqZnZ1VIdOJ0kBYABpC/VAyaSyAtjhA9S4z/IE3Ndw1oCA1vyMJ+iDinNCOgxT+bT2owZm+8dc9uJt0Uj8SoA8jzol6h9Z+twGNb3W+oAOHECxey04A07UdqLegA1076DIWGvjQNug180mmW0E+YBQWx/UMO7stVai7cVQdg3YOjBmbdF9rvSOMBA4YNSZnr50KqANWziQ1OlqrdzNtA4UQmVQz0IcU523Ool1KO5BVlqgwO3Wokeo7UeOkIxIMPUqgyfF6JyMqJXE6ZKBhcPitDQq67d67LSfmn0rFOhYMW08aPrSziQm0y1Ii/KrAw6tGpGatd5NuMJGj2RR1gVhDGKzNSDCcbBtddkO2dOuPKLoq936aGmi5y9HJhmxErJmCwK0ppwUjM9rODiqZtFLLJB3/C+MABr0BG4l1FChg3xeZ8jqxX5LZZzFhNZNWC/Sq1X7SoHDSUSTWcBPGuc7ORDwt0043QIPTFrWjpAYNaQi32R6B+daA9ASqtABBvRug2zxnWD4AkCYxed9XcjQzM9C1G6Ax6QuvNYOGu/AFFat4dvpfgmY3QDe9or6ZQhfsCFYoTKdjPPXdoUWnG8xacofmzvkwHKCz1q+8O/R+o7EJYe2U/92dOyoVQUOYj/GUd4fGv1LQaNWKSZtw5/aVzrMv7mipOp7q2uGda6A9k3ardm1U2xFPKr7q7tB6zkCjhxZM2oQiQWO1SPahqm3SdIclGsc2tA5s0AQ0105tKsZTu+BB9gw3o3Zll6X3jv/jBJ2p4yntDo0PG9A/z76xDmvQGNW76sLB4sFEgqh0dkj6OuKzyrLFY/90Z13j7F6KNgGg8u7QWIL5dn605Ik/+t62JG7QxIrXiXPI6oImvXfbC7LmUqff7S9j8INmMV6rR3/qKscqMXp+BK7lxXgV5LcGaBbjqe4O6VHD5GUKIzmXCtHl7O9nrAGaxnixe1S24EFPC2WuB1lIIl0lFakDure5GIEO4VYzW7lAD9kLb76WRbpKobkW6O0mAFTVHbL7JrXs1W+T0DiMQcNaoLeNHlDR7BCn36u/5S8l8wGSkCIGPVmgycyeqN8JwndKGvQdO6Kcv55T/LWR1erM+p56dblJky10B6pZ/8cG/VB8ceQICLlpz+bJvhtIB7Fo1qOwdlSs/xvRpLCCq1DRZ+DH5nff2LUsulcnwDPj5mndVNGg5+W3KH9J7gT3BJKucmSFnvSGvAodV5ag4yoZ3eEY+mzHveDjGZg0NWo7XeiofKSeD3SiVopZKxd24KTwbPdN937ji+7NdOkOygAdVf83O5G6csLxMZ5BXwaajJi47jfRDzvjDqEMi9YT+wlQvbrSduxdOWh6l9mwSfZic1Wja4Fep0N0Vz3h8MF+0ABdNtIPk2t/JXsXPVc9Op6CqZhwXKE3qyqgqVH/tb5+pAbFQPGgYWrsnXK1Ds/6JjGpezdogB4BeJrWRM1n0pygYVRPUrfVMSHQ+0Fj1G+IVNcDzWXS2fPHeyNoN+NjA+U4PwMcoAE4m4OvrOYmHQgFnYzslOy/MwYpzlVAgy/Q1Ghu0vvycE7QqchOvY5SHHCcAk7Q9e+GM3lMmoGGXCmhsg2lZJsQ8YJucMYlPcxLpEU72QYGpZIVrBuXCHCCXoHr2vXptEk7+zR3DauNpYG5M3BQqezbGoDPVoAX9Onspn56mDHpcoRwTYenVR0uQTv+oaKnOsllFTPADXoOpg1Am5XycHrS0GYnv51qKWHVc8oHKUF/jgA3aASeN9nZqpK00AEE5JhydIh2r1nnIju1kpVtbZQHtA9umlRL0yYNS08YRobMZg2nz4bvP2eoWvZtTfJX3u8FfdlEOQjBtEnn4DkM87YrNNhr1uvce0Ox7Dt1d1NF0Ah806whL2XSZuZ6H3biPjPKCkYHltmHYZFA6/mWA9VMesQJunnb9B/LVZoO4bELbDdl1hDujOx6hxxoV27Sc07QzU/kl5o0xVwa0LHNVqbWEG7b/HsFJ5nV6+ewnoMxL+hp086DVMVjE/2yiG6dM9kSs06fXMmNxtTUM2mfC/RMxDAPM1tagtGUUBJqwF3HVGKzDja+0rHz1SkFW9BxLA1mPKBX4D+bP4uUeDjMB24jOrhvfGPSrLPFfmU70FkLaXXQYyGzPKx0aSmJucrZbzbiio7+yY2ugoqeqfCW4IEH9NfgVkBvqZ0k7br5iG7/VFJm1m6BcPTWmooLu0PEAfp7MYfEzcygeM5p6DAOQop2xBQ9M2sM0pX/PaA/F3Qm7o8JGjRw5u/PZZWQIK3qUNljb1g7VhyghV0a/m9Vinj7+2UKDFrVg5zmxxTptkAnxcN0aoPOK7Sy5zgzcUdboFOk7aBXRzyKjuWrezI5vsiwbdCptKWeTRe0qjvqngD3wlTK0h7oVDRt1hzx76YmK6nMmV5VgQ4C2mxK2tnukzPOrtrTUD4kWu/aCu/y0TT/BU6Ja1g2ozOVBp3yhntAPxM61aohaTfVda7+CLYBB+jvxY4Pa0Z6TYOO6Jiso/yYTGPJAdoH74We7kyRfgfrR3eO+tO5vWlym2UP6BF4EvuMUqRdXtCu4nl3GvRvkmFHG4X/NOn0GSK+K2eDuK1J6wLoKw7Q4Kz5VtZOm+a4M8uxo+69Lgzm1tguy6rFzdl96gE5ojvls5T6oGVMaUuRDniju6AjnDlBI/CD+HF4GdKwKmi9I26wDmjSTOpJJV3l+PImuoPd4cwL2heya7iHdMWgw+2IG6wR3rEZbTJ+DO6NAGhr6y5xphbN04g+A3IGPPLadCduakql4FOOFJwGeLdyZpYmUhdTr7C0roHu84FeNWv537HslgO1lt8SXNU7STlLYT5+bMv4wAl6PJN3xZNpmkcL2vqBYysrCjym0iZL2/qxksZBxwzwgT6TemuZ2YJ+HEKhjCV4wwlaqklruc684+BMtgy/4wU9Br/Inf8vFfWhHO7z5CZ4NdDgC9l3S8pziofCnJHoiqBH82vZ9+EcW/yRHdhRDXQrl2mZwt3iIaN0Om+eH/TMRxfyry07Iqsm47lBDdBY1+/buJjWNo8kWUzn3xygwasWri2LzfoI7Nr6X4DqgcYvUFu3WtvdR819oDO5e3jShkzHrG270xJi/TBDdUFjmUZXnvZpVTNo3ukG6QRR3s1Dx7Ws61UT0OBLqdWlIzLoAf9glPT6Q1uhR9dj6PmsGWjwnZCrQ47doId5g+YFDR4/6fRezssCztygZd2mdUye8JsZEgCa3Gdx8Yn0Ds5FwlEHNDiTcJvWUYXQj0AMaFL+++QSyzhfIB+JAg3QvPnFQ0ca2VnXuZywAejo4qFPRp0X6AkYA5GgyT/3yairOsImoMGq6cVDx8n5GRANml4R1/TisiPjfFPOuQloevHQdWPUnnc8nL8DckADhFF/xKjrs/KsMDwK0p51V6rPzUFj1Kf4/7tpPdaeYV0MEbKOgvMwc/GKYNAMNZj0Q17WmHI4mADwooWWEfl5ytVfduizGNAE9Qz/8v5lddaeYVhTQhnMfTRGnRcPY4l26oYg0KT+Qb4NmgymlmXsoU0ghy/vfqTedCRs/ulBZeMWlOUpokFjymdUol4PB9N/IrSNXDThYcSGhSEPJog2P41b7DeTKhsTMEegLdAkhxk/0h0cNBnevJ2GoWVqlkWhW5ZmWuHvXg5uFuwnOvETFYHVvMPi4Vn9vbIhGjSF/Or0Mv7j5JfFV1+9H+L1/qvF5Hn0os9OTsezg/SbScF8MQEFt67IB83A+b5/UnCs/MT3z1Bx5tPmpi+RMDHvICMcAnCKwKFARxY9Go38Vz5Zr/zRCKGdW5GtybSH452b/lRA7cCwbhF4Ma5GQyJoLnn/rK3OPmqEeA0vmqH2jHCAQBV1Vgo0QLN2diJJxHuJ32MzkmTVrx3gCPWWYEaga6CxQ/zYQtHVwCHC16z2iH3269uwjlmTysF7jPgZ4nh+yoDGET+6kk3aSGYWI+yv0RCbtcFJObwlOe0j4np66oBugbR1nr4JlhQfcYq1tKpqCKHcX9DKwYzz2SkEmpBeGjLDjWG+E8BnrElNbDdsnNda1sUtTbj8Ef+TUwm0XNLG1Y+FhXnkkwwLPd0uCewC3Kx0EE7/NHxNvv7ZuNZzUwo02amX1ZtjXCDwZWk6y9Kr58Pb/jQMtX/0KHKM19BsI5wu+0NWOnjIJbUdBU06RuT05pBw49XOd5P/hjFE/7VYfLi5GZB1M/z3yfeRqs99HzV4ZoqBBuAETMS7RM+6AbOfK1Qgff+yoHRweeqPVg2fl3KgSW9OX7BRk0LmSVVSs9VoNP6aVg78r89Go9VKyNNSDzQJdJ9EGrVnDVD1VFnWUhA07c25FZUmegYpZI7AJ9CFRj0Dr/sienM8WkPyZ+AT6FKlBs/7VsOysWFc3VUvZP46QdP0+HoQGkZ9Y7aWQ55C5q8UNDkTTXpzlrXMGlO+GnxD3hkr8An0ftRkY/31+dLi23qirTlPJAAez5R5LkqDJgEIuWHj+q5/VRE26RpZDhZU5pFKz0Rx0FSsCWs0Od9fYSO1n/75R1CzwPYrB01ZU4+Gfjjvl7ZCRaZMrPiFcpS7AppAHkVVCLQ4fxtaWhq252FV/kCl4uQMKfkEugKaCja2bHrZNrpeDEIrsaZ3f6HVn9PRTNUf/v8BdcyzMroQtJIAAAAASUVORK5CYII="/><span class="brand-name"><span class="gradient-text">ALLEY</span> <span>Cloud</span></span></a><p>A home for your AI ideas, Raspberry Pi projects, and the websites you want to put into the world.</p></div><div class="footer-col"><h4>Explore</h4><a href="#platform">Platform</a><a href="#ai-demo">AI Studio</a><a href="#raspberry-pi">Pi access</a><a href="#hosting">Website hosting</a></div><div class="footer-col"><h4>Plans</h4><a href="#plans">Free</a><a href="#plans">Plus and Pro</a><a href="#plans">Ultra</a><a href="#plans">Business</a></div><div class="footer-col"><h4>More</h4><a href="#faq">FAQ</a><a href="#/gate?intent=contact&amp;feature=Contact">Contact</a><a href="#faq">Security notes</a></div></div><div class="footer-bottom"><span>© <span id="year"></span> ALLEY Cloud. Brand concept.</span><span class="footer-legal">Demo website only. No user accounts, real API calls, SSH access, billing, domain registration, or hosting provisioning is connected yet.</span></div></div></footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+</section>
+<section id="view-login" class="spa-view" data-view="login">
+<div class="portal-shell">
+<header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,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"/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header>
+<main class="portal-main auth-main">
+<section class="portal-copy auth-copy"><div class="eyebrow">Welcome back</div><h1>Back to your <span class="gradient">cloud.</span></h1><p class="auth-lead">Sign in to continue to your ALLEY Cloud demo dashboard and pick up where your project left off.</p>
+<ul class="benefits auth-feature-list"><li><span class="check">✓</span><span>Your AI workspace and projects in one place.</span></li><li><span class="check">✓</span><span>Access the Raspberry Pi and website tools roadmap.</span></li><li><span class="check">✓</span><span>Pick up with the plan you selected.</span></li></ul>
+<div class="auth-reassurance"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Built around your projects. Start with the free plan.</span></div>
+</section>
+<section aria-labelledby="authTitle" class="portal-card auth-card">
+<div class="card-head"><div class="eyebrow">Member access</div><h2 id="authTitle">Log in</h2><p>Welcome back. Choose a sign-in method to continue.</p><div class="plan-chip" hidden="" id="loginPlanChip"></div></div>
+<div aria-live="polite" class="social-notice" hidden="" id="socialAuthNotice" role="status"></div>
+<div class="social-stack">
+<button class="social-btn google" data-provider="Google" type="button"><svg aria-hidden="true" class="social-icon" viewbox="0 0 48 48"><path d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" fill="#EA4335"></path><path d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.91 46.98 31.78 46.98 24.55z" fill="#4285F4"></path><path d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.88.93 7.55 2.56 10.78l7.97-6.19z" fill="#FBBC05"></path><path d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.9 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" fill="#34A853"></path></svg><span>Continue with Google</span></button>
+<button class="social-btn apple" data-provider="Apple" type="button"><svg aria-hidden="true" class="social-icon" fill="currentColor" viewbox="0 0 24 24"><path d="M16.37 12.43c.02 2.27 1.99 3.03 2.01 3.04-.02.05-.31 1.07-1.03 2.12-.62.9-1.27 1.79-2.29 1.81-1 .02-1.32-.58-2.46-.58s-1.5.56-2.44.6c-.98.04-1.73-.97-2.36-1.87-1.29-1.86-2.27-5.26-.95-7.56.66-1.14 1.83-1.86 3.1-1.88.97-.02 1.89.66 2.46.66.57 0 1.65-.81 2.78-.69.47.02 1.79.19 2.64 1.43-.07.05-1.58.92-1.56 2.92ZM14.54 5.89c.51-.62.85-1.49.76-2.36-.74.03-1.64.49-2.17 1.11-.48.55-.9 1.43-.79 2.27.82.06 1.68-.42 2.2-1.02Z"></path></svg><span>Continue with Apple</span></button>
+</div>
+<div class="social-divider"><span>or continue with email</span></div>
+<div class="alert" id="loginAlert" role="alert"></div>
+<form id="loginForm"><div class="field"><label for="loginEmail">Email address</label><input autocomplete="email" id="loginEmail" name="email" placeholder="you@example.com" required="" type="email"/></div>
+<div class="field"><label for="loginPassword">Password</label><input autocomplete="current-password" id="loginPassword" minlength="8" name="password" placeholder="Your test password" required="" type="password"/></div>
+<button class="btn btn-primary btn-full" type="submit">Log in to demo <span aria-hidden="true">→</span></button></form>
+<p class="auth-switch">New to ALLEY Cloud? <a href="#/signup" id="loginSignupLink">Create an account</a></p>
+<p class="small-note">Demo only: do not enter a password you use anywhere else. This page does not verify credentials or send your password to a server. Google and Apple sign-in are visual previews until OAuth and a backend are configured.</p>
+</section>
+</main>
+<footer class="portal-footer"><span>© <span data-current-year=""></span> ALLEY Cloud · Concept website</span><span>Demo only — no real accounts, API calls, billing, or SSH access.</span></footer>
+</div>
+</section>
+<section id="view-signup" class="spa-view" data-view="signup">
+<div class="portal-shell">
+<header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAEECAMAAAAyDV7GAAABgFBMVEUzl9oAAADR0dDMzMxwqc85oulSothHpuVGndf9/v62w8uRtMwynONVqv+nvMpRquZqt+tuueyKx/B/f/9///+s1/VVq+UAAP8Af/+Qye9ktOoA//+ErcoAqv8/f79VqqpwuupcseoAVapasOrP6PqGxfB7wfB6we/I5foAf38/v78/v/+Z0fSu2PQAAH9WrOWqqv/Y8v0Aqqpdseh7sNKY0fV1uunp6vwAVf8Af79VVap/v7+m1vaq///H3fRcsOlV//97vfe94/m94vharuV/f39gsumhzO4+oeRKo99breR/f79hreB6wvKCvenC2+3Z8///AP8/f/8+nt1Dnt1An+BKpN9mmcxir+Ngr+ZpseF3wO6bvOifyemvz++izvDj1s3u3e7//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADWd3i9AAAAgHRSTlP+AP////7+9P4G/v7+A//Qj29OAgIssAECM6sB/wMEA1C2A8kaZXFUIwIEBDMbApYDFgOR/1A4EwMEAwRNAxl4AwcaK0sCzizQsnIE/4IpJCEBBJ+a/9UFXZH/LRcYEEX/DwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN7gchoAABk4SURBVHja7Z0Fm+O4soatyCRjmJu5p4dpmffsYbjM9P9/xBXYiTGxbMmRs6Nnd6C7M915U/kKVCpp4BALvTq9ZH94Pnk/+Pbl31+F4W8tK/xteDX9h5eDm68miH7af4XAkSyt/W85epxTxpPhYBpapmUYhkeWpmnkN/xXAzP/3WA4IV8299En0HUo+zMC+T1hTAhrJcujtPtDQvnyrBFrhMbj0WhMF1rNfg2gkU9s+X4wtawdjJO0LWt6Ryj7o1qv6ivfp98yufwT/MExOmLQ45OIsmFo1Re27JfErt/woUbj05gwur6fLP7858Vi8cvkGsWEZyenrdJuDfTZA37Kd5iyp/EuwwoH91itq6KejZgZo/vh+WA6DUMLL9OiKwynLwc/DSNn++KxNdgtgR5jaZy8rUM5Zv0Wu8aTKlTGPnO1xAtEjjapRpGztaZv/4XRvqwnS0qCHr8AYIiNWWuwDKuPUe8LQZAfQd7rBai3nX77hFqKbFoAjd5gzBeWpzVcGPU1Rr3rBSXB+dMgrPzOod72/J7Y9XjWddCYzEIAZoZ6gMAD2mHM9xyUt952ek4jG9Rl0KMZQH0xmCmVcFhi1OSDi5peABv2ywWSi1qTbs53zbQ5y8RaXoMXqOD7oLuwwXcyrCsSsPvdBI1OwORCJGaGOmfU4weAzkOj2fvGM0IsTLOzDoLGYdNQnGpsl7VESdIIu8BhU8wR6ruKMaRSoMdEnTUZywsXYI7EO1uM+mohST/kgX4EaGlocpZn3ZIXkrxrXgh1tvhf7iMpRi0N9DMwufI0actg8uETdRL7ctLAZtQZ0J+DhSWRM+ZxdQ++fwEm4t811KhfdQS0jw1Nk7s8C6fkN1JeTeNqAuadAP1MPmdC+qZvyPqnh6JdohTQp21wJpYnT5ysAbj8m+qgz8BTK5zlvoh/Ap+t1AY9As/l+sF2ltUXGuaJB716QOERcMY23QefI4VB+0BantI+aV9d0D4YHAln6hEfVQU9BhNLO5qFo7xTRUHPj0SgY9JPrKSiHOizIxIOVidEL5CCoElkpx3VMpaCHKJY0F+ApacdGemBGNKaWOEYHplBE5meCCmaigQ9ezguTxjJ9BS9QWqB9sGwsSe0lRSPM7VArxobtK2meFzPRiqB9sFdI4O2bUXFA6fiZyqBfkBT7wgxE5NeNE9bxIEeNalCy8NsCviXsT/8Qh3QZ6CvZFJom0JM2lcFNAKorkGbklGbpgCTnqsC2gfnxoEwVDDqpvrRfLNWGOg5qOcK7U7ohzdt2n+gCVOO+zrK0V6s0fCNY903TMS1gypHmyFdM6NuXFsSBXqMpoa65tzc6Xohmh0WNBqNfN//5xf8MYeptb2avLLWpFnSUhc0QmeY78nWQ/y3oTznRlrVVDu0GiZ8dnoy2wK/Xwx/GrycWmpyFqZOTeMOPtDbE9boevHT4NslO/9rGLxdcLZ8zq6uuYFmuqK+k/UaoHZAY7Ggv92f//5thDdz/lehaEN3MGTYczUduoJADxuJdFXQbAIEWuybs6EGZ9PtOYRzD1PGf3wn4ts3FOlKoGd0AgQ674emIaBVVjZn24U9aGpODy+IBaTXc8zmP4DRTKS1KsZMfrlbWoaYfmRbumrEfPHvPccmxGFzqcaRNFhJBD06IYrR55tmckDOekAAE23uscU0pNdcqptth2v7Mb8eXAk8+GRLFmcizL2AwWWLQsd/dfSGO1rnTUR6J2hyJnXSt0SeYLBlizOTC9vZcI5khHwmaFbu+D14JgU00WaCWcn8oUycKVlTC3owRTqgL0AzqW7mDbUd9ThwLRiz1HTQDBhVwnXdS4JmDpF9IKEfvC868Yb/Jxw0egPQQDBmmfbMVIPyTTjCeCU0G9aX6kbeUCs152Eoeq9VYlk0Ug2YdYQR+xT82vrRyBsWgl6dgOul8EN88uobNHLeyAR1hBmbjuPqGHW9lOVbwaDH4k+yyxRoM0g6vsgRZo2afjyh2nX0A3vDlUjQvpw5G5I4my5MW+46K9ApS9/Kdg3UFvryy7obLVoB5+sLozOc9RS93jrvCHvpDLHXQKqtHwmgE7/OkKsc6D+AiYxzr5IcoY1FASajCxv2ykjHGeLGRa65yx3L28V/UMizE//nZqCfyRmDJE2gbZqKwF5BRpiNPHoph0hUhr+wZBhWOL0dPqewT89WtUE/SjocIUs4XC2GB/MZYY42/Xz0BY5JH10PNplsTceIn/qrWqCfgZsucdZ0Ur6IVZllhLtWbPGQ1vLI5kDtmul2jLg/5gftS+IsDzRG9k4znV6iNAp32DRLZtiDgl4D0BHsmDXiAy1tPo+0jFBnWZ9GQjwKEe42acheDBxF00c6TX88yvqJSMiIA7S0Y9wSM28KlspHUOoIUws7RBi9MhvQjXpNMevpLdo/HF9LtCl+lHR4TTZoos44fNShs3fBAD+IhSpb0E2VzTPC/j22alQJ9MxHF0anBHoDGnLuU23CaUfYj2hY/b/uHgGpbQVa1skIWy5o6vwg+Samvn+Rr3O3yaI4W8CoX4PZeC/oUScHTsXSgR2iq2sBZKsHi1aP/mdqrmnmLFrIu84Ib0D5eI8INOrmnI1NCG3aEAfJcK8vxC/I/+ibtCYBWsjbzrqYgLKzn5raR6r2JixxfKxTq+7tTAyjwlKw0Q5HtCPxrFtUotQM9GjWzQE9+sZQg96mOamcM9ulJeafAy2q6EWG0/7dDtDSJnvZbYCGtsk2sXS406bdOMMJcqCFxUZG+AQuy0CPwaKbczb0jfIm2gp2FZVYqSPWdkdGHdezbsBnqBh0s1PchwetR5qRre3nDJrtvsDt10t571mD7bz2FGi/qwYdWaZDgMOEaZd4wk1YEkRlPkfSj2X086Q1ptBel0FvNBeLdXnBIyEsVNNzoG2hpC9XOdCjzho0k44YW+Tuir1h7CpTou5I+8Ew6ZMc6I7G0BvQsSuEO/0h9YTbVt5kmVQK6ez5AK3JWAIlpGPj2mho55Rtg6dtnT1GImgNxx6PadC1xxIoYtEwtbndWxf7Q5hO0Fl2KBN0diCCBuYdHgqo002TYAfRRME/LSQ2lAw60xOpdVk5KOgsWJfZeWk7aVzuC2SD9kKUGKmudVk5WClpXZz/pbjmfKRj61Ay6PSgb+2yuzEHseiNK0xar57dpXU3Kc1mvcOPkww6JdM46ujwmEudZYW79TjKY2A2rF7j/zXZ4jFfbUAvOjy3VcdBRlAQYSQEGRZm5qSP14SyLTopHlqXJRprRGGM4WqpXl5HK/6iQDroxAFyDbztMuigsAss7Q9LskUsOvJBE/FAUXinhkRX2cHO1+Z1vXhTJVnXIH8pLjLZrvznhVPxLyLQlhoaUKHLKM/FLH4gTBpx6Q4XfgFaeGbW9YyatNZXwaDdKpxJ1pHrHXf3tve7ZT2msJUhOHEdT7M6w5k6tUxEZpe397s7U3KWHbaxLEQn1xxmhlT6/e/0qi1IDsAGqfr8OpIKWFpEIkE1LOr/pwdqtVZU2lcC9P5m2wRorLwp0qYblPRDB3HJuXhnHELH1Vt5ftHEvIOD1itS3oDOGaKtu4HjwHSOEvdw5EI7bP1O4Opme8MN2ZjvQ4N2q3Mm3svNveVN1riIf8e44TbxY/4wnRMmEMcPa8cd+ocGbbs9nsWKGDBNWnewCkT8bIZ7o86xUmMzxogZWvwGcPGXuC2aNHGHBwVd2Q1mq0XpyIw17xLRNWPchLZj24Q1/QRDvH0ZgjafNj2sf0jQvJx7+kbR02O/7K0AUculn7Rp75GZtPSNo2z3SRtLcHlI0BxuMN07lyedPnjfY1qycZVu6pONZyvV047DgXa5OWPQ2/pnNq/DUp2K4khwgZ2nk43+2hTnpHYcKjPkdIOJo96bDi9z7ztE12AyQekJmX9XMw3XwsNwdnoZBBVBJx6Xq1XY2TdJDHrziEA/yLP1sHZoB7lRk9sNbvqZnZ1VIdOJ0kBYABpC/VAyaSyAtjhA9S4z/IE3Ndw1oCA1vyMJ+iDinNCOgxT+bT2owZm+8dc9uJt0Uj8SoA8jzol6h9Z+twGNb3W+oAOHECxey04A07UdqLegA1076DIWGvjQNug180mmW0E+YBQWx/UMO7stVai7cVQdg3YOjBmbdF9rvSOMBA4YNSZnr50KqANWziQ1OlqrdzNtA4UQmVQz0IcU523Ool1KO5BVlqgwO3Wokeo7UeOkIxIMPUqgyfF6JyMqJXE6ZKBhcPitDQq67d67LSfmn0rFOhYMW08aPrSziQm0y1Ii/KrAw6tGpGatd5NuMJGj2RR1gVhDGKzNSDCcbBtddkO2dOuPKLoq936aGmi5y9HJhmxErJmCwK0ppwUjM9rODiqZtFLLJB3/C+MABr0BG4l1FChg3xeZ8jqxX5LZZzFhNZNWC/Sq1X7SoHDSUSTWcBPGuc7ORDwt0043QIPTFrWjpAYNaQi32R6B+daA9ASqtABBvRug2zxnWD4AkCYxed9XcjQzM9C1G6Ax6QuvNYOGu/AFFat4dvpfgmY3QDe9or6ZQhfsCFYoTKdjPPXdoUWnG8xacofmzvkwHKCz1q+8O/R+o7EJYe2U/92dOyoVQUOYj/GUd4fGv1LQaNWKSZtw5/aVzrMv7mipOp7q2uGda6A9k3ardm1U2xFPKr7q7tB6zkCjhxZM2oQiQWO1SPahqm3SdIclGsc2tA5s0AQ0105tKsZTu+BB9gw3o3Zll6X3jv/jBJ2p4yntDo0PG9A/z76xDmvQGNW76sLB4sFEgqh0dkj6OuKzyrLFY/90Z13j7F6KNgGg8u7QWIL5dn605Ik/+t62JG7QxIrXiXPI6oImvXfbC7LmUqff7S9j8INmMV6rR3/qKscqMXp+BK7lxXgV5LcGaBbjqe4O6VHD5GUKIzmXCtHl7O9nrAGaxnixe1S24EFPC2WuB1lIIl0lFakDure5GIEO4VYzW7lAD9kLb76WRbpKobkW6O0mAFTVHbL7JrXs1W+T0DiMQcNaoLeNHlDR7BCn36u/5S8l8wGSkCIGPVmgycyeqN8JwndKGvQdO6Kcv55T/LWR1erM+p56dblJky10B6pZ/8cG/VB8ceQICLlpz+bJvhtIB7Fo1qOwdlSs/xvRpLCCq1DRZ+DH5nff2LUsulcnwDPj5mndVNGg5+W3KH9J7gT3BJKucmSFnvSGvAodV5ag4yoZ3eEY+mzHveDjGZg0NWo7XeiofKSeD3SiVopZKxd24KTwbPdN937ji+7NdOkOygAdVf83O5G6csLxMZ5BXwaajJi47jfRDzvjDqEMi9YT+wlQvbrSduxdOWh6l9mwSfZic1Wja4Fep0N0Vz3h8MF+0ABdNtIPk2t/JXsXPVc9Op6CqZhwXKE3qyqgqVH/tb5+pAbFQPGgYWrsnXK1Ds/6JjGpezdogB4BeJrWRM1n0pygYVRPUrfVMSHQ+0Fj1G+IVNcDzWXS2fPHeyNoN+NjA+U4PwMcoAE4m4OvrOYmHQgFnYzslOy/MwYpzlVAgy/Q1Ghu0vvycE7QqchOvY5SHHCcAk7Q9e+GM3lMmoGGXCmhsg2lZJsQ8YJucMYlPcxLpEU72QYGpZIVrBuXCHCCXoHr2vXptEk7+zR3DauNpYG5M3BQqezbGoDPVoAX9Onspn56mDHpcoRwTYenVR0uQTv+oaKnOsllFTPADXoOpg1Am5XycHrS0GYnv51qKWHVc8oHKUF/jgA3aASeN9nZqpK00AEE5JhydIh2r1nnIju1kpVtbZQHtA9umlRL0yYNS08YRobMZg2nz4bvP2eoWvZtTfJX3u8FfdlEOQjBtEnn4DkM87YrNNhr1uvce0Ox7Dt1d1NF0Ah806whL2XSZuZ6H3biPjPKCkYHltmHYZFA6/mWA9VMesQJunnb9B/LVZoO4bELbDdl1hDujOx6hxxoV27Sc07QzU/kl5o0xVwa0LHNVqbWEG7b/HsFJ5nV6+ewnoMxL+hp086DVMVjE/2yiG6dM9kSs06fXMmNxtTUM2mfC/RMxDAPM1tagtGUUBJqwF3HVGKzDja+0rHz1SkFW9BxLA1mPKBX4D+bP4uUeDjMB24jOrhvfGPSrLPFfmU70FkLaXXQYyGzPKx0aSmJucrZbzbiio7+yY2ugoqeqfCW4IEH9NfgVkBvqZ0k7br5iG7/VFJm1m6BcPTWmooLu0PEAfp7MYfEzcygeM5p6DAOQop2xBQ9M2sM0pX/PaA/F3Qm7o8JGjRw5u/PZZWQIK3qUNljb1g7VhyghV0a/m9Vinj7+2UKDFrVg5zmxxTptkAnxcN0aoPOK7Sy5zgzcUdboFOk7aBXRzyKjuWrezI5vsiwbdCptKWeTRe0qjvqngD3wlTK0h7oVDRt1hzx76YmK6nMmV5VgQ4C2mxK2tnukzPOrtrTUD4kWu/aCu/y0TT/BU6Ja1g2ozOVBp3yhntAPxM61aohaTfVda7+CLYBB+jvxY4Pa0Z6TYOO6Jiso/yYTGPJAdoH74We7kyRfgfrR3eO+tO5vWlym2UP6BF4EvuMUqRdXtCu4nl3GvRvkmFHG4X/NOn0GSK+K2eDuK1J6wLoKw7Q4Kz5VtZOm+a4M8uxo+69Lgzm1tguy6rFzdl96gE5ojvls5T6oGVMaUuRDniju6AjnDlBI/CD+HF4GdKwKmi9I26wDmjSTOpJJV3l+PImuoPd4cwL2heya7iHdMWgw+2IG6wR3rEZbTJ+DO6NAGhr6y5xphbN04g+A3IGPPLadCduakql4FOOFJwGeLdyZpYmUhdTr7C0roHu84FeNWv537HslgO1lt8SXNU7STlLYT5+bMv4wAl6PJN3xZNpmkcL2vqBYysrCjym0iZL2/qxksZBxwzwgT6TemuZ2YJ+HEKhjCV4wwlaqklruc684+BMtgy/4wU9Br/Inf8vFfWhHO7z5CZ4NdDgC9l3S8pziofCnJHoiqBH82vZ9+EcW/yRHdhRDXQrl2mZwt3iIaN0Om+eH/TMRxfyry07Iqsm47lBDdBY1+/buJjWNo8kWUzn3xygwasWri2LzfoI7Nr6X4DqgcYvUFu3WtvdR819oDO5e3jShkzHrG270xJi/TBDdUFjmUZXnvZpVTNo3ukG6QRR3s1Dx7Ws61UT0OBLqdWlIzLoAf9glPT6Q1uhR9dj6PmsGWjwnZCrQ47doId5g+YFDR4/6fRezssCztygZd2mdUye8JsZEgCa3Gdx8Yn0Ds5FwlEHNDiTcJvWUYXQj0AMaFL+++QSyzhfIB+JAg3QvPnFQ0ca2VnXuZywAejo4qFPRp0X6AkYA5GgyT/3yairOsImoMGq6cVDx8n5GRANml4R1/TisiPjfFPOuQloevHQdWPUnnc8nL8DckADhFF/xKjrs/KsMDwK0p51V6rPzUFj1Kf4/7tpPdaeYV0MEbKOgvMwc/GKYNAMNZj0Q17WmHI4mADwooWWEfl5ytVfduizGNAE9Qz/8v5lddaeYVhTQhnMfTRGnRcPY4l26oYg0KT+Qb4NmgymlmXsoU0ghy/vfqTedCRs/ulBZeMWlOUpokFjymdUol4PB9N/IrSNXDThYcSGhSEPJog2P41b7DeTKhsTMEegLdAkhxk/0h0cNBnevJ2GoWVqlkWhW5ZmWuHvXg5uFuwnOvETFYHVvMPi4Vn9vbIhGjSF/Or0Mv7j5JfFV1+9H+L1/qvF5Hn0os9OTsezg/SbScF8MQEFt67IB83A+b5/UnCs/MT3z1Bx5tPmpi+RMDHvICMcAnCKwKFARxY9Go38Vz5Zr/zRCKGdW5GtybSH452b/lRA7cCwbhF4Ma5GQyJoLnn/rK3OPmqEeA0vmqH2jHCAQBV1Vgo0QLN2diJJxHuJ32MzkmTVrx3gCPWWYEaga6CxQ/zYQtHVwCHC16z2iH3269uwjlmTysF7jPgZ4nh+yoDGET+6kk3aSGYWI+yv0RCbtcFJObwlOe0j4np66oBugbR1nr4JlhQfcYq1tKpqCKHcX9DKwYzz2SkEmpBeGjLDjWG+E8BnrElNbDdsnNda1sUtTbj8Ef+TUwm0XNLG1Y+FhXnkkwwLPd0uCewC3Kx0EE7/NHxNvv7ZuNZzUwo02amX1ZtjXCDwZWk6y9Kr58Pb/jQMtX/0KHKM19BsI5wu+0NWOnjIJbUdBU06RuT05pBw49XOd5P/hjFE/7VYfLi5GZB1M/z3yfeRqs99HzV4ZoqBBuAETMS7RM+6AbOfK1Qgff+yoHRweeqPVg2fl3KgSW9OX7BRk0LmSVVSs9VoNP6aVg78r89Go9VKyNNSDzQJdJ9EGrVnDVD1VFnWUhA07c25FZUmegYpZI7AJ9CFRj0Dr/sienM8WkPyZ+AT6FKlBs/7VsOysWFc3VUvZP46QdP0+HoQGkZ9Y7aWQ55C5q8UNDkTTXpzlrXMGlO+GnxD3hkr8An0ftRkY/31+dLi23qirTlPJAAez5R5LkqDJgEIuWHj+q5/VRE26RpZDhZU5pFKz0Rx0FSsCWs0Od9fYSO1n/75R1CzwPYrB01ZU4+Gfjjvl7ZCRaZMrPiFcpS7AppAHkVVCLQ4fxtaWhq252FV/kCl4uQMKfkEugKaCja2bHrZNrpeDEIrsaZ3f6HVn9PRTNUf/v8BdcyzMroQtJIAAAAASUVORK5CYII="/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header>
+<main class="portal-main auth-main">
+<section class="portal-copy auth-copy"><div class="eyebrow">Get started for free</div><h1>Your projects deserve a <span class="gradient">home.</span></h1><p class="auth-lead">Create your ALLEY Cloud account to continue to the AI workspace, Raspberry Pi tools, website hosting, or the plan you selected.</p>
+<ul class="benefits auth-feature-list"><li><span class="check">✓</span><span>One place for AI, your home server, and websites.</span></li><li><span class="check">✓</span><span>Start with Free and upgrade when you’re ready.</span></li><li><span class="check">✓</span><span>Your selected plan follows you into the dashboard.</span></li></ul>
+<div class="auth-reassurance"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Built around your projects. Start with the free plan.</span></div>
+</section>
+<section aria-labelledby="authTitle" class="portal-card auth-card">
+<div class="card-head"><div class="eyebrow">Create your account</div><h2 id="authTitle">Join ALLEY Cloud</h2><p>Sign up to preview your own ALLEY Cloud workspace.</p><div class="plan-chip" hidden="" id="signupPlanChip"></div></div>
+<div aria-live="polite" class="social-notice" hidden="" id="socialAuthNotice" role="status"></div>
+<div class="social-stack">
+<button class="social-btn google" data-provider="Google" type="button"><svg aria-hidden="true" class="social-icon" viewbox="0 0 48 48"><path d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" fill="#EA4335"></path><path d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.91 46.98 31.78 46.98 24.55z" fill="#4285F4"></path><path d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.88.93 7.55 2.56 10.78l7.97-6.19z" fill="#FBBC05"></path><path d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.9 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" fill="#34A853"></path></svg><span>Sign up with Google</span></button>
+<button class="social-btn apple" data-provider="Apple" type="button"><svg aria-hidden="true" class="social-icon" fill="currentColor" viewbox="0 0 24 24"><path d="M16.37 12.43c.02 2.27 1.99 3.03 2.01 3.04-.02.05-.31 1.07-1.03 2.12-.62.9-1.27 1.79-2.29 1.81-1 .02-1.32-.58-2.46-.58s-1.5.56-2.44.6c-.98.04-1.73-.97-2.36-1.87-1.29-1.86-2.27-5.26-.95-7.56.66-1.14 1.83-1.86 3.1-1.88.97-.02 1.89.66 2.46.66.57 0 1.65-.81 2.78-.69.47.02 1.79.19 2.64 1.43-.07.05-1.58.92-1.56 2.92ZM14.54 5.89c.51-.62.85-1.49.76-2.36-.74.03-1.64.49-2.17 1.11-.48.55-.9 1.43-.79 2.27.82.06 1.68-.42 2.2-1.02Z"></path></svg><span>Sign up with Apple</span></button>
+</div>
+<div class="social-divider"><span>or continue with email</span></div>
+<div class="alert" id="signupAlert" role="alert"></div>
+<form id="signupForm"><div class="field"><label for="signupName">Your name</label><input autocomplete="name" id="signupName" minlength="2" name="name" placeholder="Alex Morgan" required=""/></div>
+<div class="field"><label for="signupEmail">Email address</label><input autocomplete="email" id="signupEmail" name="email" placeholder="you@example.com" required="" type="email"/></div>
+<div class="field"><label for="signupPassword">Password</label><input autocomplete="new-password" id="signupPassword" minlength="8" name="password" placeholder="At least 8 characters" required="" type="password"/></div>
+<div class="field"><label for="signupConfirm">Confirm password</label><input autocomplete="new-password" id="signupConfirm" minlength="8" name="confirm" placeholder="Type it again" required="" type="password"/></div>
+<button class="btn btn-primary btn-full" type="submit">Create demo account <span aria-hidden="true">→</span></button></form>
+<p class="auth-switch">Already have an account? <a href="#/login" id="signupLoginLink">Log in</a></p>
+<p class="small-note">Demo only: do not enter a password you use anywhere else. This local prototype does not create a secure account or send credentials to a server. Google and Apple sign-in are visual previews until OAuth and a backend are configured.</p>
+</section>
+</main>
+<footer class="portal-footer"><span>© <span data-current-year=""></span> ALLEY Cloud · Concept website</span><span>Demo only — no real accounts, API calls, billing, or SSH access.</span></footer>
+</div>
+</section>
+<section id="view-account" class="spa-view" data-view="account">
+<div class="portal-shell"><header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,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"/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header><main class="dash-main"><div class="dash-header"><div><div class="eyebrow">Your workspace</div><h1>Welcome, <span class="gradient" id="dashName">maker</span>.</h1><p>This is your ALLEY Cloud account dashboard preview. Choose a tool to explore the concept or return to the plan you selected.</p><div class="plan-chip" id="dashPlan">Selected plan: Free · demo only</div></div><button class="btn btn-outline" id="signOutBtn" type="button">Sign out</button></div><div class="warning-note"><strong>Demo dashboard only.</strong> No plan is purchased or activated here. Gemini chat, SSH connectivity, domain routing, and web hosting require backend services before they can work for real.</div><div class="dash-grid"><article class="dash-tile"><div class="tile-icon">✦</div><div class="muted-label">AI workspace</div><h2>Gemini AI Studio</h2><p>Get help with coding, Linux, Raspberry Pi projects, and planning your next build.</p><a class="btn btn-primary" href="#/home?scroll=ai-demo">Continue to AI →</a></article><article class="dash-tile"><div class="tile-icon">⌘</div><div class="muted-label">Home server</div><h2>Raspberry Pi access</h2><p>A future secure connection to your home Pi, with terminal sessions and device status.</p><a class="btn btn-primary" href="#/home?scroll=raspberry-pi">View Pi tools →</a></article><article class="dash-tile"><div class="tile-icon">◎</div><div class="muted-label">Websites</div><h2>Your website projects</h2><p>Plan a hosted site, ALLEY Cloud subdomain, or a custom domain connection.</p><a class="btn btn-primary" href="#/home?scroll=hosting">View hosting →</a></article></div><div class="dash-actions"><a class="btn btn-outline" href="#/home?scroll=plans">Compare plans</a><a class="btn btn-outline" href="#/home">Back to home</a></div></main><footer class="portal-footer"><span>© <span data-current-year=""></span> ALLEY Cloud · Concept website</span><span>Demo only — no real accounts, API calls, billing, or SSH access.</span></footer></div>
+</section>
+<section id="view-gate" class="spa-view" data-view="gate">
+<div class="portal-shell"><header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,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"/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header><main class="portal-main">
+<section class="portal-copy"><div class="eyebrow">One account, all your projects</div><h1>Make ALLEY Cloud <span class="gradient">yours.</span></h1><p id="gateMessage">Create a free account or sign in to continue. Your account will keep your AI workspace, Raspberry Pi connections, websites, and plan in one place.</p><ul class="benefits"><li><span class="check">✓</span><span>Keep your cloud tools together in one workspace.</span></li><li><span class="check">✓</span><span>Explore your selected plan and project features.</span></li><li><span class="check">✓</span><span>Start with a free account before upgrading.</span></li></ul></section>
+<section class="portal-card"><div class="card-head"><div class="eyebrow">Account required</div><h2 id="gateTitle">Sign up or log in</h2><p id="gateSubtitle">It only takes a moment in this demo.</p><div class="plan-chip" hidden="" id="gateChip"></div></div><div class="quote-box" id="gateReason">To continue, create an account or sign in first. You can come back to the item you selected after signing in.</div><div class="gate-actions"><a class="btn btn-primary" href="#/signup" id="gateSignup">Create account</a><a class="btn btn-outline" href="#/login" id="gateLogin">Log in</a></div><p class="small-note">Demo notice: these pages simulate an account flow in this browser only. They do not create a secure account or activate a subscription.</p></section>
+</main><footer class="portal-footer"><span>© <span data-current-year=""></span> ALLEY Cloud · Concept website</span><span>Demo only — no real accounts, API calls, billing, or SSH access.</span></footer></div>
+</section>
+<script>
+(() => {
+  'use strict';
+  const views = ['home','login','signup','account','gate'];
+  const keys = ['alleyCloudDemoSignedIn','alleyCloudDemoEmail','alleyCloudDemoName','alleyCloudDemoPlan','alleyCloudDemoFeature'];
+  const safe = (v, max=100) => String(v || '').replace(/[<>]/g, '').slice(0, max);
+  const readSession = (k, fallback='') => { try { return sessionStorage.getItem(k) || fallback; } catch (_) { return fallback; } };
+  const writeSession = (k,v) => { try { sessionStorage.setItem(k,String(v)); } catch (_) {} };
+  const removeSession = (k) => { try { sessionStorage.removeItem(k); } catch (_) {} };
+  function getRoute() {
+    const h = location.hash || '';
+    if (!h.startsWith('#/')) return {view:'home', params:new URLSearchParams(), scroll:h.startsWith('#') ? h.slice(1) : ''};
+    const u = new URL('https://alley.local/' + h.slice(2));
+    let view = u.pathname.replace(/^\//,'') || 'home';
+    if (!views.includes(view)) view = 'home';
+    return {view, params:u.searchParams, scroll:u.searchParams.get('scroll') || ''};
+  }
+  function go(view, params={}, replace=false) {
+    const q = new URLSearchParams();
+    Object.entries(params || {}).forEach(([k,v]) => { if (v !== undefined && v !== null && String(v) !== '') q.set(k,String(v)); });
+    const hash = '#/' + view + (q.size ? '?' + q.toString() : '');
+    if (location.hash === hash) render();
+    else if (replace) history.replaceState(null,'',hash);
+    else location.hash = hash;
+  }
+  function sharedParams(route) {
+    const q = route.params;
+    return {
+      plan: safe(q.get('plan') || readSession('alleyCloudDemoPlan','Free'),48),
+      feature: safe(q.get('feature') || readSession('alleyCloudDemoFeature',''),80),
+      intent: safe(q.get('intent') || 'start',24)
+    };
+  }
+  function routeHref(view, extras={}) {
+    const r=getRoute(), p=sharedParams(r), out={plan:p.plan,feature:p.feature,intent:p.intent,...extras};
+    if (String(out.plan).toLowerCase()==='free' && view!=='gate') delete out.plan;
+    Object.keys(out).forEach(k=>{ if (!out[k]) delete out[k]; });
+    const q=new URLSearchParams(out);
+    return '#/'+view+(q.size?'?'+q.toString():'');
+  }
+  function updateYears(root) {
+    root.querySelectorAll('[data-current-year], #year').forEach(el => el.textContent = new Date().getFullYear());
+  }
+  function configureGate(route) {
+    const root=document.getElementById('view-gate'), p=sharedParams(route);
+    const title=root.querySelector('#gateTitle'), subtitle=root.querySelector('#gateSubtitle'), message=root.querySelector('#gateMessage'), reason=root.querySelector('#gateReason'), chip=root.querySelector('#gateChip');
+    const descriptions={buy:'Before choosing a plan, create a free account or log in. Your selected plan will carry through to your dashboard.',learn:'Create a free account or log in to continue to this feature.',use:'Sign up or log in before using this workspace tool.',contact:'Create an account or log in so your support request can be associated with a workspace.',dashboard:'Sign in to open your ALLEY Cloud dashboard.',start:'Create a free account or log in to continue.'};
+    const headlines={buy:'Choose your plan',learn:'Unlock more details',use:'Your workspace is waiting',contact:'Let’s get you connected',dashboard:'Your dashboard is private',start:'Continue to ALLEY Cloud'};
+    if(title) title.textContent=headlines[p.intent]||headlines.start;
+    if(subtitle) subtitle.textContent=p.feature?'Requested: '+p.feature:'Account required';
+    if(message) message.textContent=descriptions[p.intent]||descriptions.start;
+    if(reason) reason.textContent=(p.intent==='buy'?'You selected the '+p.plan+' plan. Sign up or log in first; checkout is not connected in this demo. ':'')+(p.feature?'Next step: '+p.feature+'. ':'')+'Your selection will be remembered for this demo session.';
+    if(chip){chip.hidden=!(p.plan||p.feature);chip.textContent=(p.plan?'Plan: '+p.plan:'')+(p.feature?(p.plan?' · ':'')+p.feature:'');}
+    const signup=root.querySelector('#gateSignup'), login=root.querySelector('#gateLogin');
+    if(signup) signup.href=routeHref('signup');
+    if(login) login.href=routeHref('login');
+    updateYears(root);
+  }
+  function configureAuth(view, route) {
+    const root=document.getElementById('view-'+view), p=sharedParams(route);
+    const chip=root.querySelector(view==='login'?'#loginPlanChip':'#signupPlanChip');
+    if(chip){chip.hidden=!(p.plan||p.feature);chip.textContent=(p.plan?'Selected plan: '+p.plan:'')+(p.feature?' · '+p.feature:'')+' · demo only';}
+    const switchLink=root.querySelector(view==='login'?'#loginSignupLink':'#signupLoginLink');
+    if(switchLink) switchLink.href=routeHref(view==='login'?'signup':'login');
+    root.querySelectorAll('[data-provider]').forEach(button=>{
+      if(button.dataset.bound==='1') return;
+      button.dataset.bound='1';
+      button.addEventListener('click',()=>{
+        const notice=root.querySelector('#socialAuthNotice');
+        if(notice){notice.hidden=false;notice.textContent=button.dataset.provider+' sign-in is a preview and is not connected. Real '+button.dataset.provider+' authentication requires OAuth credentials and a secure backend. You have not been signed in.';}
+      });
+    });
+    updateYears(root);
+  }
+  function configureAccount() {
+    const root=document.getElementById('view-account');
+    const name=readSession('alleyCloudDemoName','maker'), plan=readSession('alleyCloudDemoPlan','Free');
+    const dn=root.querySelector('#dashName'), dp=root.querySelector('#dashPlan');
+    if(dn) dn.textContent=name.split(' ')[0]||'maker';
+    if(dp) dp.textContent='Selected plan: '+plan+' · demo only';
+    updateYears(root);
+  }
+  function render() {
+    const route=getRoute();
+    if(route.view==='account' && readSession('alleyCloudDemoSignedIn')!=='1') { go('gate',{intent:'dashboard'},true); return; }
+    document.querySelectorAll('.spa-view').forEach(v=>v.classList.toggle('active',v.dataset.view===route.view));
+    document.title = ({home:'ALLEY Cloud — Your AI. Your Pi. Your corner of the web.',login:'Log in | ALLEY Cloud',signup:'Create an account | ALLEY Cloud',account:'Your workspace | ALLEY Cloud',gate:'Account required | ALLEY Cloud'})[route.view] || 'ALLEY Cloud';
+    if(route.view==='gate') configureGate(route);
+    if(route.view==='login'||route.view==='signup') configureAuth(route.view,route);
+    if(route.view==='account') configureAccount();
+    if(route.view==='home') updateYears(document.getElementById('view-home'));
+    window.scrollTo({top:0,behavior:'auto'});
+    if(route.view==='home') {
+      const target=route.scroll || route.params.get('scroll');
+      if(target && target!=='home') requestAnimationFrame(()=>{const el=document.getElementById(target); if(el) el.scrollIntoView({behavior:'smooth',block:'start'});});
+    }
+  }
+  window.addEventListener('hashchange',render);
+  document.addEventListener('click',event=>{
+    const link=event.target.closest('a[href]');
+    if(!link) return;
+    const href=link.getAttribute('href')||'';
+    if(href.startsWith('#/')) { event.preventDefault(); location.hash=href.slice(1); return; }
+    const route=getRoute();
+    if(route.view==='home' && link.matches('[data-auth-gate]')) { event.preventDefault(); const u=new URL(link.href,location.href); const fileQ=href.includes('?')?href.split('?')[1]:''; const p=new URLSearchParams(fileQ); go('gate',{intent:p.get('intent')||'learn',plan:p.get('plan')||'Free',feature:p.get('feature')||''}); }
+  });
+
+  // Home-page behavior: interactive previews are demos; gated actions request an account.
+  const home=document.getElementById('view-home');
+  const toast=home.querySelector('#toast'); let toastTimer;
+  function notify(message){ if(!toast) return; toast.innerHTML=message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('show'),4200); }
+  const menuToggle=home.querySelector('#menuToggle'), navLinks=home.querySelector('#navLinks');
+  if(menuToggle&&navLinks){menuToggle.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close navigation':'Open navigation');});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');}));}
+  home.querySelectorAll('[data-action="signin"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();go('login');}));
+  home.querySelectorAll('[data-action="contact"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();go('gate',{intent:'contact',feature:'Contact'});}));
+  home.querySelectorAll('[data-plan-cta]').forEach(button=>button.addEventListener('click',()=>{const plan=button.dataset.planCta||'Free';writeSession('alleyCloudDemoPlan',plan);go('gate',{intent:'buy',plan,feature:plan+' plan'});}));
+  const chatForm=home.querySelector('#demoChatForm'), chatInput=home.querySelector('#chatPrompt'), chat=home.querySelector('#demoChat');
+  const replies=[
+    'A good first step is to break the project into small pieces. Tell me what hardware or software you already have, and I can help outline a safe setup.',
+    'For a Raspberry Pi project, start by checking the OS, network connection, and what service you want to run. Keep SSH keys private and avoid exposing ports until the security plan is ready.',
+    'You can prototype that with a small HTML page first, then add a Python or Node backend if it needs accounts, API calls, or saved data. Secrets and authorization belong on the backend.',
+    'That sounds doable. I would make a checklist, get one small version working, and test it before opening it to the public internet. Backups and updates are worth planning from the beginning.'
+  ];let replyIdx=0;
+  function addMessage(text,who){const wrap=document.createElement('div');wrap.className='message'+(who==='user'?' user':'');const avatar=document.createElement('div');avatar.className='message-icon';avatar.textContent=who==='user'?'YOU':'A';const bubble=document.createElement('div');bubble.className='message-text';bubble.textContent=text;wrap.append(avatar,bubble);chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;}
+  if(chatForm&&chatInput&&chat){chatForm.addEventListener('submit',e=>{e.preventDefault();const value=chatInput.value.trim();if(!value)return;addMessage(value,'user');chatInput.value='';const answer=replies[replyIdx++%replies.length];setTimeout(()=>addMessage(answer,'ai'),220);});chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();chatForm.requestSubmit();}});}
+  const termForm=home.querySelector('#termForm'), termInput=home.querySelector('#termCommand'), termBody=home.querySelector('#termBody');
+  const commands={help:'Available demo commands: help, ls, whoami, hostname, pwd, date, uptime',ls:'projects/  public/  README.md  index.html',whoami:'alley',hostname:'raspberrypi (example output)',pwd:'/home/alley (example output)',date:new Date().toString(),uptime:'up 3 days, 4 hours (example output)'};
+  if(termForm&&termInput&&termBody){termForm.addEventListener('submit',e=>{e.preventDefault();const raw=termInput.value.trim();const cmd=raw.split(/\s+/)[0].toLowerCase();if(!cmd)return;const prompt=document.createElement('span');prompt.className='term-line';const p=document.createElement('span');p.className='term-prompt';p.textContent='alley@raspberrypi';const c=document.createElement('span');c.className='term-command';c.textContent=':~ $ '+raw;prompt.append(p,c);termBody.appendChild(prompt);const output=document.createElement('span');output.className='term-line term-output';output.textContent=commands[cmd]||'Command not available in the simulated terminal. Try: help';termBody.appendChild(output);termInput.value='';termBody.scrollTop=termBody.scrollHeight;});}
+
+  // Email/password demo forms are local-only; real credentials are not saved or transmitted.
+  const loginRoot=document.getElementById('view-login');
+  const loginForm=loginRoot.querySelector('#loginForm');
+  if(loginForm) loginForm.addEventListener('submit',e=>{e.preventDefault();const alert=loginRoot.querySelector('#loginAlert');alert.classList.remove('show');alert.textContent='';const email=loginRoot.querySelector('#loginEmail').value.trim(),pass=loginRoot.querySelector('#loginPassword').value;if(pass.length<8){alert.textContent='Enter a demo password with at least 8 characters.';alert.classList.add('show');return;}const p=sharedParams(getRoute());writeSession('alleyCloudDemoSignedIn','1');writeSession('alleyCloudDemoEmail',email);writeSession('alleyCloudDemoName',email.split('@')[0]||'maker');writeSession('alleyCloudDemoPlan',p.plan||'Free');writeSession('alleyCloudDemoFeature',p.feature);go('account');});
+  const signupRoot=document.getElementById('view-signup');
+  const signupForm=signupRoot.querySelector('#signupForm');
+  if(signupForm) signupForm.addEventListener('submit',e=>{e.preventDefault();const alert=signupRoot.querySelector('#signupAlert');alert.classList.remove('show');alert.textContent='';const name=signupRoot.querySelector('#signupName').value.trim(),email=signupRoot.querySelector('#signupEmail').value.trim(),pass=signupRoot.querySelector('#signupPassword').value,confirm=signupRoot.querySelector('#signupConfirm').value;if(pass.length<8){alert.textContent='Use a demo password with at least 8 characters.';alert.classList.add('show');return;}if(pass!==confirm){alert.textContent='Those passwords do not match. Try again.';alert.classList.add('show');return;}const p=sharedParams(getRoute());writeSession('alleyCloudDemoSignedIn','1');writeSession('alleyCloudDemoEmail',email);writeSession('alleyCloudDemoName',name||'maker');writeSession('alleyCloudDemoPlan',p.plan||'Free');writeSession('alleyCloudDemoFeature',p.feature);go('account');});
+  const signOut=document.getElementById('view-account').querySelector('#signOutBtn');
+  if(signOut) signOut.addEventListener('click',()=>{keys.forEach(removeSession);go('home');});
+
+  // The existing files used normal page URLs; this one-file version uses internal routes.
+  // If opened with a direct subpage query fragment, this initialization will show that view.
+  render();
+})();
+</script>
+</body>
+</html>
