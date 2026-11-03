@@ -1,0 +1,7 @@
+project_id = "bxehulzsshctpujelush"
+
+[functions.redeem-promo]
+verify_jwt = true
+
+[functions.get-current-promo-code]
+verify_jwt = true
