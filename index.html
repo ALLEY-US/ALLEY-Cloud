@@ -1078,7 +1078,7 @@ body { margin:0; min-height:100vh; background:#fff; }
 
 </head>
 <body>
-<span id="alley-site-version" aria-label="ALLEY Cloud website version 1.1.0" title="ALLEY Cloud website version 1.1.0">v1.1.0</span>
+<span id="alley-site-version" aria-label="ALLEY Cloud website version 1.1.2" title="ALLEY Cloud website version 1.1.2">v1.1.2</span>
 
 <section id="view-home" class="spa-view active" data-view="home">
 <header class="topbar">
@@ -1241,7 +1241,7 @@ body { margin:0; min-height:100vh; background:#fff; }
     <div>
       <div class="eyebrow"><span class="dot"></span> Have a promo code?</div>
       <h3 id="pricingPromoTitle">Unlock every ALLEY Cloud feature.</h3>
-      <p>Sign in to your ALLEY Cloud account and redeem your single-use promo code. A successful redemption saves ALLEY Prime and all-feature access to your account. Pricing cards change to FREE for that signed-in account.</p>
+      <p>Sign in to your ALLEY Cloud account and redeem the permanent promo code. Each account can redeem it once. A successful redemption saves ALLEY Prime and all-feature access to your account. Pricing cards change to FREE for that signed-in account.</p>
     </div>
   </div>
   <form id="pricingPromoRedeemForm" class="pricing-promo-form" autocomplete="off">
@@ -1252,7 +1252,7 @@ body { margin:0; min-height:100vh; background:#fff; }
     <button class="btn btn-primary" id="pricingPromoRedeemBtn" type="submit">Redeem promo code</button>
   </form>
   <div class="pricing-promo-feedback" id="pricingPromoAlert" role="status" aria-live="polite"></div>
-  <p style="margin-top:11px;font-size:.74rem">Each code works once globally and rotates after successful redemption. Admin privileges remain restricted to the configured owner account.</p>
+  <p style="margin-top:11px;font-size:.74rem">The permanent code can be redeemed once per account and does not rotate. Admin privileges remain restricted to the configured owner account.</p>
 </section>
 <button type="button" data-business-customize hidden>Open Business customizer</button>
 <p class="pricing-footnote">Each service can be subscribed to separately using its Plus ($5/mo), Pro ($10/mo), Ultra ($25/mo), or customizable Business ($5–$100+/mo) tier. ALLEY Prime bundles all service features for $50/month or $500/year. Every paid Linux Server &amp; SSH subscription includes one Linux server. Capacity and quotas shown are intended product specifications; service provisioning, billing, AI usage enforcement, storage, domains, Proxy, and VPN require production backend infrastructure before they are live.</p>
@@ -1380,14 +1380,14 @@ body { margin:0; min-height:100vh; background:#fff; }
       <span class="promo-owner-tag">✦ Account entitlements</span>
     </div>
     <div class="promo-current-code" id="ownerPromoCode" hidden>
-      <span>Current owner promo code · single-use rotation</span>
+      <span>Permanent owner promo code · once per account</span>
       <strong id="ownerPromoCodeValue"></strong>
       <span id="ownerPromoExpires"></span>
     </div>
     <div class="promo-buttons" style="margin-top:12px"><button class="btn btn-outline" id="getCurrentPromoBtn" type="button" hidden>Show current owner code</button></div>
     <div class="promo-feedback" id="promoAlert" role="status" aria-live="polite"></div>
     <div class="promo-access-status" id="promoAccessStatus" aria-live="polite">No promo access has been applied to this account.</div>
-    <small class="promo-help">A successful promo redemption grants ALLEY Prime and all feature entitlements to this account. Admin access is reserved for the configured owner account.</small>
+    <small class="promo-help">A successful promo redemption grants ALLEY Prime and all feature entitlements to this account. The code stays the same and can be used once per account. Admin access is reserved for the configured owner account.</small>
    </section>
 <section class="network-connect-panel" aria-labelledby="networkConnectTitle">
   <div class="eyebrow"><span class="dot"></span> Private network tools</div>
@@ -2190,8 +2190,7 @@ async function loadOwnerPromoCode(user, showErrors = false) {
     if (error) throw new Error(await promoInvokeError(error));
     if (!data?.code) throw new Error("The promo service did not return a current code.");
     codeValue.textContent = data.code;
-    const rotated = data.rotatedAt ? new Date(data.rotatedAt).toLocaleString() : "just now";
-    expires.textContent = "Current until redeemed · generated " + rotated + " · " + (data.redemptionCount || 0) + " successful redemptions.";
+    expires.textContent = "Permanent code · does not rotate · " + (data.redemptionCount || 0) + " accounts have redeemed it.";
     codeBox.hidden = false;
     return data;
   } catch (error) {
@@ -2408,7 +2407,7 @@ if (pricingPromoForm) pricingPromoForm.addEventListener("submit", async (event) 
     if (error) throw new Error(await promoInvokeError(error));
     if (!data?.success) throw new Error(data?.error || "The promo code was not accepted.");
     if (codeInput) codeInput.value = "";
-    promoMessage(data.message || "ALLEY Prime and all feature entitlements are saved to your account. The code has rotated.", "success");
+    promoMessage(data.message || "ALLEY Prime and all feature entitlements are saved to your account. The permanent code stays the same.", "success");
     await refreshPromoAccess(userData.user);
     if (data.isOwner || (userData.user.email || "").toLowerCase() === ALLEY_OWNER_EMAIL_DISPLAY) {
       await loadOwnerPromoCode(userData.user, true);
@@ -2431,7 +2430,7 @@ if (getCurrentPromoBtn) getCurrentPromoBtn.addEventListener("click", async () =>
     if (!userData?.user) throw new Error("Please log in with the configured owner account.");
     await loadOwnerPromoCode(userData.user, true);
     if (!$("#ownerPromoCode")?.hidden) {
-      promoMessage("Current single-use code loaded. It will rotate immediately after a successful redemption.", "info");
+      promoMessage("Permanent promo code loaded. It does not rotate and can be redeemed once per account.", "info");
     }
   } catch (error) {
     promoMessage(error?.message || "Could not retrieve the current code.");
@@ -2466,38 +2465,24 @@ if (getCurrentPromoBtn) getCurrentPromoBtn.addEventListener("click", async () =>
     <div class="alley-kit-inner">
       <h2>Deploy the ALLEY Cloud promo backend and network gateway</h2>
       <p>This single HTML file contains your entire public website <strong>and</strong> the source templates for the Supabase backend. The backend source is included here so you can copy it into Supabase without downloading a ZIP.</p>
-      <div class="alley-kit-warning"><strong>Important:</strong> GitHub Pages only runs the browser website. It cannot securely run database migrations or Edge Functions. You must copy the SQL into Supabase SQL Editor and deploy the two Edge Functions separately. Never paste a service-role key into this HTML file. The initial promo code below is a placeholder, not a working code.</div>
+      <div class="alley-kit-warning"><strong>Important:</strong> GitHub Pages only runs the browser website. It cannot securely run database migrations or Edge Functions. You must copy the SQL into Supabase SQL Editor and deploy the two Edge Functions separately. Never paste a service-role key into this HTML file. The fixed promo code is stored in the private Supabase secret ALLEY_FIXED_PROMO_CODE; it is not embedded in this HTML.</div>
       <h3>Before deployment</h3>
       <ol class="alley-kit-steps">
         <li>Set <code>SUPABASE_URL</code> near the bottom of this HTML to the exact URL shown by Supabase → Connect. It must look like <code>https://YOUR_PROJECT_REF.supabase.co</code>. The publishable key is already filled in.</li>
         <li>Create your owner account privately in Supabase Authentication → Users using <code>khalidelanid2@gmail.com</code>. Copy its immutable User UID.</li>
-        <li>Open Supabase → SQL Editor, copy the migration source below, replace <code>CHANGE_WITH_PRIVATE_6_DIGIT_CODE-p</code> with a private six-digit code in the format <code>123456-p</code>, and run it. Do not put the real code in public GitHub.</li>
-        <li>Install the Supabase CLI, run <code>supabase login</code> and <code>supabase link --project-ref YOUR_PROJECT_REF</code>.</li>
-        <li>Set the owner secrets using your actual Auth UID: <code>supabase secrets set ALLEY_OWNER_USER_ID="YOUR_OWNER_AUTH_USER_UUID" ALLEY_OWNER_EMAIL="khalidelanid2@gmail.com"</code>.</li>
-        <li>Deploy both functions: <code>supabase functions deploy redeem-promo</code> and <code>supabase functions deploy get-current-promo-code</code>.</li>
+        <li>Open Supabase → SQL Editor, copy the migration source below, run the permanent-code migration exactly as supplied. It creates the entitlement and rate-limit tables. The promo code itself is configured separately as a Supabase secret.</li>
+        <li>Install the Supabase CLI, run <code>supabase login</code> and <code>supabase link --project-ref bxehulzsshctpujelush</code>.</li>
+        <li>Set the owner secrets using your actual Auth UID: <code>supabase secrets set ALLEY_FIXED_PROMO_CODE=159892-p ALLEY_OWNER_USER_ID="YOUR_OWNER_AUTH_USER_UUID" ALLEY_OWNER_EMAIL="khalidelanid2@gmail.com"</code>.</li>
+        <li>Deploy both functions: <code>supabase functions deploy redeem-promo --use-api</code> and <code>supabase functions deploy get-current-promo-code --use-api</code>.</li>
       </ol>
-      <p><strong>What the promo system does:</strong> each valid code is single-use globally. A successful redemption atomically grants ALLEY Prime/all-feature promo entitlements and rotates to a new random code. Only the approved owner Auth UID plus owner email can view the current code in the dashboard. Admin access is not granted to ordinary redeemers.</p>
-      <p><strong>Initial code safety:</strong> the migration text intentionally contains a placeholder. Choose a fresh code privately and replace the placeholder before running SQL. Do not share the real code or expose it in GitHub.</p>
+      <p><strong>What the promo system does:</strong> the permanent code can be redeemed once per account. A successful redemption atomically grants ALLEY Prime/all-feature promo entitlements. The code does not rotate. Only the approved owner Auth UID plus owner email can view it in the dashboard. Admin access is not granted to ordinary redeemers.</p>
+      <p><strong>Fixed code safety:</strong> store the permanent code only as the Supabase secret ALLEY_FIXED_PROMO_CODE. Do not embed the code in public HTML or commit private backend files to a public GitHub repository.</p>
       <h3>Embedded backend source files</h3>
       <section class="alley-source-card">
       <div class="alley-source-heading"><h4>1. Supabase SQL migration · paste into SQL Editor</h4><button type="button" class="alley-copy-source" data-copy="alleyPromoSqlSource">Copy source</button></div>
-      <textarea id="alleyPromoSqlSource" class="alley-source-text" readonly spellcheck="false">-- ALLEY Cloud single-use promo codes.
--- Run this migration in the Supabase SQL Editor or with `supabase db push`.
--- The state and attempts tables are private. Only the Edge Functions&#x27; service-role
--- client can inspect or mutate promo state.
-
-create table if not exists public.alley_promo_state (
-  id smallint primary key check (id = 1),
-  current_code text not null check (current_code ~ &#x27;^[0-9]{6}-p$&#x27;),
-  rotated_at timestamptz not null default now(),
-  successful_redemptions bigint not null default 0
-);
-
--- Seed the requested initial one-use promo code. It is immediately invalidated
--- after the first successful redemption. Keep this SQL migration private.
-insert into public.alley_promo_state (id, current_code)
-values (1, &#x27;CHANGE_WITH_PRIVATE_6_DIGIT_CODE-p&#x27;)
-on conflict (id) do nothing;
+      <textarea id="alleyPromoSqlSource" class="alley-source-text" readonly spellcheck="false">-- ALLEY Cloud permanent promo code migration.
+-- The actual code is stored only as an Edge Function secret, never in this SQL file.
+-- Each authenticated account may redeem the permanent code once. It does not rotate.
 
 create table if not exists public.alley_promo_access (
   user_id uuid primary key references auth.users(id) on delete cascade,
@@ -2508,9 +2493,14 @@ create table if not exists public.alley_promo_access (
   promo_redemption_number bigint not null
 );
 
--- Upgrade compatibility: earlier ALLEY promo drafts may already have this table.
 alter table public.alley_promo_access
+  add column if not exists all_features boolean not null default true,
+  add column if not exists prime_access boolean not null default true,
+  add column if not exists admin_access boolean not null default false,
+  add column if not exists granted_at timestamptz not null default now(),
   add column if not exists promo_redemption_number bigint;
+
+create sequence if not exists public.alley_promo_redemption_seq;
 
 create table if not exists public.alley_promo_attempts (
   user_id uuid primary key references auth.users(id) on delete cascade,
@@ -2523,56 +2513,48 @@ create table if not exists public.alley_promo_global_attempts (
   window_started_at timestamptz not null default now(),
   attempt_count integer not null default 0
 );
+
 insert into public.alley_promo_global_attempts (id, window_started_at, attempt_count)
 values (1, now(), 0)
 on conflict (id) do nothing;
 
-alter table public.alley_promo_state enable row level security;
 alter table public.alley_promo_access enable row level security;
 alter table public.alley_promo_attempts enable row level security;
 alter table public.alley_promo_global_attempts enable row level security;
 
-revoke all on table public.alley_promo_state from anon, authenticated;
-revoke all on table public.alley_promo_attempts from anon, authenticated;
-revoke all on table public.alley_promo_global_attempts from anon, authenticated;
 revoke all on table public.alley_promo_access from anon, authenticated;
 grant select on table public.alley_promo_access to authenticated;
+revoke all on table public.alley_promo_attempts from anon, authenticated;
+revoke all on table public.alley_promo_global_attempts from anon, authenticated;
 
--- Remove any earlier draft policies on this promo table so only the owner-row
--- policy below remains. This promo table is dedicated to the ALLEY promo feature.
+-- Recreate only the owner's own-entitlement read policy.
 do $$
-declare
-  existing_policy record;
+declare p record;
 begin
-  for existing_policy in
-    select policyname
-      from pg_policies
-     where schemaname = &#x27;public&#x27;
-       and tablename = &#x27;alley_promo_access&#x27;
+  for p in
+    select policyname from pg_policies
+    where schemaname = 'public' and tablename = 'alley_promo_access'
   loop
-    execute format(&#x27;drop policy if exists %I on public.alley_promo_access&#x27;, existing_policy.policyname);
+    execute format('drop policy if exists %I on public.alley_promo_access', p.policyname);
   end loop;
-end;
-$$;
+end $$;
 
-create policy &quot;Users can read their own promo access&quot;
+create policy "Users can read their own promo access"
 on public.alley_promo_access
 for select to authenticated
 using ((select auth.uid()) = user_id);
 
--- Atomic single-use redemption. The function locks the rate-limit row and then
--- conditionally swaps the current code. A concurrent request cannot redeem the
--- same code twice. This function is callable only by service_role via Edge Function.
-create or replace function public.redeem_alley_promo(
+-- Service-role-only transaction. p_code_valid is computed by the Edge Function
+-- after comparing the submitted code to ALLEY_FIXED_PROMO_CODE secret.
+create or replace function public.redeem_alley_fixed_promo(
   p_user_id uuid,
-  p_code text,
-  p_new_code text,
+  p_code_valid boolean,
   p_admin_access boolean default false
 )
 returns jsonb
 language plpgsql
 security definer
-set search_path = &#x27;&#x27;
+set search_path = ''
 as $$
 declare
   v_attempt public.alley_promo_attempts%rowtype;
@@ -2580,43 +2562,10 @@ declare
   v_redemption_number bigint;
 begin
   if p_user_id is null then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;Please sign in first.&#x27;);
+    return jsonb_build_object('success', false, 'error', 'Please sign in first.');
   end if;
 
-  if p_code !~* &#x27;^[0-9]{6}-p$&#x27; or p_new_code !~ &#x27;^[0-9]{6}-p$&#x27; then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;The promo code format is invalid.&#x27;);
-  end if;
-
-  if lower(p_code) = lower(p_new_code) then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;A fresh replacement code could not be generated. Try again.&#x27;);
-  end if;
-
-  if exists (
-    select 1 from public.alley_promo_access a where a.user_id = p_user_id
-  ) then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;This account has already redeemed an ALLEY promo code.&#x27;);
-  end if;
-
-  -- Global throttle makes account creation alone insufficient for brute forcing.
-  select * into v_global
-    from public.alley_promo_global_attempts
-   where id = 1
-   for update;
-  if not found then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;Promo service is not initialized.&#x27;);
-  end if;
-  if v_global.window_started_at &lt; now() - interval &#x27;15 minutes&#x27; then
-    update public.alley_promo_global_attempts
-       set window_started_at = now(), attempt_count = 1
-     where id = 1;
-  elsif v_global.attempt_count &gt;= 100 then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;Promo redemptions are temporarily rate-limited. Try again in 15 minutes.&#x27;);
-  else
-    update public.alley_promo_global_attempts
-       set attempt_count = attempt_count + 1
-     where id = 1;
-  end if;
-
+  -- Lock per-user attempt row to serialize simultaneous attempts from one account.
   insert into public.alley_promo_attempts (user_id, window_started_at, attempt_count)
   values (p_user_id, now(), 0)
   on conflict (user_id) do nothing;
@@ -2626,29 +2575,49 @@ begin
   where user_id = p_user_id
   for update;
 
-  if v_attempt.window_started_at &lt; now() - interval &#x27;15 minutes&#x27; then
+  if exists (select 1 from public.alley_promo_access a where a.user_id = p_user_id) then
+    return jsonb_build_object('success', false, 'error', 'This account has already redeemed the ALLEY promo code.');
+  end if;
+
+  if v_attempt.window_started_at &lt; now() - interval '15 minutes' then
     update public.alley_promo_attempts
        set window_started_at = now(), attempt_count = 1
      where user_id = p_user_id;
   elsif v_attempt.attempt_count &gt;= 5 then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;Too many attempts. Try again in 15 minutes.&#x27;);
+    return jsonb_build_object('success', false, 'error', 'Too many attempts. Try again in 15 minutes.');
   else
     update public.alley_promo_attempts
        set attempt_count = attempt_count + 1
      where user_id = p_user_id;
   end if;
 
-  update public.alley_promo_state
-     set current_code = lower(p_new_code),
-         rotated_at = now(),
-         successful_redemptions = successful_redemptions + 1
-   where id = 1
-     and lower(current_code) = lower(p_code)
-  returning successful_redemptions into v_redemption_number;
+  -- Global throttle limits code guessing across newly-created accounts.
+  select * into v_global
+  from public.alley_promo_global_attempts
+  where id = 1
+  for update;
 
-  if v_redemption_number is null then
-    return jsonb_build_object(&#x27;success&#x27;, false, &#x27;error&#x27;, &#x27;That promo code is invalid or has already been used.&#x27;);
+  if not found then
+    return jsonb_build_object('success', false, 'error', 'Promo service is not initialized.');
   end if;
+
+  if v_global.window_started_at &lt; now() - interval '15 minutes' then
+    update public.alley_promo_global_attempts
+       set window_started_at = now(), attempt_count = 1
+     where id = 1;
+  elsif v_global.attempt_count &gt;= 500 then
+    return jsonb_build_object('success', false, 'error', 'Promo redemptions are temporarily rate-limited. Try again in 15 minutes.');
+  else
+    update public.alley_promo_global_attempts
+       set attempt_count = attempt_count + 1
+     where id = 1;
+  end if;
+
+  if coalesce(p_code_valid, false) is not true then
+    return jsonb_build_object('success', false, 'error', 'That promo code is not valid.');
+  end if;
+
+  v_redemption_number := nextval('public.alley_promo_redemption_seq');
 
   insert into public.alley_promo_access (
     user_id, all_features, prime_access, admin_access, granted_at, promo_redemption_number
@@ -2657,64 +2626,67 @@ begin
   );
 
   return jsonb_build_object(
-    &#x27;success&#x27;, true,
-    &#x27;is_owner&#x27;, coalesce(p_admin_access, false),
-    &#x27;redemption_number&#x27;, v_redemption_number
+    'success', true,
+    'is_owner', coalesce(p_admin_access, false),
+    'redemption_number', v_redemption_number,
+    'permanent_code', true
   );
+exception
+  when unique_violation then
+    return jsonb_build_object('success', false, 'error', 'This account has already redeemed the ALLEY promo code.');
 end;
 $$;
 
-revoke all on function public.redeem_alley_promo(uuid, text, text, boolean) from public, anon, authenticated;
-grant execute on function public.redeem_alley_promo(uuid, text, text, boolean) to service_role;
+revoke all on function public.redeem_alley_fixed_promo(uuid, boolean, boolean) from public, anon, authenticated;
+grant execute on function public.redeem_alley_fixed_promo(uuid, boolean, boolean) to service_role;
 
-comment on table public.alley_promo_state is &#x27;Private one-use ALLEY Cloud promo state. Access only through owner-checked Edge Functions.&#x27;;
-comment on table public.alley_promo_access is &#x27;Per-user ALLEY Prime promo entitlement. Users may read their own row only.&#x27;;
+-- Retire the old globally rotating RPC, if it exists.
+drop function if exists public.redeem_alley_promo(uuid, text, text, boolean);
+
+comment on table public.alley_promo_access is 'Per-user permanent ALLEY Prime and all-feature promo entitlement. Admin is owner-only.';
 </textarea>
     </section>
       <section class="alley-source-card">
       <div class="alley-source-heading"><h4>2. Edge Function: redeem-promo/index.ts</h4><button type="button" class="alley-copy-source" data-copy="alleyRedeemFunctionSource">Copy source</button></div>
-      <textarea id="alleyRedeemFunctionSource" class="alley-source-text" readonly spellcheck="false">import { createClient } from &quot;https://esm.sh/@supabase/supabase-js@2&quot;;
+      <textarea id="alleyRedeemFunctionSource" class="alley-source-text" readonly spellcheck="false">import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
-  &quot;Access-Control-Allow-Headers&quot;: &quot;authorization, x-client-info, apikey, content-type&quot;,
-  &quot;Access-Control-Allow-Methods&quot;: &quot;POST, OPTIONS&quot;,
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 function json(body: Record&lt;string, unknown&gt;, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, &quot;Content-Type&quot;: &quot;application/json&quot; },
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 }
 
-function makeCode(previous: string): string {
-  for (;;) {
-    const bytes = crypto.getRandomValues(new Uint32Array(1));
-    const number = 100000 + (bytes[0] % 900000);
-    const code = `${number}-p`;
-    if (code.toLowerCase() !== previous.toLowerCase()) return code;
-  }
-}
-
 Deno.serve(async (req) =&gt; {
-  if (req.method === &quot;OPTIONS&quot;) return new Response(&quot;ok&quot;, { headers: corsHeaders });
-  if (req.method !== &quot;POST&quot;) return json({ success: false, error: &quot;Method not allowed.&quot; }, 405);
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return json({ success: false, error: "Method not allowed." }, 405);
 
   try {
-    const authorization = req.headers.get(&quot;Authorization&quot;);
-    if (!authorization?.startsWith(&quot;Bearer &quot;)) {
-      return json({ success: false, error: &quot;Sign in before redeeming a promo code.&quot; }, 401);
+    const authorization = req.headers.get("Authorization");
+    if (!authorization?.startsWith("Bearer ")) {
+      return json({ success: false, error: "Sign in before redeeming a promo code." }, 401);
     }
 
-    const supabaseUrl = Deno.env.get(&quot;SUPABASE_URL&quot;);
-    const anonKey = Deno.env.get(&quot;SUPABASE_ANON_KEY&quot;) || Deno.env.get(&quot;SUPABASE_PUBLISHABLE_KEY&quot;);
-    const serviceKey = Deno.env.get(&quot;SUPABASE_SERVICE_ROLE_KEY&quot;);
-    const ownerUserId = Deno.env.get(&quot;ALLEY_OWNER_USER_ID&quot;);
-    const ownerEmail = (Deno.env.get(&quot;ALLEY_OWNER_EMAIL&quot;) || &quot;&quot;).toLowerCase();
-    if (!supabaseUrl || !anonKey || !serviceKey || !ownerUserId || !ownerEmail) {
-      console.error(&quot;Promo function is missing required Supabase/owner secrets.&quot;);
-      return json({ success: false, error: &quot;The promo service has not been configured by the site owner.&quot; }, 503);
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const anonKey = Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("SUPABASE_PUBLISHABLE_KEY");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    const fixedCode = Deno.env.get("ALLEY_FIXED_PROMO_CODE") || "";
+    const ownerUserId = Deno.env.get("ALLEY_OWNER_USER_ID") || "";
+    const ownerEmail = (Deno.env.get("ALLEY_OWNER_EMAIL") || "").toLowerCase();
+
+    if (!supabaseUrl || !anonKey || !serviceKey || !fixedCode || !ownerUserId || !ownerEmail) {
+      console.error("Fixed promo function is missing project or owner secrets.");
+      return json({ success: false, error: "The ALLEY promo service has not been configured by the owner." }, 503);
+    }
+    if (!/^\d{6}-p$/i.test(fixedCode)) {
+      console.error("ALLEY_FIXED_PROMO_CODE must use the format 123456-p.");
+      return json({ success: false, error: "The owner promo secret is configured incorrectly." }, 503);
     }
 
     const authClient = createClient(supabaseUrl, anonKey, {
@@ -2723,76 +2695,79 @@ Deno.serve(async (req) =&gt; {
     });
     const { data: userData, error: userError } = await authClient.auth.getUser();
     const user = userData?.user;
-    if (userError || !user) return json({ success: false, error: &quot;Your login session is invalid. Sign in again.&quot; }, 401);
+    if (userError || !user) return json({ success: false, error: "Your login session is invalid. Sign in again." }, 401);
 
     const body = await req.json().catch(() =&gt; ({}));
-    const code = String(body?.code || &quot;&quot;).trim().toLowerCase();
-    if (!/^\d{6}-p$/.test(code)) return json({ success: false, error: &quot;Enter a promo code in the format 123456-p.&quot; }, 400);
+    const code = String(body?.code || "").trim();
+    if (!/^\d{6}-p$/i.test(code)) {
+      return json({ success: false, error: "Enter a code in the format 123456-p." }, 400);
+    }
 
-    const isOwner = user.id === ownerUserId &amp;&amp; (user.email || &quot;&quot;).toLowerCase() === ownerEmail;
-    const nextCode = makeCode(code);
+    const isOwner = user.id === ownerUserId &amp;&amp; (user.email || "").toLowerCase() === ownerEmail;
     const adminClient = createClient(supabaseUrl, serviceKey, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    const { data, error } = await adminClient.rpc(&quot;redeem_alley_promo&quot;, {
+    const { data, error } = await adminClient.rpc("redeem_alley_fixed_promo", {
       p_user_id: user.id,
-      p_code: code,
-      p_new_code: nextCode,
+      p_code_valid: code.toLowerCase() === fixedCode.toLowerCase(),
       p_admin_access: isOwner,
     });
+
     if (error) {
-      console.error(&quot;Promo redemption RPC failed:&quot;, error.message);
-      return json({ success: false, error: &quot;The promo service could not complete redemption. Check that its SQL migration has been applied.&quot; }, 500);
+      console.error("Fixed promo redemption RPC failed:", error.message);
+      return json({ success: false, error: "The promo database migration has not been applied or the promo service is unavailable." }, 500);
     }
-    if (!data?.success) return json({ success: false, error: data?.error || &quot;The promo code was not accepted.&quot; }, 400);
+    if (!data?.success) return json({ success: false, error: data?.error || "The promo code was not accepted." }, 400);
 
     return json({
       success: true,
       isOwner,
+      permanent: true,
       message: isOwner
-        ? &quot;ALLEY Prime and owner admin access are unlocked. A fresh code is now available in your owner dashboard.&quot;
-        : &quot;ALLEY Prime and all feature entitlements are unlocked for this account. Admin controls remain reserved for the approved owner account.&quot;,
+        ? "ALLEY Prime, all feature access, and owner admin access are saved to your account. The promo code stays the same."
+        : "ALLEY Prime and all feature access are saved to your account. The promo code stays the same. Admin access is reserved for the approved owner account.",
     });
   } catch (error) {
-    console.error(&quot;Unexpected promo redemption error:&quot;, error);
-    return json({ success: false, error: &quot;An unexpected error occurred while redeeming the promo code.&quot; }, 500);
+    console.error("Unexpected fixed promo redemption error:", error);
+    return json({ success: false, error: "An unexpected error occurred while redeeming the promo code." }, 500);
   }
 });
 </textarea>
     </section>
       <section class="alley-source-card">
       <div class="alley-source-heading"><h4>3. Edge Function: get-current-promo-code/index.ts</h4><button type="button" class="alley-copy-source" data-copy="alleyGetCodeFunctionSource">Copy source</button></div>
-      <textarea id="alleyGetCodeFunctionSource" class="alley-source-text" readonly spellcheck="false">import { createClient } from &quot;https://esm.sh/@supabase/supabase-js@2&quot;;
+      <textarea id="alleyGetCodeFunctionSource" class="alley-source-text" readonly spellcheck="false">import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
-  &quot;Access-Control-Allow-Headers&quot;: &quot;authorization, x-client-info, apikey, content-type&quot;,
-  &quot;Access-Control-Allow-Methods&quot;: &quot;POST, OPTIONS&quot;,
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 function json(body: Record&lt;string, unknown&gt;, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, &quot;Content-Type&quot;: &quot;application/json&quot; },
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 }
 
 Deno.serve(async (req) =&gt; {
-  if (req.method === &quot;OPTIONS&quot;) return new Response(&quot;ok&quot;, { headers: corsHeaders });
-  if (req.method !== &quot;POST&quot;) return json({ error: &quot;Method not allowed.&quot; }, 405);
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return json({ error: "Method not allowed." }, 405);
 
   try {
-    const authorization = req.headers.get(&quot;Authorization&quot;);
-    if (!authorization?.startsWith(&quot;Bearer &quot;)) return json({ error: &quot;Sign in with the approved owner account.&quot; }, 401);
+    const authorization = req.headers.get("Authorization");
+    if (!authorization?.startsWith("Bearer ")) return json({ error: "Sign in with the approved owner account." }, 401);
 
-    const supabaseUrl = Deno.env.get(&quot;SUPABASE_URL&quot;);
-    const anonKey = Deno.env.get(&quot;SUPABASE_ANON_KEY&quot;) || Deno.env.get(&quot;SUPABASE_PUBLISHABLE_KEY&quot;);
-    const serviceKey = Deno.env.get(&quot;SUPABASE_SERVICE_ROLE_KEY&quot;);
-    const ownerUserId = Deno.env.get(&quot;ALLEY_OWNER_USER_ID&quot;);
-    const ownerEmail = (Deno.env.get(&quot;ALLEY_OWNER_EMAIL&quot;) || &quot;&quot;).toLowerCase();
-    if (!supabaseUrl || !anonKey || !serviceKey || !ownerUserId || !ownerEmail) {
-      return json({ error: &quot;The owner promo dashboard has not been configured.&quot; }, 503);
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const anonKey = Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("SUPABASE_PUBLISHABLE_KEY");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    const fixedCode = Deno.env.get("ALLEY_FIXED_PROMO_CODE") || "";
+    const ownerUserId = Deno.env.get("ALLEY_OWNER_USER_ID") || "";
+    const ownerEmail = (Deno.env.get("ALLEY_OWNER_EMAIL") || "").toLowerCase();
+    if (!supabaseUrl || !anonKey || !serviceKey || !fixedCode || !ownerUserId || !ownerEmail) {
+      return json({ error: "The owner promo dashboard has not been configured." }, 503);
     }
 
     const authClient = createClient(supabaseUrl, anonKey, {
@@ -2801,163 +2776,224 @@ Deno.serve(async (req) =&gt; {
     });
     const { data: userData, error: userError } = await authClient.auth.getUser();
     const user = userData?.user;
-    if (userError || !user) return json({ error: &quot;Your login session is invalid.&quot; }, 401);
+    if (userError || !user) return json({ error: "Your login session is invalid." }, 401);
 
-    // Email is checked as an additional guard, but the immutable owner user ID
-    // is the actual authorization boundary. This is important when email
-    // confirmation is disabled in Supabase.
-    if (user.id !== ownerUserId || (user.email || &quot;&quot;).toLowerCase() !== ownerEmail) {
-      return json({ error: &quot;The current promo code is visible only to the configured owner account.&quot; }, 403);
+    if (user.id !== ownerUserId || (user.email || "").toLowerCase() !== ownerEmail) {
+      return json({ error: "The permanent promo code is visible only to the configured owner account." }, 403);
     }
 
     const adminClient = createClient(supabaseUrl, serviceKey, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
-    const { data, error } = await adminClient
-      .from(&quot;alley_promo_state&quot;)
-      .select(&quot;current_code, rotated_at, successful_redemptions&quot;)
-      .eq(&quot;id&quot;, 1)
-      .single();
+    const { count, error } = await adminClient
+      .from("alley_promo_access")
+      .select("user_id", { count: "exact", head: true });
 
-    if (error || !data) {
-      console.error(&quot;Could not load current promo code:&quot;, error?.message);
-      return json({ error: &quot;Promo state is missing. Apply the ALLEY promo SQL migration first.&quot; }, 500);
+    if (error) {
+      console.error("Could not count promo redemptions:", error.message);
+      return json({ error: "Promo database migration is missing or inaccessible." }, 500);
     }
 
     return json({
-      code: data.current_code,
-      rotatedAt: data.rotated_at,
-      redemptionCount: data.successful_redemptions,
+      code: fixedCode,
+      permanent: true,
+      redemptionCount: count || 0,
+      note: "This code does not rotate. Each account can redeem it once.",
     });
   } catch (error) {
-    console.error(&quot;Unexpected owner promo lookup error:&quot;, error);
-    return json({ error: &quot;Could not load the current promo code.&quot; }, 500);
+    console.error("Permanent promo lookup failed:", error);
+    return json({ error: "Could not load the permanent promo code." }, 500);
   }
 });
 </textarea>
     </section>
       <section class="alley-source-card">
       <div class="alley-source-heading"><h4>4. Deployment notes</h4><button type="button" class="alley-copy-source" data-copy="alleyBackendReadmeSource">Copy source</button></div>
-      <textarea id="alleyBackendReadmeSource" class="alley-source-text" readonly spellcheck="false"># ALLEY Cloud — Complete Website + Rotating Promo Backend
+      <textarea id="alleyBackendReadmeSource" class="alley-source-text" readonly spellcheck="false"># ALLEY Cloud v1.1.2 — fixed promo + personal VPN/proxy test deployment
 
-This release keeps ALLEY Cloud as a single-file front end and adds a secure Supabase backend for a one-use rotating promo code.
+This package contains the latest single-file ALLEY Cloud website, a Supabase backend for a permanent promo code, and a one-owner WireGuard VPN + authenticated Squid proxy installer.
 
-## Included website features
+## Important: this package is prepared for deployment, not already deployed
 
-- Single-file `index.html` with embedded styles, scripts, and logos.
-- NANO AI branding and the AI workspace preview.
-- Raspberry Pi / Linux SSH service information and website hosting/domain sections.
-- Individual feature subscriptions with Plus, Pro, Ultra, and customizable Business options.
-- ALLEY Prime bundle at $50/month or $500/year.
-- Detailed plan views and signup/login gates.
-- Supabase email/password authentication, persistent sessions, and profile loading.
-- Dashboard promo panel with a redeem field and owner-only current-code view.
+No server or Supabase deployment was performed from this workspace. The owner must run the Supabase deployment commands and the VPN installer on their own accounts/server. Do not send SSH passwords, private keys, WireGuard client profiles, or Supabase secret/service-role keys in chat.
 
-## Promo-code behavior
+## What changed
 
-- A signed-in user may redeem one current code.
-- Each code works once globally. After a successful redemption, the server immediately rotates it to a fresh random six-digit code in `######-p` format.
-- Each successful redeemer receives ALLEY Prime / all-feature promo entitlements.
-- Admin privileges are granted **only** when the account matches both the configured immutable owner Auth UID and `khalidelanid2@gmail.com`.
-- The new code is displayed in the owner&#x27;s dashboard after successful use and when the owner next signs in. This uses the dashboard notification option; it does not send an email.
-- One promo redemption per user account.
-- Rate limits: 5 attempts per account per 15 minutes and 100 attempts globally per 15 minutes.
+- The website version is v1.1.2.
+- The pricing-section promo input remains in place.
+- The promo code is permanent; it does not rotate after use.
+- The permanent code is stored as a Supabase Edge Function secret, not embedded in public HTML or SQL.
+- Each Supabase account can redeem it once. Each successful redemption persists an ALLEY Prime/all-feature entitlement in `public.alley_promo_access`.
+- Only the approved owner account receives admin access. The backend checks both the Supabase Auth UID and `khalidelanid2@gmail.com`; email alone is not sufficient.
+- The owner dashboard's `get-current-promo-code` function displays the permanent code only to the configured owner.
+- The VPN/proxy installer is a single-owner test gateway for Ubuntu Server 24.04: WireGuard IPv4 VPN + authenticated Squid proxy bound to the private VPN address. It is not a multi-customer commercial provisioning system.
 
-Admin is never granted from email matching alone. The ALLEY Cloud project has email confirmation disabled; that means someone could otherwise sign up with an email address they do not own. The exact owner Auth UID is the real admin boundary.
-
-## Project URL configuration
-
-The website already contains the publishable key previously supplied. Near the bottom of `index.html`, set the exact Project URL from Supabase → Connect:
-
-```js
-const SUPABASE_URL = &quot;https://YOUR_PROJECT_REF.supabase.co&quot;;
-const SUPABASE_PUBLISHABLE_KEY = &quot;sb_publishable_...&quot;;
-```
-
-The supplied value `ALLEY-Cloud.supabase.com` is not a valid Supabase Project URL. Do not guess the project ref. Use the exact URL displayed by the Supabase dashboard. Never put a secret/service-role key in this public HTML file.
-
-## Files
+## Package layout
 
 ```text
-index.html
-README.md
-supabase/
-  migrations/20261102000100_single_use_promo.sql
-  functions/
-    redeem-promo/index.ts
-    get-current-promo-code/index.ts
+ALLEYCloud-Deploy/
+├── index.html
+├── ALLEYCloud-source.txt
+├── README.md
+├── supabase/
+│   ├── config.toml
+│   ├── migrations/
+│   │   └── 20261102000200_permanent_alley_promo.sql
+│   └── functions/
+│       ├── redeem-promo/index.ts
+│       └── get-current-promo-code/index.ts
+└── network/
+    ├── install-alley-network.sh
+    └── install-alley-network.txt
 ```
 
-## Deployment
+## A. Configure the permanent promo backend
 
-### 1. Prepare the owner account first
+The fixed code in this project is set at deployment time as a private Supabase secret. This package deliberately does not place the code in the public website or SQL source. To use the code originally requested for ALLEY Cloud, set the secret value to `159892-p`.
 
-Before public launch, create/sign up the owner account in Supabase Authentication → Users using `khalidelanid2@gmail.com`. Because email confirmation is disabled, do this privately before allowing public registration.
+### 1. Create the owner account
 
-Copy the owner&#x27;s immutable **User UID** from the Supabase Users table. Do not use email alone to identify an administrator.
+1. In Supabase Authentication → Users, create your owner account using `khalidelanid2@gmail.com` (or sign up through the ALLEY Cloud site).
+2. Copy that account's immutable **User UID**.
+3. Make sure you can sign in to that account. If email confirmation is disabled, remember that email ownership is not independently verified; protect your owner account with a strong password.
 
-### 2. Apply the database migration
+### 2. Install and authenticate the Supabase CLI
 
-Open Supabase → SQL Editor → New query. Paste and run the full file:
+Install the Supabase CLI using the official instructions: https://supabase.com/docs/guides/cli/getting-started
 
-the SQL source in the Backend Setup Kit at the bottom of this HTML file
-
-It creates the private promo-code state, per-user access, per-user and global attempt counters, and the atomic `redeem_alley_promo` Postgres function. Before running the migration, replace `CHANGE_WITH_PRIVATE_6_DIGIT_CODE-p` with a private six-digit code. Do not publish that real code in a public repository. Keep the real initial code private; after a successful redemption the code is replaced with a cryptographically generated code.
-
-The migration enables RLS. A signed-in user can read only their own `alley_promo_access` row. The code state and attempt counters are not accessible from the browser. Only the service-role Edge Function can invoke the redemption RPC.
-
-### 3. Install and link Supabase CLI
-
-From the project folder (the folder that contains `supabase/`):
+Then run:
 
 ```bash
-npm install -g supabase
 supabase login
-supabase link --project-ref YOUR_PROJECT_REF
+supabase link --project-ref bxehulzsshctpujelush
 ```
 
-### 4. Set owner secrets
+### 3. Apply the migration
 
-Replace the UUID with the owner Auth UID copied in step 1:
+From this package's root folder:
 
 ```bash
-supabase secrets set ALLEY_OWNER_USER_ID=&quot;YOUR_OWNER_AUTH_USER_UUID&quot; ALLEY_OWNER_EMAIL=&quot;khalidelanid2@gmail.com&quot;
+supabase db push
 ```
 
-Supabase supplies `SUPABASE_URL`, `SUPABASE_ANON_KEY` (or publishable key), and `SUPABASE_SERVICE_ROLE_KEY` to Edge Function runtime. The service-role key remains server-side and must never be copied into `index.html` or GitHub.
+The migration creates/updates the promo entitlement and rate-limit tables, enables Row Level Security, and creates a service-role-only atomic redemption RPC. Existing user's rows in `alley_promo_access` are retained.
 
-### 5. Deploy functions
+### 4. Configure server-side secrets
 
-Keep JWT verification enabled. From the project folder:
+Replace `YOUR_OWNER_AUTH_USER_UUID` with the UID copied from Supabase Authentication → Users:
 
 ```bash
-supabase functions deploy redeem-promo
-supabase functions deploy get-current-promo-code
+supabase secrets set ALLEY_FIXED_PROMO_CODE=159892-p ALLEY_OWNER_USER_ID=YOUR_OWNER_AUTH_USER_UUID ALLEY_OWNER_EMAIL=khalidelanid2@gmail.com
 ```
 
-### 6. Publish the frontend
+Do not put these values into `index.html`. Supabase injects its project URL and service-role credentials into the Edge Function runtime; never copy a service-role key to the browser or GitHub Pages.
 
-Upload the updated `index.html` to the root of the GitHub Pages repository and commit it. Keep the backend backend source sections embedded in this HTML file in your private development copy or a private GitHub repository. Do not publish the migration containing the initial code in a public repository. The backend source contains no service-role secret, but should be maintained as server-side code.
+### 5. Deploy the two functions
 
-## Testing
+```bash
+supabase functions deploy redeem-promo --use-api
+supabase functions deploy get-current-promo-code --use-api
+```
 
-1. Sign in as the configured owner account. The dashboard should show the current code. If it does not, check the exact owner UID secret and deployment logs.
-2. Copy the current code and sign in with a separate test account.
-3. Redeem the code. That account should receive all-feature / ALLEY Prime promo access but not admin.
-4. Try the same code again with another test account. It should fail as already used.
-5. Sign in as the owner. The dashboard should now show the new code and updated redemption count.
-6. Confirm the owner account can redeem a code once to receive Prime + admin, provided it has not already redeemed a code.
-7. Confirm no non-owner account can call `get-current-promo-code` successfully.
+Supabase deployment guide: https://supabase.com/docs/guides/functions/deploy
 
-## Notes
+### 6. Verify the browser config
 
-- The code rotates on every successful redemption, not hourly.
-- The code remains valid until used; this release does not use a timed expiration.
-- Each Supabase user can redeem only once.
-- The code grants ALLEY Prime/all-feature promotional entitlements. Only the configured owner UID gets `admin_access`.
-- No email notification is configured; the new code is shown in the owner&#x27;s account dashboard, as requested.
-- Promo entitlements are database records. Any real AI credits, paid billing, Linux server/SSH, proxy/VPN, domains, and hosting backends must enforce these records server-side before providing real services.
-- Add CAPTCHA/Turnstile and monitoring before a broad public launch. The account and global throttles reduce guessing but do not replace abuse monitoring.
+The supplied website contains the Supabase project URL:
+
+```text
+https://bxehulzsshctpujelush.supabase.co
+```
+
+and the previously supplied `sb_publishable_...` browser key. A publishable key is expected to be visible in client-side code. Never use a secret/service-role key in HTML.
+
+### 7. Test the promo
+
+1. Sign in to ALLEY Cloud with a normal test account.
+2. Enter the permanent code in the promo field in the pricing section.
+3. Confirm the site reports successful redemption and shows the account's promo entitlement.
+4. Sign in as the owner account and open the account dashboard to see the fixed promo code. The owner code lookup requires both the configured UID and email.
+5. Try the same code on a second account. It should work once for that account too.
+6. Try redeeming again on the first account. It should be rejected as already redeemed.
+
+### What “permanent” means
+
+The code does not rotate and can be redeemed once by each account. Anyone who learns the code can claim the free all-feature entitlement on their own account, subject to server-side rate limits. This could create service costs once the production AI/VPN/hosting infrastructure is enabled. Keep the code private if you do not intend to offer this benefit publicly. The promo grants product entitlements, not admin rights; admin remains owner-only.
+
+## B. Deploy the VPN and proxy test gateway
+
+### What this installer provides
+
+- WireGuard IPv4 VPN on UDP port `51820`.
+- One owner client profile named `alley-owner.conf`.
+- An authenticated Squid HTTP proxy bound only to `10.77.0.1:3128`, reachable through the VPN tunnel.
+- Random proxy username/password saved in a protected local file.
+
+This is a one-owner test deployment. It does **not** automatically create separate customers, verify subscription entitlements, enforce per-customer quotas, revoke users after cancellation, or integrate service provisioning with Supabase. Do not use it as a customer-ready commercial VPN/proxy service.
+
+### Requirements
+
+- A separate VPS running Ubuntu Server 24.04 LTS.
+- Public IPv4 address.
+- Root/sudo access on that VPS.
+- Provider firewall: inbound TCP 22 for administration and UDP 51820 for WireGuard.
+- Do **not** expose TCP 3128 publicly. Squid listens only on the private VPN address.
+
+A home Raspberry Pi behind a router/NAT is not the same as a public VPS. For a first test, use a VPS and do not expose your home LAN.
+
+### Install
+
+1. Provision an Ubuntu Server 24.04 VPS and note its public IPv4 address.
+2. Allow TCP 22 and UDP 51820 in its provider firewall. Keep TCP 3128 closed publicly.
+3. Copy `network/install-alley-network.sh` securely to the VPS.
+4. SSH into the VPS and run:
+
+```bash
+sudo bash install-alley-network.sh
+```
+
+If automatic interface/IP detection fails, use the correct interface and IP from your VPS:
+
+```bash
+sudo env WAN_IF=ens3 PUBLIC_ENDPOINT=YOUR_VPS_IPV4 bash install-alley-network.sh
+```
+
+Replace `ens3` with the actual public network interface if different.
+
+5. The installer writes these protected files to `~/ALLEY-Network-Setup/` (or `/root/ALLEY-Network-Setup/` if run directly as root):
+   - `alley-owner.conf` — private WireGuard client profile.
+   - `proxy-credentials.txt` — proxy username and password.
+   - `server-details.txt` — endpoint and server info.
+6. Transfer the profile and credentials to your device using a secure method. Do not upload them to GitHub, paste them into chat, or share them publicly.
+7. Install the official WireGuard client: https://www.wireguard.com/install/
+8. Import `alley-owner.conf` and activate the tunnel.
+9. If you also need the HTTP proxy, configure your browser/app with host `10.77.0.1`, port `3128`, and the generated credentials. Keep WireGuard connected. If an app does not support authenticated HTTP proxies, use the VPN alone.
+
+### Verify
+
+On the VPS:
+
+```bash
+sudo wg show wg0
+sudo systemctl status wg-quick@wg0 --no-pager
+sudo systemctl status squid --no-pager
+sudo ss -lntup | grep -E '51820|3128'
+```
+
+Expected: WireGuard listens on UDP 51820; Squid listens at `10.77.0.1:3128` and not on `0.0.0.0:3128`; a recent WireGuard handshake appears after connecting.
+
+## C. Update GitHub Pages
+
+Upload only `index.html` (or rename it to `index.html` in your repository root) to the public ALLEY Cloud GitHub Pages repository. The public HTML includes the Supabase URL and publishable key only.
+
+Do **not** upload the private Supabase migration/backend folder to a public repository if you want to keep the promo implementation details private. Keep this full deployment package in a private location. The promo code itself is stored as a Supabase secret, not in the public site.
+
+## D. Limits still outstanding
+
+- The website's NANO AI, storage, domains, Linux/SSH, VPN, and proxy features still need production services and server-side entitlements before being sold to customers.
+- The network installer is a personal test gateway, not multi-user provisioning.
+- Actual deployment has not been performed by this package. You must run the Supabase and VPS commands on your own accounts/server.
+- The fixed promo is reusable once per account. Owner admin is a separate, UID-protected entitlement.
 </textarea>
     </section>
       <p class="alley-kit-foot">The backend source contains no service-role key. Supabase provides server-side secrets to Edge Functions. Promo grants are database records; production AI credits, subscription billing, Linux/SSH, proxy/VPN, domains, and hosting must enforce those entitlements in their own trusted server-side services.</p>
