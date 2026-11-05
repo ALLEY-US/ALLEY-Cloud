@@ -1086,9 +1086,156 @@ body { margin:0; min-height:100vh; background:#fff; }
 @media(max-width:520px){#view-feature .feature-detail-nav{width:calc(100% - 28px);min-height:66px}#view-feature .feature-detail-wrap,#view-feature .feature-detail-footer{width:calc(100% - 28px)}#view-feature .feature-detail-points{grid-template-columns:1fr}#view-feature .feature-tier-grid{grid-template-columns:1fr 1fr;gap:9px}#view-feature .feature-tier-card{padding:14px;min-height:170px}#view-feature .feature-detail-actions{display:grid;grid-template-columns:1fr}#view-feature .feature-detail-actions .btn{width:100%}}
 </style>
 
+
+<style id="alley-dashboard-v116">
+#view-account{background:radial-gradient(ellipse at 12% 0%,rgba(50,123,193,.20),transparent 34%),radial-gradient(ellipse at 92% 14%,rgba(119,86,199,.18),transparent 30%),#081426;color:#eef5ff;min-height:100vh}
+#view-account .alley-dashboard{width:min(1220px,calc(100% - 42px));padding:34px 0 64px}
+#view-account .dashboard-welcome{align-items:center;margin-bottom:22px}
+#view-account .dashboard-welcome h1{margin:12px 0 9px;font-size:clamp(2rem,4vw,3.35rem);letter-spacing:-.06em}
+#view-account .dashboard-welcome p{color:#a8bad2;max-width:720px}
+#view-account .dashboard-head-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#view-account .session-pill{display:inline-flex;align-items:center;gap:9px;padding:10px 13px;border:1px solid rgba(123,181,230,.2);border-radius:999px;background:rgba(17,39,67,.76);font-size:.79rem;font-weight:750;color:#d8eaff}
+#view-account .live-dot{width:8px;height:8px;background:#49d8a8;border-radius:50%;box-shadow:0 0 0 5px rgba(73,216,168,.12)}
+#view-account .dashboard-banner{display:flex;align-items:center;gap:14px;padding:17px 19px;margin:18px 0 22px;border:1px solid rgba(112,170,225,.19);border-radius:18px;background:linear-gradient(105deg,rgba(33,85,138,.30),rgba(75,63,132,.22)),rgba(13,30,52,.92);box-shadow:0 14px 34px rgba(0,0,0,.15)}
+#view-account .dashboard-banner-icon{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#6dcff5,#a88bff);color:#081426;font-size:1.35rem;font-weight:900}
+#view-account .dashboard-banner-copy{display:grid;gap:4px;min-width:0;flex:1}
+#view-account .dashboard-banner-copy strong{font-size:.94rem;color:#fff}
+#view-account .dashboard-banner-copy span{font-size:.78rem;line-height:1.5;color:#a9bdd5}
+#view-account .dashboard-banner-meta{display:grid;gap:4px;max-width:34%;text-align:right}
+#view-account .dashboard-meta-label{font-size:.62rem;font-weight:850;letter-spacing:.12em;color:#8ba8c7}
+#view-account .dashboard-banner-meta strong{font-size:.8rem;color:#e7f4ff;overflow-wrap:anywhere}
+#view-account .dashboard-tabs{display:flex;gap:7px;overflow-x:auto;padding:7px;margin:0 0 21px;border:1px solid rgba(140,177,217,.14);border-radius:17px;background:rgba(9,23,42,.80);scrollbar-width:thin}
+#view-account .dashboard-tab{display:inline-flex;align-items:center;justify-content:center;gap:9px;flex:1 0 auto;min-height:46px;padding:0 18px;border:1px solid transparent;border-radius:12px;background:transparent;color:#9fb3cc;font:inherit;font-size:.84rem;font-weight:800;cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease}
+#view-account .dashboard-tab span{font-size:1.05rem;color:#8ed4f8}
+#view-account .dashboard-tab:hover{background:rgba(83,129,178,.13);color:#fff}
+#view-account .dashboard-tab.is-active{color:#fff;background:linear-gradient(135deg,rgba(58,143,202,.28),rgba(130,105,206,.25));border-color:rgba(125,183,237,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+#view-account .dashboard-panel[hidden]{display:none!important}
+#view-account .dashboard-panel{animation:alleyPanelIn .22s ease both}
+@keyframes alleyPanelIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+#view-account .dashboard-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:15px}
+#view-account .dashboard-stat-card{position:relative;overflow:hidden;padding:18px 18px 15px;border-radius:17px;border:1px solid rgba(140,177,217,.16);background:linear-gradient(155deg,rgba(24,48,78,.95),rgba(13,29,52,.96));box-shadow:0 12px 28px rgba(0,0,0,.12)}
+#view-account .dashboard-stat-card:after{content:"";position:absolute;right:-36px;top:-47px;width:112px;height:112px;border-radius:50%;background:rgba(90,178,230,.08);filter:blur(2px)}
+#view-account .stat-topline{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#8faac8;font-size:.61rem;font-weight:900;letter-spacing:.12em}
+#view-account .stat-icon{display:grid;place-items:center;width:31px;height:31px;border-radius:10px;background:rgba(111,167,221,.13);color:#8dd7fb;font-size:1rem}
+#view-account .dashboard-stat-card>strong{display:block;margin:11px 0 4px;color:#f5faff;font-size:clamp(1.25rem,2.5vw,1.85rem);letter-spacing:-.045em}
+#view-account .dashboard-stat-card>p{min-height:35px;margin:0;color:#99aec7;font-size:.73rem;line-height:1.45}
+#view-account .stat-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px;padding-top:11px;border-top:1px solid rgba(151,183,218,.11);color:#839bb8;font-size:.66rem}
+#view-account .stat-indicator{display:inline-flex;align-items:center;gap:6px;color:#69e0b5;font-weight:850}
+#view-account .stat-indicator:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+#view-account .stat-indicator.pending{color:#f3c477}
+#view-account .stat-inline-link{border:0;background:none;color:#8fd6ff;font:inherit;font-size:.68rem;font-weight:800;cursor:pointer}
+#view-account .dashboard-analytics-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:15px;margin-bottom:15px}
+#view-account .dashboard-card{min-width:0;padding:21px;border:1px solid rgba(140,177,217,.16);border-radius:19px;background:linear-gradient(155deg,rgba(20,42,69,.97),rgba(12,27,49,.98));box-shadow:0 14px 34px rgba(0,0,0,.12)}
+#view-account .dashboard-card-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#view-account .dashboard-kicker{color:#83b9e4;font-size:.62rem;font-weight:900;letter-spacing:.14em}
+#view-account .dashboard-card h2,#view-account .panel-intro h2{margin:5px 0 5px;color:#f4f8ff;font-size:1.16rem;letter-spacing:-.035em}
+#view-account .dashboard-card-heading p,#view-account .panel-intro p{margin:0;color:#90a6c1;font-size:.75rem;line-height:1.55}
+#view-account .card-orb{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:rgba(99,179,230,.13);color:#9be0ff}
+#view-account .coverage-content{display:flex;align-items:center;gap:22px;padding:18px 0 12px}
+#view-account .coverage-ring-wrap{position:relative;width:142px;height:142px;flex:none;display:grid;place-items:center}
+#view-account .coverage-ring{width:142px;height:142px;transform:rotate(-90deg);overflow:visible}
+#view-account .coverage-ring circle{fill:none;stroke-width:10}
+#view-account .coverage-ring .ring-track{stroke:rgba(133,161,194,.16)}
+#view-account .coverage-ring .ring-progress{stroke:url(#alleyRingGradient);stroke:#65d8bf;stroke-linecap:round;transition:stroke-dashoffset .55s ease}
+#view-account .coverage-ring-label{position:absolute;display:grid;justify-items:center;gap:1px}
+#view-account .coverage-ring-label strong{font-size:1.7rem;letter-spacing:-.06em;color:#fff}
+#view-account .coverage-ring-label span{font-size:.65rem;color:#95aac5}
+#view-account .coverage-legend{min-width:0}
+#view-account .coverage-big-number{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px}
+#view-account .coverage-big-number strong{font-size:1.7rem;letter-spacing:-.05em;color:#fff}
+#view-account .coverage-big-number span{font-size:.68rem;color:#91a8c3}
+#view-account .coverage-legend p{margin:5px 0 12px;color:#9cb1ca;font-size:.74rem;line-height:1.55}
+#view-account .dashboard-chart-caption{display:flex;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(151,183,218,.11);padding-top:11px;color:#8ea5c0;font-size:.65rem}
+#view-account .dashboard-chart-caption span{display:inline-flex;align-items:center;gap:7px}
+#view-account .legend-dot{width:7px;height:7px;border-radius:50%;background:#63d6b7}
+#view-account .legend-dot.excluded{background:#596c86}
+#view-account .status-stamp{padding:6px 8px;border:1px solid rgba(241,194,117,.2);border-radius:999px;color:#edc17a;background:rgba(226,171,84,.08);font-size:.58rem;font-weight:900;letter-spacing:.08em;white-space:nowrap}
+#view-account .readiness-summary{display:flex;align-items:baseline;gap:9px;margin:16px 0 12px}
+#view-account .readiness-summary strong{font-size:1.45rem;color:#fff;letter-spacing:-.05em}
+#view-account .readiness-summary span{color:#91a6c0;font-size:.68rem}
+#view-account .readiness-bars{display:grid;gap:9px}
+#view-account .readiness-row{display:grid;grid-template-columns:105px minmax(55px,1fr) 56px;align-items:center;gap:9px;color:#a7b8ce;font-size:.66rem}
+#view-account .readiness-track{height:7px;border-radius:999px;background:rgba(130,159,194,.14);overflow:hidden}
+#view-account .readiness-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#6bcae8,#9b8bf1)}
+#view-account .readiness-row b{color:#e9c37e;font-size:.61rem;text-align:right}
+#view-account .chart-footnote{margin:13px 0 0;color:#748ba8;font-size:.65rem;line-height:1.5}
+#view-account .dashboard-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+#view-account .activity-timeline{display:grid;margin-top:14px}
+#view-account .activity-item{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid rgba(151,183,218,.10)}
+#view-account .activity-item:last-child{border:0}
+#view-account .activity-icon{display:grid;place-items:center;width:31px;height:31px;flex:none;border-radius:10px;background:rgba(101,174,220,.13);color:#9ddcff}
+#view-account .activity-item>div{display:grid;gap:3px;min-width:0;flex:1}
+#view-account .activity-item strong{color:#eaf3ff;font-size:.75rem}
+#view-account .activity-item small{color:#8299b5;font-size:.66rem}
+#view-account .activity-tag{padding:4px 7px;border-radius:999px;background:rgba(115,146,181,.12);color:#91a9c5;font-size:.58rem;font-weight:800}
+#view-account .quick-link{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(151,183,218,.10);text-decoration:none;color:#eaf3ff}
+#view-account .quick-link:last-child{border:0}
+#view-account .quick-link-icon{display:grid;place-items:center;width:33px;height:33px;border-radius:10px;background:rgba(102,173,220,.13);color:#9cddfc}
+#view-account .quick-link>span:nth-child(2){display:grid;gap:3px;flex:1}
+#view-account .quick-link strong{font-size:.75rem}
+#view-account .quick-link small{font-size:.65rem;color:#8299b5}
+#view-account .quick-link>b{color:#91cfee}
+#view-account .panel-intro{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin:5px 0 18px}
+#view-account .panel-intro h2{font-size:1.55rem}
+#view-account .panel-count{padding:7px 10px;border:1px solid rgba(120,176,224,.2);border-radius:999px;color:#9bc8ea;font-size:.61rem;font-weight:900;letter-spacing:.08em;white-space:nowrap}
+#view-account .service-dashboard-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#view-account .service-dashboard-card{padding:17px;border:1px solid rgba(140,177,217,.16);border-radius:17px;background:linear-gradient(150deg,rgba(22,45,73,.95),rgba(12,27,49,.97))}
+#view-account .service-dash-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;font-size:1.1rem;background:rgba(111,180,229,.14);color:#a2dfff}
+#view-account .service-dash-icon.storage{color:#c2b1ff;background:rgba(157,131,232,.14)}
+#view-account .service-dash-icon.proxy{color:#9ae0c9;background:rgba(83,190,153,.13)}
+#view-account .service-dash-icon.vpn{color:#8dd6fa;background:rgba(73,171,224,.14)}
+#view-account .service-dash-head{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:11px 0 6px}
+#view-account .service-dash-head h3{margin:0;color:#f0f6ff;font-size:.9rem}
+#view-account .service-runtime-status{padding:5px 7px;border-radius:999px;background:rgba(230,177,88,.1);border:1px solid rgba(230,177,88,.18);color:#e8c17f;font-size:.57rem;font-weight:850;text-align:right}
+#view-account .service-dashboard-card>p{min-height:37px;margin:0 0 11px;color:#8fa6c1;font-size:.71rem;line-height:1.5}
+#view-account .service-access-row,#view-account .service-runtime-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(151,183,218,.10);font-size:.65rem}
+#view-account .service-access-row span,#view-account .service-runtime-row span{color:#869db9}
+#view-account .service-access-state{color:#eac782;text-align:right}
+#view-account .service-access-state.is-included{color:#72dfb8}
+#view-account .service-runtime-row strong{color:#9ab0c8;text-align:right;font-size:.63rem}
+#view-account .service-note,#view-account .network-disclaimer{margin-top:15px;padding:14px 16px;border:1px solid rgba(232,189,112,.18);border-radius:13px;background:rgba(123,84,31,.12);color:#c4b18f;font-size:.73rem;line-height:1.6}
+#view-account .service-note strong,#view-account .network-disclaimer strong{color:#f1ce91}
+#view-account .network-dashboard-summary{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:15px}
+#view-account .network-dashboard-summary>div{display:flex;align-items:center;gap:11px;padding:15px;border:1px solid rgba(140,177,217,.16);border-radius:15px;background:rgba(18,42,69,.78)}
+#view-account .network-summary-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:rgba(100,181,226,.13);color:#9adfff;font-size:1.15rem}
+#view-account .network-dashboard-summary>div>div{display:grid;gap:3px;min-width:0;flex:1}
+#view-account .network-dashboard-summary strong{color:#eef6ff;font-size:.8rem}
+#view-account .network-dashboard-summary small{color:#8ea6c2;font-size:.65rem}
+#view-account .network-pending-pill{color:#edc37d;font-size:.58rem;white-space:nowrap}
+#view-account .network-connect-panel{margin:0;padding:22px;border:1px solid rgba(133,177,220,.18);border-radius:19px;background:linear-gradient(150deg,rgba(22,45,73,.97),rgba(12,27,49,.98));box-shadow:0 14px 34px rgba(0,0,0,.12);color:#eaf3ff}
+#view-account .network-connect-panel h2{color:#f4f8ff;margin:6px 0}
+#view-account .network-connect-panel>p{color:#98aec8;font-size:.78rem;line-height:1.7}
+#view-account .network-connect-card{background:rgba(6,20,37,.45);border:1px solid rgba(140,177,217,.14);border-radius:14px;padding:15px}
+#view-account .network-connect-card h3{color:#eff7ff}
+#view-account .network-connect-card p{color:#9cb2cb;font-size:.72rem;line-height:1.6}
+#view-account .network-connect-card code{color:#b8e7ff;background:rgba(99,172,218,.12);padding:2px 4px;border-radius:4px}
+#view-account .network-state{display:inline-flex;padding:6px 9px;border:1px solid rgba(231,187,111,.18);border-radius:999px;background:rgba(231,187,111,.08);color:#efc982;font-size:.65rem;font-weight:800}
+#view-account .network-connect-foot{color:#8299b5!important;font-size:.68rem!important}
+#view-account .warning-note{margin:0 0 15px;padding:13px 15px;border:1px solid rgba(235,189,111,.19);border-radius:13px;background:rgba(116,77,27,.13);color:#c9b894;font-size:.75rem;line-height:1.6}
+#view-account .promo-panel,#view-account .beta-panel{margin:0 0 15px;padding:22px;border:1px solid rgba(134,181,225,.19);border-radius:18px;background:linear-gradient(145deg,rgba(22,47,77,.98),rgba(12,27,49,.98));box-shadow:0 14px 34px rgba(0,0,0,.12);color:#eaf3ff}
+#view-account .promo-panel h2,#view-account .beta-panel h2{color:#f1f7ff}
+#view-account .promo-panel p,#view-account .beta-panel p{color:#9db2cb}
+#view-account .promo-panel .promo-owner-tag,#view-account .beta-panel .promo-owner-tag{border-color:rgba(116,180,228,.2);background:rgba(101,163,208,.1);color:#a8d8f4}
+#view-account .promo-access-status{background:rgba(5,18,34,.42);border-color:rgba(140,177,217,.14);color:#a8bad0}
+#view-account .promo-help{color:#8299b5}
+#view-account .beta-panel .beta-features{background:rgba(5,18,34,.38);border-color:rgba(140,177,217,.14);color:#a7bdd5}
+#view-account .beta-panel .beta-status{color:#a8bad0}
+#view-account .beta-panel .beta-status[data-state="joined"]{color:#79e0b8}
+#view-account .account-details-card{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 18px;border:1px solid rgba(140,177,217,.16);border-radius:16px;background:rgba(17,39,65,.8)}
+#view-account .account-details-card>div{display:grid;gap:4px;min-width:0}
+#view-account .account-details-card strong{color:#eff7ff;font-size:.83rem;overflow-wrap:anywhere}
+#view-account .account-details-card small{color:#8fa6c1;font-size:.67rem}
+#view-account .dashboard-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:22px;margin-top:26px;border-top:1px solid rgba(140,177,217,.14);color:#758ca8;font-size:.65rem}
+#view-account .dashboard-footer span:last-child{text-align:right}
+@media(max-width:980px){#view-account .dashboard-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#view-account .dashboard-analytics-grid{grid-template-columns:1fr}}
+@media(max-width:680px){#view-account .alley-dashboard{width:calc(100% - 26px);padding-top:25px}#view-account .dashboard-banner{align-items:flex-start;flex-wrap:wrap}#view-account .dashboard-banner-meta{max-width:none;width:100%;padding-left:56px;text-align:left}#view-account .dashboard-tabs{margin-inline:-2px}#view-account .dashboard-tab{padding:0 13px;font-size:.77rem}#view-account .dashboard-bottom-grid,#view-account .service-dashboard-grid,#view-account .network-dashboard-summary{grid-template-columns:1fr}#view-account .coverage-content{gap:12px}#view-account .coverage-ring-wrap{width:116px;height:116px}#view-account .coverage-ring{width:116px;height:116px}#view-account .panel-intro{align-items:flex-start;flex-direction:column}#view-account .network-dashboard-summary>div{flex-wrap:wrap}#view-account .network-pending-pill{width:100%;padding-left:47px}#view-account .account-details-card{align-items:flex-start;flex-direction:column}#view-account .dashboard-footer span:last-child{text-align:left}}
+@media(max-width:420px){#view-account .dashboard-stat-grid{gap:9px}#view-account .dashboard-stat-card{padding:14px}#view-account .dashboard-stat-card>strong{font-size:1.25rem}#view-account .coverage-content{align-items:flex-start;flex-direction:column}#view-account .coverage-ring-wrap{margin:0 auto}#view-account .readiness-row{grid-template-columns:90px minmax(40px,1fr) 50px;font-size:.6rem}}
+@media(prefers-reduced-motion:reduce){#view-account .dashboard-panel{animation:none}#view-account .coverage-ring .ring-progress{transition:none}}
+</style>
+
 </head>
 <body>
-<span id="alley-site-version" aria-label="ALLEY Cloud website version 1.1.5" title="ALLEY Cloud website version 1.1.5">v1.1.5</span>
+<span id="alley-site-version" aria-label="ALLEY Cloud website version 1.1.6" title="ALLEY Cloud website version 1.1.6">v1.1.6</span>
 
 <section id="view-home" class="spa-view active" data-view="home">
 <header class="topbar">
@@ -1152,7 +1299,7 @@ body { margin:0; min-height:100vh; background:#fff; }
 </section>
 <section class="section" id="hosting">
 <div class="container webhost-layout"><div class="section-copy"><div class="eyebrow"><span class="dot"></span> Your website, your way</div><h2>From “I have an idea” to <span class="gradient-text">“it’s live.”</span></h2><p>Build a portfolio, project dashboard, or personal homepage. Use your Pi to serve your site and pair it with an ALLEY Cloud subdomain—or connect a custom domain on an eligible plan.</p><p>Before going public, set up HTTPS, keep the Pi updated, back up your files, and make sure your internet connection and hosting setup can handle your traffic.</p><a class="btn btn-dark" href="#plans">Find your plan <span aria-hidden="true">→</span></a><div class="hosting-note"><svg class="icon" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3 4 7v6c0 4.7 3.4 7.4 8 9 4.6-1.6 8-4.3 8-9V7l-8-4Z"></path><path d="m8.5 12.2 2.1 2.1 4.8-5"></path></svg><span>Custom domain, DNS, HTTPS, and tunnel features depend on the service backend and plan.</span></div></div>
-<div aria-label="Example website preview" class="site-preview"><div class="preview-bar"><span></span><span></span><span></span><div class="preview-url">yourproject.alleycloud.example</div></div><div class="preview-page"><div class="preview-nav"><span class="preview-logo">your<span class="gradient-text">project.</span></span><span>About   Projects   Contact</span></div><div class="preview-hero"><div class="preview-kicker">A little corner of the internet</div><h3>Ideas turn into things.</h3><p>A clean, simple place to share what you’re building and what you’re learning along the way.</p><span class="preview-action">Explore my work ↗</span></div><div class="preview-cards"><div class="preview-card"><div class="preview-icon"></div><strong>My projects</strong><small>What I’m making</small></div><div class="preview-card"><div class="preview-icon"></div><strong>Notes &amp; guides</strong><small>What I’m learning</small></div><div class="preview-card"><div class="preview-icon"></div><strong>Get in touch</strong><small>Let’s connect</small></div></div></div></div>
+<div aria-label="Example website preview" class="site-preview"><div class="preview-bar"><span></span><span></span><span></span><div class="preview-url">yourproject.alleycloud.example</div></div><div class="preview-page"><div class="preview-nav"><span class="preview-logo">your<span class="gradient-text">project.</span></span><span>About   Projects   Contact</span></div><div class="preview-hero"><div class="preview-kicker">A little corner of the internet</div><h3>Ideas turn into things.</h3><p>A clean, simple place to share what you’re building and what you’re learning along the way.</p><span class="preview-action">Explore my work ↗</span></div><div class="preview-cards"><div class="preview-card"><div class="preview-icon"></div><strong>My projects</strong><small>What I’m making</small></div><div class="preview-card"><div class="preview-icon"></div><strong>Notes &amp; guides</strong><small>What I’m learning</small></div><div class="preview-card"><div class="preview-icon"></div><strong>Get in touch</strong><small>Let’s connect</small></div></div></div></div>
 </div>
 </section>
 <section class="section section-soft" id="plans">
@@ -1379,62 +1526,139 @@ body { margin:0; min-height:100vh; background:#fff; }
 </div>
 </section>
 <section id="view-account" class="spa-view" data-view="account">
-<div class="portal-shell"><header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,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"/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header><main class="dash-main"><div class="dash-header"><div><div class="eyebrow">Your workspace</div><h1>Welcome, <span class="gradient" id="dashName">maker</span>.</h1><p>Welcome to your ALLEY Cloud account. Choose a tool to explore the workspace and return to your selected plan.</p><div class="plan-chip" id="dashPlan">Selected plan: Free · Supabase account</div></div><button class="btn btn-outline" id="signOutBtn" type="button">Sign out</button></div><div class="warning-note"><strong>Service status:</strong> Beta and promo access are saved to your account. Live AI, SSH, proxy/VPN, domain routing, and hosting connections still depend on their service backends being deployed and configured.</div>
-   <section class="promo-panel" aria-labelledby="promoPanelTitle">
-    <div class="promo-panel-head">
-      <div>
-        <div class="eyebrow">Your access</div>
-        <h2 id="promoPanelTitle">Subscription and promo status</h2>
-        <p>Promo redemptions are saved to your ALLEY Cloud account. To redeem a code, use the promo box in the pricing section.</p>
-      </div>
-      <span class="promo-owner-tag">✦ Account entitlements</span>
-    </div>
-    <div class="promo-current-code" id="ownerPromoCode" hidden>
-      <span>Permanent owner promo code · once per account</span>
-      <strong id="ownerPromoCodeValue"></strong>
-      <span id="ownerPromoExpires"></span>
-    </div>
-    <div class="promo-buttons" style="margin-top:12px"><button class="btn btn-outline" id="getCurrentPromoBtn" type="button" hidden>Show current owner code</button></div>
-    <div class="promo-feedback" id="promoAlert" role="status" aria-live="polite"></div>
-    <div class="promo-access-status" id="promoAccessStatus" aria-live="polite">No promo access has been applied to this account.</div>
-    <small class="promo-help">A successful promo redemption grants ALLEY Prime and all feature entitlements to this account. The code stays the same and can be used once per account. Admin access is reserved for the configured owner account.</small>
-   </section>
-<section class="beta-panel" aria-labelledby="betaPanelTitle">
-  <div class="beta-head">
+<div class="portal-shell"><header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,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"/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header><main class="dash-main alley-dashboard">
+  <div class="dash-header dashboard-welcome">
     <div>
-      <div class="eyebrow"><span class="dot"></span> Early access</div>
-      <h2 id="betaPanelTitle">Join the ALLEY Cloud public beta</h2>
-      <p>Press Join Beta once to save all-feature beta access to your signed-in account. There is no separate feature-by-feature enrollment.</p>
+      <div class="eyebrow">ALLEY CLOUD · CONTROL CENTER</div>
+      <h1>Welcome back, <span class="gradient" id="dashName">maker</span>.</h1>
+      <p>One place to check your access, explore every service, and see what is ready to connect.</p>
+      <div class="plan-chip" id="dashPlan">Selected plan: Free · Supabase account</div>
     </div>
-    <span class="promo-owner-tag" id="betaMemberTag">Public beta · open enrollment</span>
+    <div class="dashboard-head-actions">
+      <div class="session-pill"><span class="live-dot"></span><span id="dashSessionStatus">Account session</span></div>
+      <button class="btn btn-outline" id="signOutBtn" type="button">Sign out</button>
+    </div>
   </div>
-  <div class="beta-features"><strong>Included in beta:</strong> NANO AI, storage, website hosting, custom domains, Raspberry Pi/SSH tools, Proxy Network, VPN Access, and the other ALLEY Cloud features. Beta access is an account entitlement; server-backed features remain marked as pending until their real services are deployed.</div>
-  <div class="beta-actions">
-    <button class="btn btn-primary" id="joinBetaBtn" type="button">Join Beta</button>
-    <span class="beta-status" id="betaAccessStatus" role="status" aria-live="polite">Sign in to join the public beta.</span>
+
+  <div class="dashboard-banner">
+    <div class="dashboard-banner-icon">✦</div>
+    <div class="dashboard-banner-copy">
+      <strong>Your workspace, at a glance</strong>
+      <span>Entitlements are checked against your account. Service health is only shown as live when a real backend reports it.</span>
+    </div>
+    <div class="dashboard-banner-meta"><span class="dashboard-meta-label">SIGNED IN AS</span><strong id="dashEmail">Loading account…</strong></div>
   </div>
-</section>
-<section class="network-connect-panel" aria-labelledby="networkConnectTitle">
-  <div class="eyebrow"><span class="dot"></span> Private network tools</div>
-  <h2 id="networkConnectTitle">Proxy &amp; VPN connections</h2>
-  <p>Your ALLEY account can hold Proxy/VPN beta entitlements. The included personal test gateway can run on a Raspberry Pi or compatible Ubuntu/Debian server; this static GitHub Pages site does not install or run network tunnels in your browser.</p>
-  <div class="network-connect-grid">
-    <article class="network-connect-card">
-      <h3>◈ WireGuard VPN</h3>
-      <p>Install the server kit, securely copy <code>alley-owner.conf</code> to your device, then import it into the official WireGuard app.</p>
-      <span class="network-state" id="vpnGatewayState">Test gateway not connected</span>
-      <p style="margin-top:9px"><a class="text-link" href="https://www.wireguard.com/install/" target="_blank" rel="noopener">Download WireGuard ↗</a></p>
-    </article>
-    <article class="network-connect-card">
-      <h3>⇄ Authenticated proxy</h3>
-      <p>Connect WireGuard first. Set your browser/app HTTP proxy to <code>10.77.0.1:3128</code>, then enter the username and password from the installer's <code>proxy-credentials.txt</code>.</p>
-      <span class="network-state" id="proxyGatewayState">Test gateway not connected</span>
-    </article>
-  </div>
-  <p class="network-connect-foot">The included starter is a single-owner IPv4 gateway. It is not yet automatic per-customer provisioning, and the website cannot detect tunnel status. Do not share the generated private profile or proxy password; never open TCP 3128 to the public internet.</p>
-  <div style="margin-top:14px"><a class="btn btn-outline" href="#/home?scroll=network-setup">View server installation instructions →</a></div>
-</section>
-<div class="dash-grid"><article class="dash-tile"><div class="tile-icon nano-ai-tile-logo"><img class="nano-ai-logo" src="data:image/webp;base64,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" alt="NANO AI logo" /></div><div class="muted-label">AI workspace</div><h2>NANO AI</h2><p>Get help with coding, Linux, Raspberry Pi projects, and planning your next build.</p><a class="btn btn-primary" href="#/home?scroll=ai-demo">Continue to AI →</a></article><article class="dash-tile"><div class="tile-icon">⌘</div><div class="muted-label">Home server</div><h2>Raspberry Pi access</h2><p>A future secure connection to your home Pi, with terminal sessions and device status.</p><a class="btn btn-primary" href="#/home?scroll=raspberry-pi">View Pi tools →</a></article><article class="dash-tile"><div class="tile-icon">◎</div><div class="muted-label">Websites</div><h2>Your website projects</h2><p>Plan a hosted site, ALLEY Cloud subdomain, or a custom domain connection.</p><a class="btn btn-primary" href="#/home?scroll=hosting">View hosting →</a></article></div><div class="dash-actions"><a class="btn btn-outline" href="#/home?scroll=plans">Compare plans</a><a class="btn btn-outline" href="#/home">Back to home</a></div></main><footer class="portal-footer"><span>© <span data-current-year=""></span> ALLEY Cloud · Concept website</span><span>Supabase accounts become active after configuration. AI, billing, SSH, proxy/VPN, domains, and hosting still require production backends.</span></footer></div>
+
+  <nav class="dashboard-tabs" id="dashboardTabList" role="tablist" aria-label="Account dashboard sections">
+    <button class="dashboard-tab is-active" id="dashTabOverview" type="button" role="tab" aria-selected="true" aria-controls="dashPanelOverview" data-dashboard-tab="overview"><span>▦</span> Overview</button>
+    <button class="dashboard-tab" id="dashTabServices" type="button" role="tab" aria-selected="false" aria-controls="dashPanelServices" data-dashboard-tab="services" tabindex="-1"><span>◈</span> Services</button>
+    <button class="dashboard-tab" id="dashTabNetwork" type="button" role="tab" aria-selected="false" aria-controls="dashPanelNetwork" data-dashboard-tab="network" tabindex="-1"><span>⌁</span> Network</button>
+    <button class="dashboard-tab" id="dashTabAccess" type="button" role="tab" aria-selected="false" aria-controls="dashPanelAccess" data-dashboard-tab="access" tabindex="-1"><span>♢</span> Access &amp; account</button>
+  </nav>
+
+  <section class="dashboard-panel" id="dashPanelOverview" data-dashboard-panel="overview" role="tabpanel" aria-labelledby="dashTabOverview">
+    <div class="dashboard-stat-grid">
+      <article class="dashboard-stat-card stat-access"><div class="stat-topline"><span>FEATURE ACCESS</span><span class="stat-icon">✦</span></div><strong id="dashAccessMetric">Checking…</strong><p id="dashAccessCaption">Checking beta and promo entitlements</p><div class="stat-foot"><span class="stat-indicator" id="dashAccessState">Loading</span><span>All features</span></div></article>
+      <article class="dashboard-stat-card"><div class="stat-topline"><span>CONNECTED INTEGRATIONS</span><span class="stat-icon">⌁</span></div><strong id="dashBackendMetric">0 / 7</strong><p id="dashBackendCaption">No live service-health feeds connected to this dashboard</p><div class="stat-foot"><span class="stat-indicator pending">Setup required</span><span>Website status</span></div></article>
+      <article class="dashboard-stat-card"><div class="stat-topline"><span>ACCOUNT STATUS</span><span class="stat-icon">◎</span></div><strong id="dashAuthMetric">Checking…</strong><p id="dashAuthCaption">Supabase account session</p><div class="stat-foot"><span class="stat-indicator" id="dashAuthState">Verifying</span><span>Authentication</span></div></article>
+      <article class="dashboard-stat-card"><div class="stat-topline"><span>PUBLIC BETA</span><span class="stat-icon">✳</span></div><strong id="dashBetaMetric">Not joined</strong><p id="dashBetaCaption">Join once to request all-feature beta access</p><div class="stat-foot"><span class="stat-indicator pending" id="dashBetaState">Available</span><button type="button" class="stat-inline-link" data-open-dashboard-tab="access">Manage access →</button></div></article>
+    </div>
+
+    <div class="dashboard-analytics-grid">
+      <article class="dashboard-card coverage-card">
+        <div class="dashboard-card-heading"><div><div class="dashboard-kicker">ENTITLEMENT SNAPSHOT</div><h2>Feature access coverage</h2><p>Your account's saved access—not service uptime.</p></div><span class="card-orb">↗</span></div>
+        <div class="coverage-content">
+          <div class="coverage-ring-wrap">
+            <svg class="coverage-ring" viewBox="0 0 120 120" role="img" aria-label="Feature entitlement coverage"><circle class="ring-track" cx="60" cy="60" r="48"></circle><circle class="ring-progress" id="dashAccessRing" cx="60" cy="60" r="48" stroke-dasharray="301.59" stroke-dashoffset="301.59"></circle></svg>
+            <div class="coverage-ring-label"><strong id="dashAccessPercent">0%</strong><span>included</span></div>
+          </div>
+          <div class="coverage-legend"><div class="coverage-big-number"><strong id="dashAccessCount">0 / 7</strong><span>feature groups covered</span></div><p id="dashCoverageNote">Join the public beta or redeem an eligible promo to unlock all feature entitlements.</p><button class="btn btn-primary btn-small" type="button" data-open-dashboard-tab="access">View access options</button></div>
+        </div>
+        <div class="dashboard-chart-caption"><span><i class="legend-dot included"></i> Included by your account</span><span><i class="legend-dot excluded"></i> Not yet included</span></div>
+      </article>
+
+      <article class="dashboard-card readiness-card">
+        <div class="dashboard-card-heading"><div><div class="dashboard-kicker">SERVICE CONNECTIONS</div><h2>Integration status</h2><p>What this website can currently verify.</p></div><span class="status-stamp pending">SETUP PHASE</span></div>
+        <div class="readiness-summary"><strong>0 / 7</strong><span>service health endpoints reporting to the dashboard</span></div>
+        <div class="readiness-bars" aria-label="Service integration status chart">
+          <div class="readiness-row"><span>AI runtime</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+          <div class="readiness-row"><span>Cloud storage</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+          <div class="readiness-row"><span>Web hosting</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+          <div class="readiness-row"><span>Linux / SSH</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+          <div class="readiness-row"><span>Proxy gateway</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+          <div class="readiness-row"><span>VPN gateway</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+          <div class="readiness-row"><span>Remote desktop</span><div class="readiness-track"><i style="width:0%"></i></div><b>Pending</b></div>
+        </div>
+        <p class="chart-footnote">Pending means this dashboard has no live health integration for that service yet. It does not test whether a separate server is powered on.</p>
+      </article>
+    </div>
+
+    <div class="dashboard-bottom-grid">
+      <article class="dashboard-card activity-card"><div class="dashboard-card-heading"><div><div class="dashboard-kicker">ACCOUNT TIMELINE</div><h2>Recent milestones</h2><p>Dates are shown only when supplied by your account records.</p></div></div>
+        <div class="activity-timeline">
+          <div class="activity-item"><span class="activity-icon">◎</span><div><strong>Account created</strong><small id="dashCreatedAt">Date not available</small></div><span class="activity-tag">Account</span></div>
+          <div class="activity-item"><span class="activity-icon">✳</span><div><strong>Public beta enrollment</strong><small id="dashJoinedAt">Not joined</small></div><span class="activity-tag" id="dashJoinedTag">Optional</span></div>
+          <div class="activity-item"><span class="activity-icon">✦</span><div><strong>Promo entitlement</strong><small id="dashPromoAt">No promo record</small></div><span class="activity-tag">Access</span></div>
+        </div>
+      </article>
+      <article class="dashboard-card quick-card"><div class="dashboard-card-heading"><div><div class="dashboard-kicker">QUICK LAUNCH</div><h2>Jump back in</h2><p>Open a workspace or review its setup.</p></div></div>
+        <a class="quick-link" href="#/home?scroll=ai-demo"><span class="quick-link-icon">✧</span><span><strong>NANO AI</strong><small>Open AI workspace</small></span><b>↗</b></a>
+        <a class="quick-link" href="#/home?scroll=raspberry-pi"><span class="quick-link-icon">⌘</span><span><strong>Raspberry Pi access</strong><small>Review server setup</small></span><b>↗</b></a>
+        <a class="quick-link" href="#/home?scroll=hosting"><span class="quick-link-icon">◎</span><span><strong>Websites &amp; domains</strong><small>Explore hosting tools</small></span><b>↗</b></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="dashboard-panel" id="dashPanelServices" data-dashboard-panel="services" role="tabpanel" aria-labelledby="dashTabServices" hidden>
+    <div class="panel-intro"><div><div class="dashboard-kicker">YOUR ALLEY TOOLKIT</div><h2>All services</h2><p>Each service shows two separate things: whether your account includes access, and whether a production connection is wired up.</p></div><span class="panel-count">7 SERVICE GROUPS</span></div>
+    <div class="service-dashboard-grid">
+      <article class="service-dashboard-card"><div class="service-dash-icon ai">✧</div><div class="service-dash-head"><h3>NANO AI</h3><span class="service-runtime-status">Backend pending</span></div><p>AI assistant, coding help, and project workspace.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+      <article class="service-dashboard-card"><div class="service-dash-icon storage">▤</div><div class="service-dash-head"><h3>Cloud Storage</h3><span class="service-runtime-status">Backend pending</span></div><p>Cloud files, saved projects, and personal storage.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+      <article class="service-dashboard-card"><div class="service-dash-icon web">◎</div><div class="service-dash-head"><h3>Websites &amp; domains</h3><span class="service-runtime-status">Backend pending</span></div><p>Website deployment, custom domains, and routing.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+      <article class="service-dashboard-card"><div class="service-dash-icon server">⌘</div><div class="service-dash-head"><h3>Linux server &amp; SSH</h3><span class="service-runtime-status">Gateway setup pending</span></div><p>Remote shell access and managed Linux server sessions.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+      <article class="service-dashboard-card"><div class="service-dash-icon proxy">⇄</div><div class="service-dash-head"><h3>Proxy Network</h3><span class="service-runtime-status">Multi-user gateway pending</span></div><p>Account-specific proxy credentials and usage controls.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+      <article class="service-dashboard-card"><div class="service-dash-icon vpn">⌁</div><div class="service-dash-head"><h3>VPN Access</h3><span class="service-runtime-status">Multi-user gateway pending</span></div><p>Individual WireGuard profiles and device provisioning.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+      <article class="service-dashboard-card"><div class="service-dash-icon remote">▣</div><div class="service-dash-head"><h3>Remote desktop</h3><span class="service-runtime-status">Integration pending</span></div><p>Remote viewing for supported Raspberry Pi devices.</p><div class="service-access-row"><span>Account entitlement</span><strong class="service-access-state" data-service-access>Checking…</strong></div><div class="service-runtime-row"><span>Runtime connection</span><strong>Not connected to dashboard</strong></div></article>
+    </div>
+    <div class="service-note"><strong>Why do these say pending?</strong> Beta access is an account permission, not a server installation. Each service needs its own backend, credentials, and health check before this dashboard can report it as connected.</div>
+  </section>
+
+  <section class="dashboard-panel" id="dashPanelNetwork" data-dashboard-panel="network" role="tabpanel" aria-labelledby="dashTabNetwork" hidden>
+    <div class="panel-intro"><div><div class="dashboard-kicker">PRIVATE CONNECTIVITY</div><h2>Network center</h2><p>Manage the intended Proxy and VPN connection flow and see what still needs to be deployed.</p></div><span class="panel-count">GATEWAY STATUS</span></div>
+    <div class="network-dashboard-summary"><div><span class="network-summary-icon">⌁</span><div><strong>WireGuard VPN</strong><small>Per-account tunnel profile</small></div><b class="network-pending-pill">Provisioning pending</b></div><div><span class="network-summary-icon">⇄</span><div><strong>Authenticated proxy</strong><small>Individual credentials per beta member</small></div><b class="network-pending-pill">Provisioning pending</b></div></div>
+    <div class="network-connect-panel" aria-labelledby="networkConnectTitle">
+      <div class="eyebrow"><span class="dot"></span> Private network tools</div>
+      <h2 id="networkConnectTitle">Proxy &amp; VPN connections</h2>
+      <p>Your ALLEY account can hold Proxy/VPN beta entitlements. The included personal test gateway can run on a Raspberry Pi or compatible Ubuntu/Debian server; this static GitHub Pages site does not install or run network tunnels in your browser.</p>
+      <div class="network-connect-grid">
+        <article class="network-connect-card"><h3>◈ WireGuard VPN</h3><p>Install the server kit, securely copy <code>alley-owner.conf</code> to your device, then import it into the official WireGuard app.</p><span class="network-state" id="vpnGatewayState">Test gateway not connected</span><p style="margin-top:9px"><a class="text-link" href="https://www.wireguard.com/install/" target="_blank" rel="noopener">Download WireGuard ↗</a></p></article>
+        <article class="network-connect-card"><h3>⇄ Authenticated proxy</h3><p>Connect WireGuard first. Set your browser/app HTTP proxy to <code>10.77.0.1:3128</code>, then enter the username and password from the installer's <code>proxy-credentials.txt</code>.</p><span class="network-state" id="proxyGatewayState">Test gateway not connected</span></article>
+      </div>
+      <p class="network-connect-foot">The included starter is a single-owner IPv4 gateway. It is not yet automatic per-customer provisioning, and the website cannot detect tunnel status. Do not share the generated private profile or proxy password; never open TCP 3128 to the public internet.</p>
+      <div style="margin-top:14px"><a class="btn btn-outline" href="#/home?scroll=network-setup">View server installation instructions →</a></div>
+    </div>
+    <div class="network-disclaimer"><strong>Connection telemetry isn't enabled yet.</strong> These labels describe the ALLEY website's current integration state. They are not a live ping of your Raspberry Pi or gateway.</div>
+  </section>
+
+  <section class="dashboard-panel" id="dashPanelAccess" data-dashboard-panel="access" role="tabpanel" aria-labelledby="dashTabAccess" hidden>
+    <div class="panel-intro"><div><div class="dashboard-kicker">ACCOUNT PERMISSIONS</div><h2>Access &amp; account</h2><p>Manage your beta enrollment and review account-level promo entitlements.</p></div><span class="panel-count">SAVED TO SUPABASE</span></div>
+    <div class="warning-note"><strong>Service status:</strong> Beta and promo access are saved to your account. Live AI, SSH, proxy/VPN, domain routing, and hosting connections still depend on their service backends being deployed and configured.</div>
+    <section class="promo-panel" aria-labelledby="promoPanelTitle"><div class="promo-panel-head"><div><div class="eyebrow">Your access</div><h2 id="promoPanelTitle">Subscription and promo status</h2><p>Promo redemptions are saved to your ALLEY Cloud account. To redeem a code, use the promo box in the pricing section.</p></div><span class="promo-owner-tag">✦ Account entitlements</span></div>
+      <div class="promo-current-code" id="ownerPromoCode" hidden><span>Permanent owner promo code · once per account</span><strong id="ownerPromoCodeValue"></strong><span id="ownerPromoExpires"></span></div>
+      <div class="promo-buttons" style="margin-top:12px"><button class="btn btn-outline" id="getCurrentPromoBtn" type="button" hidden>Show current owner code</button></div>
+      <div class="promo-feedback" id="promoAlert" role="status" aria-live="polite"></div>
+      <div class="promo-access-status" id="promoAccessStatus" aria-live="polite">No promo access has been applied to this account.</div>
+      <small class="promo-help">A successful promo redemption grants ALLEY Prime and all feature entitlements to this account. The code stays the same and can be used once per account. Admin access is reserved for the configured owner account.</small>
+    </section>
+    <section class="beta-panel" aria-labelledby="betaPanelTitle"><div class="beta-head"><div><div class="eyebrow"><span class="dot"></span> Early access</div><h2 id="betaPanelTitle">Join the ALLEY Cloud public beta</h2><p>Press Join Beta once to save all-feature beta access to your signed-in account. There is no separate feature-by-feature enrollment.</p></div><span class="promo-owner-tag" id="betaMemberTag">Public beta · open enrollment</span></div>
+      <div class="beta-features"><strong>Included in beta:</strong> NANO AI, storage, website hosting, custom domains, Raspberry Pi/SSH tools, Proxy Network, VPN Access, and the other ALLEY Cloud features. Beta access is an account entitlement; server-backed features remain marked as pending until their real services are deployed.</div>
+      <div class="beta-actions"><button class="btn btn-primary" id="joinBetaBtn" type="button">Join Beta</button><span class="beta-status" id="betaAccessStatus" role="status" aria-live="polite">Sign in to join the public beta.</span></div>
+    </section>
+    <div class="account-details-card"><div><span class="dashboard-kicker">SIGNED-IN ACCOUNT</span><strong id="dashAccountEmail">Loading…</strong><small id="dashAccountCreated">Account creation date unavailable</small></div><a class="btn btn-outline" id="accountBackHome" href="#/home">Back to home</a></div>
+  </section>
+
+  <footer class="dashboard-footer"><span>© <span data-current-year=""></span> ALLEY Cloud</span><span>Access status comes from your account. Runtime status requires a deployed service health check.</span></footer>
+</main><footer class="portal-footer"><span>© <span data-current-year=""></span> ALLEY Cloud · Concept website</span><span>Supabase accounts become active after configuration. AI, billing, SSH, proxy/VPN, domains, and hosting still require production backends.</span></footer></div>
 </section>
 <section id="view-gate" class="spa-view" data-view="gate">
 <div class="portal-shell"><header class="portal-nav"><a aria-label="ALLEY Cloud home" class="brand" href="#/home"><img alt="" src="data:image/png;base64,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"/><span><span class="gradient">ALLEY</span> Cloud</span></a><a class="nav-link" href="#/home">← Back to home</a></header><main class="portal-main">
@@ -2102,6 +2326,7 @@ const safeText = (value, fallback = "") => String(value || fallback).replace(/[<
 let supabase = null;
 let currentPromoAccess = null;
 let currentBetaAccess = null;
+let currentDashboardUser = null;
 
 function updatePricingPromoUI(access) {
   currentPromoAccess = access || null;
@@ -2135,6 +2360,7 @@ function updatePricingPromoUI(access) {
   } else if (planChip && betaUnlocked) {
     planChip.textContent = "ALLEY Cloud Public Beta · All feature access";
   }
+  if (typeof syncDashboardInsights === "function") syncDashboardInsights();
 }
 
 function updateBetaUI(access) {
@@ -2155,6 +2381,7 @@ function updateBetaUI(access) {
       : "You have not joined yet. Join to save beta access for every feature to this account.";
   }
   updatePricingPromoUI(currentPromoAccess);
+  syncDashboardInsights();
 }
 
 function continueAfterAuth() {
@@ -2173,6 +2400,7 @@ function continueAfterAuth() {
 
 function storeAccount(user, profile = null) {
   if (!user) return;
+  currentDashboardUser = { ...user, created_at: user.created_at || profile?.created_at || null };
   const params = getRouteParams();
   const name = safeText(profile?.display_name || user.user_metadata?.display_name || user.email?.split("@")[0] || "maker", "maker");
   try {
@@ -2184,6 +2412,15 @@ function storeAccount(user, profile = null) {
   } catch (_) {}
   const dashName = $("#dashName");
   const dashPlan = $("#dashPlan");
+  const dashEmail = $("#dashEmail");
+  const dashAccountEmail = $("#dashAccountEmail");
+  const dashCreatedAt = $("#dashCreatedAt");
+  const dashAccountCreated = $("#dashAccountCreated");
+  if (dashEmail) dashEmail.textContent = user.email || "Signed-in account";
+  if (dashAccountEmail) dashAccountEmail.textContent = user.email || "Signed-in account";
+  const accountCreatedAt = user.created_at || profile?.created_at || null;
+  if (dashCreatedAt) dashCreatedAt.textContent = formatDashboardDate(accountCreatedAt);
+  if (dashAccountCreated) dashAccountCreated.textContent = accountCreatedAt ? `Created ${formatDashboardDate(accountCreatedAt)}` : "Account creation date unavailable";
   if (dashName) dashName.textContent = name.split(" ")[0] || "maker";
   if (dashPlan) {
     const plan = localStorage.getItem("alleyCloudDemoPlan") || "Free";
@@ -2193,6 +2430,7 @@ function storeAccount(user, profile = null) {
   const startLink = $("#view-home .nav-actions a.btn-primary");
   if (loginLink) { loginLink.textContent = "My account"; loginLink.href = "#/account"; }
   if (startLink) { startLink.textContent = "Dashboard →"; startLink.href = "#/account"; }
+  syncDashboardInsights(user);
 }
 async function refreshPromoAccess(user) {
   const status = $("#promoAccessStatus");
@@ -2286,6 +2524,7 @@ async function loadOwnerPromoCode(user, showErrors = false) {
 }
 
 function clearAccount() {
+  currentDashboardUser = null;
   currentPromoAccess = null;
   updateBetaUI(null);
   updatePricingPromoUI(null);
@@ -2584,6 +2823,109 @@ if (getCurrentPromoBtn) getCurrentPromoBtn.addEventListener("click", async () =>
     busy(getCurrentPromoBtn, false);
   }
 });
+
+
+// Dashboard tabs: keyboard-accessible, client-side panels within the account view.
+const dashboardTabButtons = Array.from(document.querySelectorAll("[data-dashboard-tab]"));
+const dashboardPanels = Array.from(document.querySelectorAll("[data-dashboard-panel]"));
+function activateDashboardTab(name, focusButton = false) {
+  dashboardTabButtons.forEach(button => {
+    const selected = button.dataset.dashboardTab === name;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-selected", selected ? "true" : "false");
+    button.tabIndex = selected ? 0 : -1;
+    if (selected && focusButton) button.focus();
+  });
+  dashboardPanels.forEach(panel => { panel.hidden = panel.dataset.dashboardPanel !== name; });
+  try { sessionStorage.setItem("alleyDashboardTab", name); } catch (_) {}
+}
+if (dashboardTabButtons.length && dashboardPanels.length) {
+  let initialTab = "overview";
+  try {
+    const savedTab = sessionStorage.getItem("alleyDashboardTab");
+    if (dashboardTabButtons.some(button => button.dataset.dashboardTab === savedTab)) initialTab = savedTab;
+  } catch (_) {}
+  activateDashboardTab(initialTab);
+  dashboardTabButtons.forEach((button, index) => {
+    button.addEventListener("click", () => activateDashboardTab(button.dataset.dashboardTab));
+    button.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "ArrowRight") next = (index + 1) % dashboardTabButtons.length;
+      if (event.key === "ArrowLeft") next = (index - 1 + dashboardTabButtons.length) % dashboardTabButtons.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = dashboardTabButtons.length - 1;
+      activateDashboardTab(dashboardTabButtons[next].dataset.dashboardTab, true);
+    });
+  });
+  document.querySelectorAll("[data-open-dashboard-tab]").forEach(button => {
+    button.addEventListener("click", () => activateDashboardTab(button.dataset.openDashboardTab));
+  });
+}
+
+function formatDashboardDate(value) {
+  if (!value) return "Date not available";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Date not available";
+  return new Intl.DateTimeFormat(undefined, {year:"numeric", month:"short", day:"numeric"}).format(date);
+}
+
+function syncDashboardInsights(user = currentDashboardUser) {
+  const promoUnlocked = !!(currentPromoAccess && currentPromoAccess.all_features && currentPromoAccess.prime_access);
+  const betaUnlocked = !!(currentBetaAccess && currentBetaAccess.all_features);
+  const hasAllAccess = promoUnlocked || betaUnlocked;
+  const featureCount = hasAllAccess ? 7 : 0;
+  const email = user?.email || localStorage.getItem("alleyCloudDemoEmail") || "Signed-in account";
+  const accessMetric = $("#dashAccessMetric");
+  const accessCaption = $("#dashAccessCaption");
+  const accessState = $("#dashAccessState");
+  const accessCount = $("#dashAccessCount");
+  const accessPercent = $("#dashAccessPercent");
+  const accessRing = $("#dashAccessRing");
+  const coverageNote = $("#dashCoverageNote");
+  const betaMetric = $("#dashBetaMetric");
+  const betaCaption = $("#dashBetaCaption");
+  const betaState = $("#dashBetaState");
+  const sessionStatus = $("#dashSessionStatus");
+  const authMetric = $("#dashAuthMetric");
+  const authCaption = $("#dashAuthCaption");
+  const authState = $("#dashAuthState");
+  const emailNode = $("#dashEmail");
+  const accountEmail = $("#dashAccountEmail");
+  if (emailNode) emailNode.textContent = email;
+  if (accountEmail) accountEmail.textContent = email;
+  if (sessionStatus) sessionStatus.textContent = user ? "Authenticated session" : "Session not verified";
+  if (authMetric) authMetric.textContent = user && supabase ? "Active" : "Pending";
+  if (authCaption) authCaption.textContent = user && supabase ? "Signed in through Supabase Auth" : "Waiting for a verified Supabase session";
+  if (authState) { authState.textContent = user && supabase ? "Verified" : "Not verified"; authState.classList.toggle("pending", !(user && supabase)); }
+  if (accessMetric) accessMetric.textContent = `${featureCount} / 7`;
+  if (accessCaption) accessCaption.textContent = hasAllAccess ? "All feature entitlements are saved to this account" : "No all-feature beta or promo entitlement found";
+  if (accessState) { accessState.textContent = hasAllAccess ? "All access active" : "Not enrolled"; accessState.classList.toggle("pending", !hasAllAccess); }
+  if (accessCount) accessCount.textContent = `${featureCount} / 7`;
+  if (accessPercent) accessPercent.textContent = hasAllAccess ? "100%" : "0%";
+  if (accessRing) accessRing.style.strokeDashoffset = String(301.59 * (1 - featureCount / 7));
+  if (coverageNote) coverageNote.textContent = hasAllAccess ? "Your account has the all-feature entitlement. Actual service connections still need their server-side setup." : "Join the public beta or redeem an eligible promo to unlock all feature entitlements.";
+  if (betaMetric) betaMetric.textContent = betaUnlocked ? "Joined ✓" : "Not joined";
+  if (betaCaption) betaCaption.textContent = betaUnlocked ? "All-feature public beta access is saved" : "Join once to request all-feature beta access";
+  if (betaState) { betaState.textContent = betaUnlocked ? "Member" : "Available"; betaState.classList.toggle("pending", !betaUnlocked); }
+  document.querySelectorAll("[data-service-access]").forEach(node => {
+    node.textContent = hasAllAccess ? "Included ✓" : "Not included";
+    node.classList.toggle("is-included", hasAllAccess);
+  });
+  const userCreated = user?.created_at;
+  const createdNode = $("#dashCreatedAt");
+  const accountCreated = $("#dashAccountCreated");
+  if (createdNode) createdNode.textContent = formatDashboardDate(userCreated);
+  if (accountCreated) accountCreated.textContent = userCreated ? `Created ${formatDashboardDate(userCreated)}` : "Account creation date unavailable";
+  const joinedNode = $("#dashJoinedAt");
+  const joinedTag = $("#dashJoinedTag");
+  if (joinedNode) joinedNode.textContent = betaUnlocked ? `Joined ${formatDashboardDate(currentBetaAccess.joined_at)}` : "Not joined";
+  if (joinedTag) joinedTag.textContent = betaUnlocked ? "Active" : "Optional";
+  const promoAt = $("#dashPromoAt");
+  if (promoAt) promoAt.textContent = promoUnlocked ? `Granted ${formatDashboardDate(currentPromoAccess.granted_at)}` : "No all-feature promo record";
+}
+
 </script>
 
 
